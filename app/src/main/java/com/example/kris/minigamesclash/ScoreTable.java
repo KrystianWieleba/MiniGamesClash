@@ -24,6 +24,8 @@ public class ScoreTable extends AppCompatActivity {
 
         myRef.setValue("120");
 
+        //test github
+
 
 
 
