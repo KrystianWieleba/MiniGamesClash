@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "416781580430",
+    "firebase_url": "https://minigamesclash-b1ae9.firebaseio.com",
+    "project_id": "minigamesclash-b1ae9",
+    "storage_bucket": "minigamesclash-b1ae9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416781580430:android:54b64d496fe00e3f",
+        "android_client_info": {
+          "package_name": "com.example.kris.minigamesclash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416781580430-doasb8or025h18b62m2lqejaol9a7rpc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kris.minigamesclash",
+            "certificate_hash": "83fa7c5296328a019dc4bfce5893bf85c8ade215"
+          }
+        },
+        {
+          "client_id": "416781580430-0aki5b2jl99k3qkfq4j7silan8cmv047.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNvIZcThAPcmGFwDKpoJ0LX0Nd_cR5Xv8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416781580430-0aki5b2jl99k3qkfq4j7silan8cmv047.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
