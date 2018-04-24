@@ -13,6 +13,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+
 public class Game1 extends AppCompatActivity {
 
     private TextView Score;
@@ -94,7 +99,7 @@ public class Game1 extends AppCompatActivity {
 
 
             // Compte à rebours de 30sec
-            new CountDownTimer(30000, 10) {
+            new CountDownTimer(20000, 10) {
                 // Appel à la méthode position à chaque tick
                 public void onTick(long tick){
                     position();
@@ -107,6 +112,7 @@ public class Game1 extends AppCompatActivity {
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
                     startActivity(intent);
+
                 }
             }.start();
         }

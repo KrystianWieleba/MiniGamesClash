@@ -28,7 +28,12 @@ public class resultGame1 extends AppCompatActivity {
 
     public void scoreTable(View view) {
 
-        startActivity(new Intent(getApplicationContext(), ScoreTable.class));
+
+        Intent intent2 = new Intent(getApplicationContext(), ScoreTable.class);
+        int score = getIntent().getIntExtra("SCORE", 0);
+        intent2.putExtra("SCORE", score);
+        startActivity(intent2);
+
 
     }
 

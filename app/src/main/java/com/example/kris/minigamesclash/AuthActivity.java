@@ -2,7 +2,6 @@
 
 package com.example.kris.minigamesclash;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -126,8 +125,7 @@ public class AuthActivity extends AppCompatActivity {
         }
     }
 }
-    }
-}
 
 
 */
+
