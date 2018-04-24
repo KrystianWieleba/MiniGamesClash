@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eric.archedenoe.ArcheDeNoeActivity">
+
+    <FrameLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C7F3EA">
+        <ImageView
+            android:id="@+id/elephant"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/elephantdebout"
+            android:clickable="true"
+            android:layout_gravity="top"
+            android:translationX="100dp"
+            />
+        <ImageView
+            android:id="@+id/lion"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/lion"
+            android:clickable="true"
+            android:layout_gravity="top"
+            android:translationX="210dp"/>
+        <ImageView
+            android:id="@+id/lapin"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:src="@drawable/lapin"
+            android:clickable="true"
+            android:layout_gravity="top"
+            android:translationX="325dp"/>
+        <ImageView
+            android:id="@+id/arche"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arche"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/mer"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#0CB68F"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+</LinearLayout>
+
+
