@@ -24,10 +24,15 @@
         <activity
             android:name=".Game2"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".ArcheDeNoe"
+            android:screenOrientation="landscape" />
         <activity android:name=".AuthActivity" />
         <activity android:name=".credits" />
         <activity android:name=".friends" />
-        <activity android:name=".ScoreTable" />
+        <activity android:name=".ScoreTable" >
+
+        </activity>
     </application>
 
 </manifest>

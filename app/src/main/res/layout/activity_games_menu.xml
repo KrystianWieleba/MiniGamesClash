@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="40"
         android:layout_margin="10dp"
-        android:text="Game1"
+        android:text="Bubble Destroyer"
         android:textSize="25sp" />
 
     <Button
@@ -31,8 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_weight="40"
         android:layout_margin="10dp"
-        android:text="Game2"
+        android:text="Snail Rush"
         android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/boutonGame3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:layout_margin="10dp"
+        android:text="Arche de Noé"
+        android:textSize="25sp" />
 
 
 

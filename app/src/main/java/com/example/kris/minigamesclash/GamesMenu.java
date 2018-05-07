@@ -10,6 +10,7 @@ public class GamesMenu extends AppCompatActivity {
 
     Button boutonGame1;
     Button boutonGame2;
+    Button boutonGame3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class GamesMenu extends AppCompatActivity {
 
         boutonGame1 = (Button) findViewById(R.id.boutonGame1);
         boutonGame2 = (Button) findViewById(R.id.boutonGame2);
+        boutonGame3 = (Button) findViewById(R.id.boutonGame3);
 
         boutonGame1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,19 @@ public class GamesMenu extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), Game2.class));
+
+
+
+                // Effet bouton Training
+
+            }
+        });
+
+        boutonGame3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), ArcheDeNoe.class));
 
 
 
