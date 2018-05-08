@@ -10,36 +10,34 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
 public class ScoreTable extends AppCompatActivity {
 
-    private TextView scoreTable;
+    TextView scoreTable = null;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("leaderboard");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_table);
 
-
         scoreTable =(TextView) findViewById(R.id.scoree);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("leaderboard");
-
-
         int score = getIntent().getIntExtra("SCORE", 0);
-        //scoreTable.setText(score + "");
-        myRef.child("score").setValue(score);
+
+        myRef.child("name").setValue(score + "");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String value = dataSnapshot.child("name").getValue(String.class);
                 scoreTable.setText(value + "");
-                myRef.child("score").setValue(value);
+                //myRef.child("score").setValue(value);
             }
 
             @Override
@@ -47,6 +45,8 @@ public class ScoreTable extends AppCompatActivity {
                 Log.w("Failed to read value.", error.toException());
             }
         });
+
+
 
     }
 
