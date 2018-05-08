@@ -99,7 +99,7 @@ public class Game1 extends AppCompatActivity {
 
 
             // Compte à rebours de 30sec
-            new CountDownTimer(20000, 10) {
+            new CountDownTimer(5000, 10) {
                 // Appel à la méthode position à chaque tick
                 public void onTick(long tick){
                     position();
