@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class ScoreTable extends AppCompatActivity {
 
@@ -30,14 +32,24 @@ public class ScoreTable extends AppCompatActivity {
 
         int score = getIntent().getIntExtra("SCORE", 0);
 
-        myRef.child("name").setValue(score + "");
+
+        myRef.child("id" + score ).setValue(score + "");
+
+
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.child("name").getValue(String.class);
-                scoreTable.setText(value + "");
+                //String value = dataSnapshot.child("id0").getValue(String.class);
+                //scoreTable.setText(value + "");
                 //myRef.child("score").setValue(value);
+
+                for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                    String list = childs.getValue().toString();
+                    scoreTable.setText(list);
+
+                }
             }
 
             @Override
