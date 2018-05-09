@@ -80,5 +80,33 @@ public class ScoreTable extends AppCompatActivity {
     }
 }
 
+/*Query meilleurs = myRef.orderByValue().limitToFirst(5);
+        final String[] temp = new String[5];
+        meilleurs.addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            int i=4;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                temp[i]=snapshot.getValue(String.class);
+                                i=i-1;
+                            }
+                        }
+
+                     }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.w("Failed to read value.", error.toException());
+                                                     }
+                                                 }
+
+        );
+
+        fistPlace.setText("1 : " + temp[0]);
+        secondPlace.setText("2 : " + temp[1]);
+        thirdPlace.setText("3 : " + temp[4]);*/
+
 
 
