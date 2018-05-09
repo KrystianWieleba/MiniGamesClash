@@ -75,7 +75,7 @@ public class ScoreTable extends AppCompatActivity {
                     thirdPlace.setText("3 : " + temp[2]);
 
                     //fourthPlace.setText("4 : " + temp[3]);
-                    //fifthPlace.setText("5 : " + temp[4]);:
+                    //fifthPlace.setText("5 : " + temp[4]);
 
                     //myRef.child("id"+temp[0]).setValue(00);
 
