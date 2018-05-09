@@ -73,6 +73,7 @@ public class ScoreTable extends AppCompatActivity {
                     fistPlace.setText("1 : " + temp[0]);
                     secondPlace.setText("2 : " + temp[1]);
                     thirdPlace.setText("3 : " + temp[2]);
+                    //test
                     //fourthPlace.setText("4 : " + temp[3]);
                     //fifthPlace.setText("5 : " + temp[4]);
 
