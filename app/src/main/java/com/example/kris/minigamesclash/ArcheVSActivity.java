@@ -3,11 +3,19 @@ package com.example.kris.minigamesclash;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +40,10 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurEcran;
     private float densiteEcran;
     private float hauteurArche;
+    int atoidejouer=1;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Arche");
 
     private OnClickListener clickListenerAnimaux = new OnClickListener() {
         @Override
@@ -64,6 +76,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             mer.bringToFront();
             nbAnimaux+=1;
             posArche+=coule;
+            myRef.child("posArche").setValue(posArche);
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
                 anim.setY(anim.getY()+coule);
@@ -108,7 +121,33 @@ public class ArcheVSActivity extends AppCompatActivity {
         hauteurEcran=metrics.heightPixels;
         densiteEcran=metrics.density;
         posArche=(int)(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
+        myRef.child("posArche").setValue(posArche);
         arche.setY(posArche);
+
+        myRef.child("posArche").addValueEventListener(new ValueEventListener() {
+                                                          @Override
+                                                          public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                if (atoidejouer==0){
+                                                                    elephant.setVisibility(View.VISIBLE);
+                                                                    lion.setVisibility(View.VISIBLE);
+                                                                    lapin.setVisibility(View.VISIBLE);
+                                                                    atoidejouer=1;
+                                                                }
+                                                                else {
+                                                                    elephant.setVisibility(View.INVISIBLE);
+                                                                    lion.setVisibility(View.INVISIBLE);
+                                                                    lapin.setVisibility(View.INVISIBLE);
+                                                                    atoidejouer=0;
+                                                                }
+                                                          }
+
+                                                          @Override
+                                                          public void onCancelled(DatabaseError databaseError) {
+                                                              Log.w("Failed to read value.", databaseError.toException());
+                                                          }
+                                                      }
+
+        );
     }
 }
 
