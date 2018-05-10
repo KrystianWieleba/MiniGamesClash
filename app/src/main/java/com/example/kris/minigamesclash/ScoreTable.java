@@ -54,7 +54,6 @@ public class ScoreTable extends AppCompatActivity {
 
                         firstPlace.setText(childs.getValue().toString());
                         secondPlace.setText("" + dataSnapshot.getChildrenCount());
-
                     }
                 }
 

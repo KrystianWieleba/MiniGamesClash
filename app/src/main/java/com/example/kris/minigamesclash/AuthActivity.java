@@ -127,5 +127,57 @@ public class AuthActivity extends AppCompatActivity {
 }
 
 
+
+
+myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //String value = dataSnapshot.child("id0").getValue(String.class);
+                //scoreTable.setText(value);
+                //myRef.child("score").setValue(value);
+
+
+                int[] temp = new int[5];
+
+                //J'ai essayer de faire un genre de tri, mais puisque les childs garde leurs valeurs ça ne marche pas..
+                for (int i =0; i<=2; i++) {
+
+
+                    for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                        String list = childs.getValue().toString();
+                        int res = Integer.parseInt(list);
+
+                        if (res > temp[i]) {
+                            temp[i] = res;
+
+
+                        }
+
+                    }
+
+
+
+                    fistPlace.setText("1 : " + temp[0]);
+                    secondPlace.setText("2 : " + temp[1]);
+                    thirdPlace.setText("3 : " + temp[2]);
+                    //fourthPlace.setText("4 : " + temp[3]);
+                    //fifthPlace.setText("5 : " + temp[4]);
+
+                    //myRef.child("id"+temp[0]).setValue(00);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("Failed to read value.", error.toException());
+            }
+        });
+
+
+
+
+
+
 */
 
