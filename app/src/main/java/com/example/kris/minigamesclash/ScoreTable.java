@@ -43,33 +43,19 @@ public class ScoreTable extends AppCompatActivity {
 
         myRef.child("Leaderboard").push().child("score").setValue(score);
 
-        Query query = myRef.child("Leaderboard").orderByValue().limitToLast(5);
+        Query query = myRef.child("Leaderboard").orderByValue();
 
-        //myRef.limitToLast(5).toJSON();
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //String value = dataSnapshot.child("id0").getValue(String.class);
-                //scoreTable.setText(value);
-                //myRef.child("score").setValue(value);
 
-                //just pour tester si le for parcourt tout
-                int i =0;
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        String list = child.getValue().toString();
-                        firstPlace.setText(list);
-                        i++;
+                    for (DataSnapshot childs : dataSnapshot.getChildren()) {
+
+                        firstPlace.setText(childs.getValue().toString());
+                        secondPlace.setText("" + dataSnapshot.getChildrenCount());
+
                     }
-                //firstPlace.setText(""+i);
-
-                    //fistPlace.setText("1 : " + temp[0]);
-                    //secondPlace.setText("2 : " + temp[1]);
-                    //thirdPlace.setText("3 : " + temp[2]);
-                    //fourthPlace.setText("4 : " + temp[3]);
-                    //fifthPlace.setText("5 : " + temp[4]);
-
-                    //myRef.child("id"+temp[0]).setValue(00);
                 }
 
             @Override
