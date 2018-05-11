@@ -3,14 +3,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/colorbackground">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mini Games Clash"
-        android:textSize="35sp"
-        android:layout_weight="10"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="40sp"
+        android:layout_weight="0"
         android:layout_margin="5dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical"
@@ -23,7 +26,10 @@
         android:layout_weight="40"
         android:layout_margin="10dp"
         android:text="Bubble Destroyer"
-        android:textSize="25sp" />
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:background="@drawable/colorbutton"/>
 
     <Button
         android:id="@+id/boutonGame2"
@@ -32,7 +38,10 @@
         android:layout_weight="40"
         android:layout_margin="10dp"
         android:text="Snail Rush"
-        android:textSize="25sp"/>
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:background="@drawable/colorbutton"/>
 
     <Button
         android:id="@+id/boutonGame3"
@@ -41,7 +50,10 @@
         android:layout_weight="40"
         android:layout_margin="10dp"
         android:text="Arche de Noé"
-        android:textSize="25sp" />
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:background="@drawable/colorbutton"/>
 
 
 
