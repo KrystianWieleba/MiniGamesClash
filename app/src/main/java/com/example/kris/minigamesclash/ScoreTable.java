@@ -24,7 +24,7 @@ public class ScoreTable extends AppCompatActivity {
     TextView leaderboardText;
 
     //ArrayList<String> mRef;
-
+    //test git
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Bubble Destroyer");
 
