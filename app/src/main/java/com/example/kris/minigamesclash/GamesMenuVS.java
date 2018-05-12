@@ -53,8 +53,6 @@ public class GamesMenuVS extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
 
-
-
                 // Effet bouton Training
 
             }
