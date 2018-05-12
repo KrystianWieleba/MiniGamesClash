@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //startActivity(new Intent(getApplicationContext(), AuthActivity.class));
-                startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                startActivity(new Intent(getApplicationContext(), GamesMenuVS.class));
 
 
 

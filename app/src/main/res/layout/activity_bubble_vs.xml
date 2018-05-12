@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:andoird="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.kris.minigamesclash.BubbleVSActivity">
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Score : 0"
+        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap to Start"
+            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp" />
+
+        <ImageView
+            android:id="@+id/blue"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/blue" />
+
+        <ImageView
+            android:id="@+id/red"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/red" />
+
+        <ImageView
+            android:id="@+id/green"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/green" />
+
+        <ImageView
+            android:id="@+id/orange"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/orange" />
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

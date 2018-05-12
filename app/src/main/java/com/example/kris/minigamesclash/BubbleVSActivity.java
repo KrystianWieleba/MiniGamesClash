@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
-public class Game1 extends AppCompatActivity {
+public class BubbleVSActivity extends AppCompatActivity {
 
     private TextView Score;
     private TextView start;
@@ -47,7 +47,7 @@ public class Game1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game1);
+        setContentView(R.layout.activity_bubble_vs);
 
         // Instancier les objets
         Score = (TextView) findViewById(R.id.Score);
@@ -108,7 +108,7 @@ public class Game1 extends AppCompatActivity {
                 // Lance l'activité result à la fin du compte à rebours
                 public void onFinish() {
 
-                    Intent intent = new Intent(getApplicationContext(), resultGame1.class);
+                    Intent intent = new Intent(getApplicationContext(), ResultVSBubble.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
                     startActivity(intent);

@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class resultGame1 extends AppCompatActivity {
+public class ResultVSBubble extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_game1);
+        setContentView(R.layout.activity_result_vsbubble);
 
         // Instacnier finalScore
         TextView finalScore = (TextView) findViewById(R.id.finalScore);
@@ -23,9 +23,19 @@ public class resultGame1 extends AppCompatActivity {
 
     public void tryAgain(View view) {
         // Relance l'activité du jeu à l'appuie du bouton tryAgain
-        startActivity(new Intent(getApplicationContext(), Game1.class));
+        startActivity(new Intent(getApplicationContext(), BubbleVSActivity.class));
     }
 
+    public void scoreTable(View view) {
+
+
+        Intent intent2 = new Intent(getApplicationContext(), ScoreTable.class);
+        int score = getIntent().getIntExtra("SCORE", 0);
+        intent2.putExtra("SCORE", score);
+        startActivity(intent2);
+
+
+    }
 
     public void backToMenu(View view) {
 
