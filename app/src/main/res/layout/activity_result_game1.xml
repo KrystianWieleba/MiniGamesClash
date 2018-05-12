@@ -29,13 +29,6 @@
         android:layout_marginTop="60dp"
         android:onClick="tryAgain" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score Table"
-        android:textSize="15sp"
-        android:layout_marginTop="120dp"
-        android:onClick="scoreTable" />
 
     <Button
         android:layout_width="wrap_content"
