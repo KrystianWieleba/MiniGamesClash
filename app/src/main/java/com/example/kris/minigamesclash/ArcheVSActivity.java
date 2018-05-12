@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +34,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     public ImageView animal;
     private int nbAnimaux = 0;
     private int posArche;
+    private int posArcheTemp;
     private int coule;
     private DisplayMetrics metrics;
     private float hauteurEcran;
@@ -51,24 +51,25 @@ public class ArcheVSActivity extends AppCompatActivity {
             animal=new ImageView(ArcheVSActivity.this);
             switch (v.getId()){
                 case R.id.elephant:
+                    myRef.child("animal").setValue("elephant");
                     coule=24+(int)(5*Math.random());
                     layout.addView(animal,150,150);
                     animal.setImageResource(R.drawable.elephantdebout);
                     animal.setY(posArche+210);
                     break;
                 case R.id.lion:
+                    myRef.child("animal").setValue("lion");
                     coule=15+(int)(3*Math.random());
                     layout.addView(animal,120,120);
                     animal.setImageResource(R.drawable.lion);
                     animal.setY(posArche+230);
-                    //animauxArche[nbAnimaux].setImageResource(R.drawable.lion);
                     break;
                 case R.id.lapin:
+                    myRef.child("animal").setValue("lapin");
                     coule=3+(int)(2*Math.random());
                     layout.addView(animal,65,65);
                     animal.setImageResource(R.drawable.lapin);
                     animal.setY(posArche+250);
-                    //animauxArche[nbAnimaux].setImageResource(R.drawable.lapin);
                     break;
             }
             animal.setX((float)(Math.random()*240+170)*densiteEcran);
@@ -82,19 +83,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                 anim.setY(anim.getY()+coule);
             }
             animauxArche.add(animal);
-            //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
-            //Un schéma aide... hauteurArche=(478/1080)*(350*dens)
-            //Bon pour l'instant j'ai bidouillé avec un terme en plus pour que ça marche...
-            if ((hauteurEcran-posArche-154.9/2*densiteEcran+49*((float)350/(float)1080)*densiteEcran-114.5*densiteEcran)<80*densiteEcran){
-                arche.setVisibility(GONE);
-                elephant.setVisibility(GONE);
-                lion.setVisibility(GONE);
-                lapin.setVisibility(GONE);
-                for (ImageView anim : animauxArche) {
-                    anim.setVisibility(GONE);
-                }
-                //Message de fin et retour...
-            }
+            testcoule();
         }
     };
 
@@ -128,6 +117,14 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           @Override
                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                                 if (atoidejouer==0){
+                                                                    miseajournewanimal();
+                                                                    posArcheTemp=posArche;
+                                                                    posArche= (int) dataSnapshot.getValue();
+                                                                    arche.setY(posArche);
+                                                                    for(ImageView anim : animauxArche){
+                                                                        anim.setY(anim.getY()+(posArche-posArcheTemp));
+                                                                    }
+                                                                    testcoule();
                                                                     elephant.setVisibility(View.VISIBLE);
                                                                     lion.setVisibility(View.VISIBLE);
                                                                     lapin.setVisibility(View.VISIBLE);
@@ -148,6 +145,48 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                       }
 
         );
+    }
+
+    private void testcoule(){
+        //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
+        //Un schéma aide... hauteurArche=(478/1080)*(350*dens)
+        //Bon pour l'instant j'ai bidouillé avec un terme en plus pour que ça marche...
+        if ((hauteurEcran-posArche-154.9/2*densiteEcran+49*((float)350/(float)1080)*densiteEcran-114.5*densiteEcran)<80*densiteEcran){
+            arche.setVisibility(GONE);
+            elephant.setVisibility(GONE);
+            lion.setVisibility(GONE);
+            lapin.setVisibility(GONE);
+            for (ImageView anim : animauxArche) {
+                anim.setVisibility(GONE);
+            }
+            //Message de fin et retour...
+        }
+    }
+
+    private void miseajournewanimal(){
+        animal=new ImageView(ArcheVSActivity.this);
+        switch (myRef.child("animal").v){
+            case "elephant":
+                layout.addView(animal,150,150);
+                animal.setImageResource(R.drawable.elephantdebout);
+                animal.setY(posArche+210);
+                break;
+            case "lion":
+                layout.addView(animal,120,120);
+                animal.setImageResource(R.drawable.lion);
+                animal.setY(posArche+230);
+                break;
+            case "lapin":
+                layout.addView(animal,65,65);
+                animal.setImageResource(R.drawable.lapin);
+                animal.setY(posArche+250);
+                break;
+        }
+        animal.setX((float)(Math.random()*240+170)*densiteEcran);
+        arche.bringToFront();
+        mer.bringToFront();
+        nbAnimaux+=1;
+        animauxArche.add(animal);
     }
 }
 
