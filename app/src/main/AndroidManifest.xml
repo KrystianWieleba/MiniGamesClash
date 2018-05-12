@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GamesMenu" />
+        <activity android:name=".GamesMenu"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Game1"
             android:screenOrientation="portrait" />
@@ -34,11 +35,15 @@
         <activity android:name=".AuthActivity" />
         <activity android:name=".credits" />
         <activity android:name=".friends" />
-        <activity android:name=".ScoreTable" />
+        <activity android:name=".ScoreTable"
+            android:screenOrientation="portrait"/>
         <activity android:name=".InterfaceActivity" />
-        <activity android:name=".BubbleVSActivity" />
-        <activity android:name=".ResultVSBubble" />
-        <activity android:name=".GamesMenuVS"></activity>
+        <activity android:name=".BubbleVSActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ResultVSBubble"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GamesMenuVS"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
