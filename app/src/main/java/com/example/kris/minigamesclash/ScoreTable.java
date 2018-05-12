@@ -24,7 +24,7 @@ public class ScoreTable extends AppCompatActivity {
     TextView leaderboardText;
 
     //ArrayList<String> mRef;
-    //test git
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Bubble Destroyer");
 
@@ -43,9 +43,7 @@ public class ScoreTable extends AppCompatActivity {
         //mRef = new ArrayList<>();
 
 
-
         //myRef.child("Leaderboard").push().child("score").setValue(score);
-
 
 
         //Query query = myRef.child("Leaderboard").orderByValue();

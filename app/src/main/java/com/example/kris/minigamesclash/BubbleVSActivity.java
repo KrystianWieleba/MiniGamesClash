@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
-public class Game1 extends AppCompatActivity {
+public class BubbleVSActivity extends AppCompatActivity {
 
     private TextView Score;
     private TextView start;
@@ -47,7 +47,7 @@ public class Game1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game1);
+        setContentView(R.layout.activity_bubble_vs);
 
         // Instancier les objets
         Score = (TextView) findViewById(R.id.Score);
