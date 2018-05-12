@@ -108,7 +108,7 @@ public class BubbleVSActivity extends AppCompatActivity {
                 // Lance l'activité result à la fin du compte à rebours
                 public void onFinish() {
 
-                    Intent intent = new Intent(getApplicationContext(), resultGame1.class);
+                    Intent intent = new Intent(getApplicationContext(), ResultVSBubble.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
                     startActivity(intent);
