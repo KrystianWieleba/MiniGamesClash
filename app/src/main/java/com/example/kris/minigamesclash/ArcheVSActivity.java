@@ -165,7 +165,7 @@ public class ArcheVSActivity extends AppCompatActivity {
 
     private void miseajournewanimal(){
         animal=new ImageView(ArcheVSActivity.this);
-        switch (myRef.child("animal").v){
+       /* switch (myRef.child("animal").v){
             case "elephant":
                 layout.addView(animal,150,150);
                 animal.setImageResource(R.drawable.elephantdebout);
@@ -181,7 +181,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                 animal.setImageResource(R.drawable.lapin);
                 animal.setY(posArche+250);
                 break;
-        }
+        }*/
         animal.setX((float)(Math.random()*240+170)*densiteEcran);
         arche.bringToFront();
         mer.bringToFront();
