@@ -36,7 +36,8 @@
         <activity android:name=".friends" />
         <activity android:name=".ScoreTable" />
         <activity android:name=".InterfaceActivity" />
-        <activity android:name=".BubbleVSActivity"></activity>
+        <activity android:name=".BubbleVSActivity" />
+        <activity android:name=".ResultVSBubble"></activity>
     </application>
 
 </manifest>
