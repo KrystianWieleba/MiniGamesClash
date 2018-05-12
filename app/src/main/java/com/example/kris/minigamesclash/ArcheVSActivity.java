@@ -37,7 +37,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurEcran;
     private float densiteEcran;
     private float hauteurArche;
-    int atoidejouer=1;
+    int atoidejouer=(-1);
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Arche");
@@ -92,7 +92,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             mer.bringToFront();
             nbAnimaux+=1;
             posArche+=coule;
-            //myRef.child("posArche").setValue(posArche);
+            myRef.child("posArche").setValue(posArche);
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
                 anim.setY(anim.getY()+coule);
@@ -127,7 +127,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         posArche=(int)(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
         arche.setY(posArche);
 
-        /* myRef.child("animal").addValueEventListener(new ValueEventListener() {
+        myRef.child("animal").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                  animalCourant=dataSnapshot.getValue().toString();
@@ -145,7 +145,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                 if (atoidejouer==0){
                                                                     miseajournewanimal();
                                                                     posArcheTemp=posArche;
-                                                                    posArche=(int)dataSnapshot.getValue();
+                                                                    posArche=Integer.parseInt(dataSnapshot.getValue().toString());
                                                                     arche.setY(posArche);
                                                                     for(ImageView anim : animauxArche){
                                                                         anim.setY(anim.getY()+(posArche-posArcheTemp));
@@ -155,6 +155,9 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                     elephant.setVisibility(View.VISIBLE);
                                                                     lion.setVisibility(View.VISIBLE);
                                                                     lapin.setVisibility(View.VISIBLE);
+                                                                    atoidejouer=1;
+                                                                }
+                                                                else if(atoidejouer==-1){ //cas 0 mais au lancement
                                                                     atoidejouer=1;
                                                                 }
                                                                 else {
@@ -171,11 +174,11 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           }
                                                       }
 
-        );*/
+        );
 
     }
 
-    /*private void miseajournewanimal(){
+    private void miseajournewanimal(){
         animal=new ImageView(ArcheVSActivity.this);
         switch(animalCourant){
             case "elephant":
@@ -198,5 +201,5 @@ public class ArcheVSActivity extends AppCompatActivity {
         arche.bringToFront();
         mer.bringToFront();
         nbAnimaux+=1;
-    }*/
+    }
 }
