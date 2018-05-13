@@ -130,7 +130,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         myRef.child("animal").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 animalCourant=dataSnapshot.getValue().toString();
+                animalCourant=dataSnapshot.getValue().toString();
             }
 
             @Override
@@ -142,30 +142,30 @@ public class ArcheVSActivity extends AppCompatActivity {
         myRef.child("posArche").addValueEventListener(new ValueEventListener() {
                                                           @Override
                                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                if (atoidejouer==0){
-                                                                    miseajournewanimal();
-                                                                    posArcheTemp=posArche;
-                                                                    posArche=Integer.parseInt(dataSnapshot.getValue().toString());
-                                                                    arche.setY(posArche);
-                                                                    for(ImageView anim : animauxArche){
-                                                                        anim.setY(anim.getY()+(posArche-posArcheTemp));
-                                                                    }
-                                                                    animauxArche.add(animal);
-                                                                    testcoule();
-                                                                    elephant.setVisibility(View.VISIBLE);
-                                                                    lion.setVisibility(View.VISIBLE);
-                                                                    lapin.setVisibility(View.VISIBLE);
-                                                                    atoidejouer=1;
-                                                                }
-                                                                else if(atoidejouer==-1){ //cas 0 mais au lancement
-                                                                    atoidejouer=1;
-                                                                }
-                                                                else {
-                                                                    elephant.setVisibility(View.INVISIBLE);
-                                                                    lion.setVisibility(View.INVISIBLE);
-                                                                    lapin.setVisibility(View.INVISIBLE);
-                                                                    atoidejouer=0;
-                                                                }
+                                                              if (atoidejouer==0){
+                                                                  miseajournewanimal();
+                                                                  posArcheTemp=posArche;
+                                                                  posArche=Integer.parseInt(dataSnapshot.getValue().toString());
+                                                                  arche.setY(posArche);
+                                                                  for(ImageView anim : animauxArche){
+                                                                      anim.setY(anim.getY()+(posArche-posArcheTemp));
+                                                                  }
+                                                                  animauxArche.add(animal);
+                                                                  testcoule();
+                                                                  elephant.setVisibility(View.VISIBLE);
+                                                                  lion.setVisibility(View.VISIBLE);
+                                                                  lapin.setVisibility(View.VISIBLE);
+                                                                  atoidejouer=1;
+                                                              }
+                                                              else if(atoidejouer==-1){ //cas 0 mais au lancement
+                                                                  atoidejouer=1;
+                                                              }
+                                                              else {
+                                                                  elephant.setVisibility(View.INVISIBLE);
+                                                                  lion.setVisibility(View.INVISIBLE);
+                                                                  lapin.setVisibility(View.INVISIBLE);
+                                                                  atoidejouer=0;
+                                                              }
                                                           }
 
                                                           @Override

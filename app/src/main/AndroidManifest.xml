@@ -51,7 +51,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArcheVSActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
