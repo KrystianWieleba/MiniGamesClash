@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
-public class BubbleVSActivity extends AppCompatActivity {
+public class BubbleVS extends AppCompatActivity {
 
     private TextView Score;
     private TextView start;
@@ -111,7 +111,7 @@ public class BubbleVSActivity extends AppCompatActivity {
                 // Lance l'activité result à la fin du compte à rebours
                 public void onFinish() {
 
-                    Intent intent = new Intent(getApplicationContext(), ResultVSBubble.class);
+                    Intent intent = new Intent(getApplicationContext(), ResultatBubbleVS.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
                     startActivity(intent);

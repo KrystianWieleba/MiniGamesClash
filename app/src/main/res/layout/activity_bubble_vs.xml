@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:andoird="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.example.kris.minigamesclash.BubbleVSActivity">
+    tools:context="com.example.kris.minigamesclash.BubbleVS">
 
     <TextView
         android:id="@+id/Score"
@@ -54,8 +54,6 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:src="@drawable/orange" />
-
-
 
 
 

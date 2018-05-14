@@ -25,9 +25,6 @@
             android:name=".Game1"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".resultGame1"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Game2"
             android:screenOrientation="landscape" />
         <activity
@@ -41,10 +38,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".InterfaceActivity" />
         <activity
-            android:name=".BubbleVSActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ResultVSBubble"
+            android:name=".resultGame1"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GamesMenuVS"
@@ -52,6 +46,8 @@
         <activity
             android:name=".ArcheVSActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".BubbleVS" />
+        <activity android:name=".ResultatBubbleVS"></activity>
     </application>
 
 </manifest>

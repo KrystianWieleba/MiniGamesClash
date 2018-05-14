@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class Game1 extends AppCompatActivity {
     private ImageView red;
     private ImageView green;
     private ImageView orange;
+
 
     private int frameWidth;
     private int screenWidth;
@@ -56,6 +58,7 @@ public class Game1 extends AppCompatActivity {
         red = (ImageView) findViewById(R.id.red);
         green = (ImageView) findViewById(R.id.green);
         orange = (ImageView) findViewById(R.id.orange);
+
 
         // Fixer le score invisible au lancement
         Score.setVisibility(View.INVISIBLE);
