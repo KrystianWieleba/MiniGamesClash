@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="name1"
-        android:text="submit"
+        android:text="Player1"
         android:textSize="10sp" />
 
     <Button
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="name2"
-        android:text="submit"
+        android:text="Player2"
         android:textSize="10sp" />
 
     <TextView
