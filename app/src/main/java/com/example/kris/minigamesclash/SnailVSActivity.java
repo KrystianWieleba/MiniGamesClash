@@ -45,7 +45,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snail_vs);
 
-        temps=(TextView) findViewById(R.id.temps);
+       temps=(TextView) findViewById(R.id.temps);
         snail1=(ImageView) findViewById(R.id.snail1);
         snailAdv=(ImageView) findViewById(R.id.snail2);
         layout=(View) findViewById(R.id.layout);
@@ -66,7 +66,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         refSnail1=Integer.toString(temp);
         myRef.child(refSnail1);
 
-        myRef.child(refSnail1).setValue(snail1);
+        myRef.child(refSnail1).setValue(posSnail1);
 
         ValueEventListener eventL1 = new ValueEventListener() {
             @Override
