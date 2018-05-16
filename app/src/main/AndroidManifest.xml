@@ -47,7 +47,10 @@
             android:name=".ArcheVSActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".BubbleVS" />
-        <activity android:name=".ResultatBubbleVS"></activity>
+        <activity android:name=".ResultatBubbleVS" />
+        <activity
+            android:name=".SnailVSActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
