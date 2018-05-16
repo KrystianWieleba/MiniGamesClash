@@ -1,5 +1,7 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,11 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 public class ResultatBubbleVS extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Bubble Destroyer");
+    DatabaseReference myRef = database.getReference("BubbleVS");
+    DatabaseReference myRef2 = database.getReference("ScoreCount");
 
     Button player1;
     Button player2;
     TextView winner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,13 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player1 = (Button) findViewById(R.id.player1);
         player2 = (Button) findViewById(R.id.player2);
 
+
+
+
         int score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
+
+
 
     }
 
@@ -48,6 +57,14 @@ public class ResultatBubbleVS extends AppCompatActivity {
                 myRef.child("VS").child("Player1").setValue(score);
 
                 win();
+
+
+
+
+
+
+
+
             }
         });
     }
@@ -60,7 +77,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
                 int score = getIntent().getIntExtra("SCORE", 0);
                 myRef.child("VS").child("Player2").setValue(score);
 
+
                 win();
+
+
 
             }
         });
@@ -68,41 +88,90 @@ public class ResultatBubbleVS extends AppCompatActivity {
 
     public void win() {
 
-        myRef.child("VS").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot childs : dataSnapshot.getChildren()) {
+        new CountDownTimer(60000, 10) {
 
-                   int player1 = Integer.parseInt(childs.child("Player1").getValue().toString());
-                   int player2 = Integer.parseInt(childs.child("Player2").getValue().toString());
+            public void onTick(long tick){
 
 
-                    if (player1 > player2) {
-                        winner.setText("Player 1 won !");
-                        winner.setVisibility(View.VISIBLE);
-                        myRef.child("PointsCount").child("Player 1").setValue(+1);
+                myRef.child("VS").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                    } else if (player1 < player2 ) {
-                        winner.setText("Player 2 won !");
-                        winner.setVisibility(View.VISIBLE);
-                        myRef.child("PointsCount").child("Player 2").setValue(+1);
 
-                    } else {
-                        winner.setText("DRAW !");
-                        winner.setVisibility(View.VISIBLE);
 
+
+                        int i = 0;
+
+                        for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                            i++;
+
+                        }
+
+
+                        if (i == 2) {
+
+
+
+                            Long player1 = dataSnapshot.child("Player1").getValue(Long.class);
+                            Long player2 = dataSnapshot.child("Player2").getValue(Long.class);
+
+
+
+
+                            if (player1 > player2) {
+                                winner.setText("Player 1 won !");
+                                winner.setVisibility(View.VISIBLE);
+                                myRef2.child("Player 1").setValue(+1);
+
+
+                            } else if (player1 < player2) {
+                                winner.setText("Player 2 won !");
+                                winner.setVisibility(View.VISIBLE);
+                                myRef2.child("Player 2").setValue(+1);
+
+                            } else {
+                                winner.setText("DRAW !");
+                                winner.setVisibility(View.VISIBLE);
+
+                            }
+
+
+                        }
                     }
-                }
+
+
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.w("Failed to read value.", error.toException());
+                    }
+                });
             }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("Failed to read value.", error.toException());
-            }
-        });
 
-    }
+            public void onFinish() {
+
+                //Temps d'attentes dépassé
+
+            }
+        }.start();
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
 
 }

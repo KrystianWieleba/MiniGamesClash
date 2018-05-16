@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static android.view.View.GONE;
 
 
 public class BubbleVS extends AppCompatActivity {
@@ -27,6 +28,8 @@ public class BubbleVS extends AppCompatActivity {
     private ImageView red;
     private ImageView green;
     private ImageView orange;
+    private ImageView blue2;
+    private ImageView red2;
 
 
     private int frameWidth;
@@ -41,6 +44,9 @@ public class BubbleVS extends AppCompatActivity {
     private int greenY = 2000;
     private int orangeX = -500;
     private int orangeY = 2000;
+
+    boolean redPlayer = false;
+    boolean bluePlayer = false;
 
     private int score = 0;
 
@@ -58,6 +64,8 @@ public class BubbleVS extends AppCompatActivity {
         red = (ImageView) findViewById(R.id.red);
         green = (ImageView) findViewById(R.id.green);
         orange = (ImageView) findViewById(R.id.orange);
+        blue2 = (ImageView) findViewById(R.id.blue2);
+        red2 = (ImageView) findViewById(R.id.red2);
 
 
         // Fixer le score invisible au lancement
@@ -81,6 +89,33 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
+        red2.setX(100);
+        red2.setY(300);
+        blue2.setX(300);
+        blue2.setY(300);
+
+        red2.setClickable(true);
+        blue2.setClickable(true);
+
+        red2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                bluePlayer = true;
+
+            }
+        });
+
+        red2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                redPlayer = true;
+
+
+            }
+        });
+
     }
 
 
@@ -97,14 +132,20 @@ public class BubbleVS extends AppCompatActivity {
             frameWidth = frame.getWidth();
 
             // Changer la visibilité
-            start.setVisibility(View.GONE);
+            start.setVisibility(GONE);
+            red2.setVisibility(GONE);
+            blue2.setVisibility(GONE);
             Score.setVisibility(View.VISIBLE);
+
+
+
 
 
             // Compte à rebours de 30sec
             new CountDownTimer(20000, 10) {
                 // Appel à la méthode position à chaque tick
                 public void onTick(long tick){
+
                     position();
                 }
 
@@ -128,7 +169,11 @@ public class BubbleVS extends AppCompatActivity {
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
                     blueY = -100;
                     blueX = (int) Math.floor(Math.random() * (frameWidth - blue.getWidth()));
-                    score += 10;
+                    if (redPlayer = true) {
+                        score -= 20;
+                    } else if (bluePlayer = true) {
+                        score += 20;
+                    }
                 }
                 return true;
             }
@@ -139,9 +184,13 @@ public class BubbleVS extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent user) {
 
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
-                    redY = -1000;
+                    redY = -100;
                     redX = (int)Math.floor(Math.random() * (frameWidth - red.getWidth()));
-                    score += 40;
+                    if (redPlayer = true) {
+                        score += 20;
+                    } else if (bluePlayer = true) {
+                        score -= 20;
+                    }
                 }
                 return true;
             }
@@ -152,7 +201,7 @@ public class BubbleVS extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent user) {
 
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
-                    greenY = -700;
+                    greenY = -1000;
                     greenX = (int)Math.floor(Math.random() * (frameWidth - green.getWidth()));
                     score += 30;
                 }
@@ -165,9 +214,9 @@ public class BubbleVS extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent user) {
 
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
-                    orangeY = -400;
+                    orangeY = -600;
                     orangeX = (int)Math.floor(Math.random() * (frameWidth - orange.getWidth()));
-                    score += 20;
+                    score += 25;
                 }
                 return true;
             }
@@ -181,10 +230,10 @@ public class BubbleVS extends AppCompatActivity {
     public void position() {
 
         // Vitesse
-        redY += 25;
+        redY += 10;
         if (redY > screenHeight) {
             // Fréquence d'apparition ( 0 --> apparition immédiate après dépassement de l'écran )
-            redY = -1000;
+            redY = -100;
             // Apparition aléatoire sur X
             redX = (int)Math.floor(Math.random() * (frameWidth - red.getWidth()));
         }
@@ -204,7 +253,7 @@ public class BubbleVS extends AppCompatActivity {
 
         greenY += 20;
         if (greenY > screenHeight) {
-            greenY = -700;
+            greenY = -1000;
             greenX = (int)Math.floor(Math.random() * (frameWidth - green.getWidth()));
         }
         green.setX(greenX);
@@ -213,7 +262,7 @@ public class BubbleVS extends AppCompatActivity {
 
         orangeY += 15;
         if (orangeY > screenHeight) {
-            orangeY = -400;
+            orangeY = -600;
             orangeX = (int)Math.floor(Math.random() * (frameWidth - orange.getWidth()));
         }
         orange.setX(orangeX);
