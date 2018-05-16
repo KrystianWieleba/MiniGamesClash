@@ -38,8 +38,7 @@ public class GamesMenuVS extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //startActivity(new Intent(getApplicationContext(), .class));
-
+                startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
 
 
                 // Effet bouton Training
