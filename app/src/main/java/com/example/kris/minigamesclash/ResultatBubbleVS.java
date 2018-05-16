@@ -137,6 +137,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
 
                             }
 
+                            //myRef.child("Player1").removeValue();
+                            //myRef.child("Player2").removeValue();
+
+
 
                         }
                     }
