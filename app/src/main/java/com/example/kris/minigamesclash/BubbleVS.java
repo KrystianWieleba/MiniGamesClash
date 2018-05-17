@@ -30,6 +30,12 @@ public class BubbleVS extends AppCompatActivity {
     private ImageView orange;
     private ImageView blue2;
     private ImageView red2;
+    private ImageView blue3;
+    private ImageView red3;
+    private ImageView blue4;
+    private ImageView red4;
+    private TextView msg1;
+    private TextView msg2;
 
 
     private int frameWidth;
@@ -66,6 +72,12 @@ public class BubbleVS extends AppCompatActivity {
         orange = (ImageView) findViewById(R.id.orange);
         blue2 = (ImageView) findViewById(R.id.blue2);
         red2 = (ImageView) findViewById(R.id.red2);
+        blue3 = (ImageView) findViewById(R.id.blue3);
+        red3 = (ImageView) findViewById(R.id.red3);
+        blue4 = (ImageView) findViewById(R.id.blue4);
+        red4 = (ImageView) findViewById(R.id.red4);
+        msg1 = (TextView) findViewById(R.id.msg1);
+        msg2 = (TextView) findViewById(R.id.msg2);
 
 
         // Fixer le score invisible au lancement
@@ -89,10 +101,19 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
-        red2.setX(screenWidth/2 - 200);
-        red2.setY(screenHeight/2);
-        blue2.setX(screenWidth/2 + 200);
-        blue2.setY(screenHeight/2);
+        red2.setX(screenWidth/2 - 300);
+        red2.setY(screenHeight/2 -200);
+        blue2.setX(screenWidth/2 + 100);
+        blue2.setY(screenHeight/2 - 200);
+
+        red3.setX(100);
+        red3.setY(1200);
+        blue3.setX(100);
+        blue3.setY(1350);
+        red4.setX(550);
+        red4.setY(1200);
+        blue4.setX(550);
+        blue4.setY(1350);
 
         blue2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +156,15 @@ public class BubbleVS extends AppCompatActivity {
             start.setVisibility(GONE);
             red2.setVisibility(GONE);
             blue2.setVisibility(GONE);
+            red3.setVisibility(GONE);
+            blue3.setVisibility(GONE);
+            red4.setVisibility(GONE);
+            blue4.setVisibility(GONE);
+            msg1.setVisibility(GONE);
+            msg2.setVisibility(GONE);
             Score.setVisibility(View.VISIBLE);
+
+
 
 
 
