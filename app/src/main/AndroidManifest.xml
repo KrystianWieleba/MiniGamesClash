@@ -51,6 +51,7 @@
         <activity
             android:name=".SnailVSActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".Identification"></activity>
     </application>
 
 </manifest>

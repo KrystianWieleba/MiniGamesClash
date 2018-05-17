@@ -25,7 +25,7 @@ public class GamesMenuVS extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), BubbleVS.class));
+                startActivity(new Intent(getApplicationContext(), Identification.class));
 
 
 

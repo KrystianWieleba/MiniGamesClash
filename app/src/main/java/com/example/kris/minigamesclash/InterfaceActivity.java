@@ -18,11 +18,13 @@ public class InterfaceActivity extends AppCompatActivity {
 
     TextView playersScores;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("ScoreCount");
+    DatabaseReference myRef = database.getReference("Players");
     public long First;
     public long Second;
     public int first;
     public int second;
+    private String name1;
+    private String name2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,18 @@ public class InterfaceActivity extends AppCompatActivity {
 
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
+                    name1 = dataSnapshot.child("Player 1").getValue(String.class);
+                    name2 = dataSnapshot.child("Player 2").getValue(String.class);
 
-                    First = dataSnapshot.child("Player 1").getValue(long.class);
+
+                    First = dataSnapshot.child("Score player 1").getValue(long.class);
                     first = (int) First;
-                    Second = dataSnapshot.child("Player 2").getValue(long.class);
+                    Second = dataSnapshot.child("Score player 2").getValue(long.class);
                     second = (int) Second;
 
-                    playersScores.setText("Player 1 : " + first + "\n\n" + "Player 2 : " + second);
                 }
+                playersScores.setText(name1 + " : " + first + "\n\n" + name2 + " : " + second);
+
 
 
             }
