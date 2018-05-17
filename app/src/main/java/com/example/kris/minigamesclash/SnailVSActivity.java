@@ -69,8 +69,15 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
+                    countDownTimer.cancel();
+                    temps.setText("Perdu ! "+refSnailAdv +" gagne la manche.");
+                    //On fait apparaître le bouton de retour au menu
+                    retour.setVisibility(View.VISIBLE);
+                }
                 posSnailAdv=(float)Integer.parseInt(dataSnapshot.getValue().toString());
                 snailAdv.setX(posSnailAdv);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -85,7 +92,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         //si ça n'a pas encore commencé, on lance le timer
         if (!debutTimer){
             debutTimer=true;
-            /*countDownTimer= new CountDownTimer(14000,100) {
+            countDownTimer= new CountDownTimer(14000,100) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     //bidouilles pour afficher un joli compteur à un chiffre après la virgule
@@ -95,21 +102,21 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
                 public void onFinish() {
                     temps.setText("Trop nul...");
                 }
-            }.start();*/
+            }.start();
         }
         //si l'escargot atteint le bout de l'écran, on arrête le timer
-        else if (((posSnail1+120*densiteEcran)>=longueurEcran)||((posSnailAdv+120*densiteEcran)>=longueurEcran)){
+        else if ((posSnail1+120*densiteEcran)>=longueurEcran){
             countDownTimer.cancel();
             //On fait apparaître le bouton de retour au menu
+            temps.setText("Vous remportez la manche !");
             retour.setVisibility(View.VISIBLE);
         }
         //sinon, on fait avancer l'escargot
         else {
             posSnail1 += 12;
             snail1.setX(posSnail1);
-            myRef.child(refSnail1).setValue(posSnail1);
         }
-
+        myRef.child(refSnail1).setValue(posSnail1);
         if (v.getId()==retour.getId()){
             //code de retour au menu avec intent
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -119,7 +126,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
 
 //Il faudra ajouter une ligne à la fin pour supprimer le child avc l'id aleatoire (pour l'instant le faire à la main)
 
-//Code initial pour id joueurs (pas fonctionnel)
+
+//Code initial pour id joueurs (pas fonctionnel) :
 
 /*//Phase d'initialisation des identifiants (qu'on pourra peut-être mettre au debut du vs)
         int temp = (int)(Math.random()*1000000);
