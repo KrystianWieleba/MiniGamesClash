@@ -35,8 +35,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float densiteEcran;
-    private String refSnail1;
-    private String refSnailAdv;
+    private String refSnail1="Krystian";
+    private String refSnailAdv="Eric";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
 
@@ -61,8 +61,66 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         snail1.setX(50);
         snailAdv.setX(50);
 
-        //Phase d'initialisation des identifiants (qu'on pourra peut-être mettre au debut du vs)
-        int temp = (int)Math.random()*1000000;
+        myRef.child(refSnail1).setValue(posSnail1);
+        //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
+        myRef.child(refSnailAdv).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                posSnailAdv=(float)Integer.parseInt(dataSnapshot.getValue().toString());
+                snailAdv.setX(posSnailAdv);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Failed to read value.", databaseError.toException());
+            }
+        });
+    }
+
+    //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
+    @Override
+    public void onClick(View v) {
+        //si ça n'a pas encore commencé, on lance le timer
+        if (!debutTimer){
+            debutTimer=true;
+            /*countDownTimer= new CountDownTimer(14000,100) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    //bidouilles pour afficher un joli compteur à un chiffre après la virgule
+                    temps.setText(new Float((float)((14000-millisUntilFinished)/100)/10).toString());
+                }
+                @Override
+                public void onFinish() {
+                    temps.setText("Trop nul...");
+                }
+            }.start();*/
+        }
+        //si l'escargot atteint le bout de l'écran, on arrête le timer
+        else if ((posSnail1+120*densiteEcran)>=longueurEcran){
+            countDownTimer.cancel();
+            //On fait apparaître le bouton de retour au menu
+            retour.setVisibility(View.VISIBLE);
+        }
+        //sinon, on fait avancer l'escargot
+        else {
+            posSnail1 += 12;
+            snail1.setX(posSnail1);
+            myRef.child(refSnail1).setValue(posSnail1);
+        }
+
+        if (v.getId()==retour.getId()){
+            //code de retour au menu avec intent
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+    }
+}
+
+//Il faudra ajouter une ligne à la fin pour supprimer le child avc l'id aleatoire (pour l'instant le faire à la main)
+
+//Code initial pour id joueurs (pas fonctionnel)
+
+/*//Phase d'initialisation des identifiants (qu'on pourra peut-être mettre au debut du vs)
+        int temp = (int)(Math.random()*1000000);
         refSnail1=Integer.toString(temp);
         myRef.child(refSnail1);
 
@@ -88,60 +146,5 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         while (refSnailAdv==null) {
             myRef.addListenerForSingleValueEvent(eventL1);
         }
-
-        myRef.removeEventListener(eventL1);
-
-
-        myRef.child(refSnailAdv).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                posSnailAdv=Integer.parseInt(dataSnapshot.getValue().toString());
-                snailAdv.setX(posSnailAdv);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("Failed to read value.", databaseError.toException());
-            }
-        });
-    }
-
-    //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
-    //mais une autre manière de faire est possible, je changerai peut-etre
-    @Override
-    public void onClick(View v) {
-        //si ça n'a pas encore commencé, on lance le timer
-        if (!debutTimer){
-            debutTimer=true;
-            countDownTimer= new CountDownTimer(14000,100) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    //bidouilles pour afficher un joli compteur à un chiffre après la virgule
-                    temps.setText(new Float((float)((14000-millisUntilFinished)/100)/10).toString());
-                }
-                @Override
-                public void onFinish() {
-                    temps.setText("Trop nul...");
-                }
-            }.start();
-        }
-        //si l'escargot atteint le bout de l'écran, on arrête le timer
-        else if ((posSnail1+120*densiteEcran)>=longueurEcran){
-            countDownTimer.cancel();
-            //On fait apparaître le bouton de retour au menu
-            retour.setVisibility(View.VISIBLE);
-        }
-        //sinon, on fait avancer l'escargot
-        else {
-            posSnail1 += 12;
-            snail1.setX(posSnail1);
-            myRef.child(refSnail1).setValue(posSnail1);
-        }
-
-        if (v.getId()==retour.getId()){
-            //code de retour au menu avec intent
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
-    }
-}
-
-//Il faudra ajouter une ligne à la fin pour supprimer le child avc l'id aleatoire (pour l'instant le faire à la main)
+/*
+        myRef.removeEventListener(eventL1);*/
