@@ -48,6 +48,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
        temps=(TextView) findViewById(R.id.temps);
         snail1=(ImageView) findViewById(R.id.snail1);
         snailAdv=(ImageView) findViewById(R.id.snail2);
+        snail1.setY(snail1.getY()+40);
+        snailAdv.setY(snailAdv.getY()-40);
         layout=(View) findViewById(R.id.layout);
         //le bouton de retour au menu est d'abord caché
         retour=(Button) findViewById(R.id.retour);
@@ -96,7 +98,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             }.start();*/
         }
         //si l'escargot atteint le bout de l'écran, on arrête le timer
-        else if ((posSnail1+120*densiteEcran)>=longueurEcran){
+        else if (((posSnail1+120*densiteEcran)>=longueurEcran)||((posSnailAdv+120*densiteEcran)>=longueurEcran)){
             countDownTimer.cancel();
             //On fait apparaître le bouton de retour au menu
             retour.setVisibility(View.VISIBLE);

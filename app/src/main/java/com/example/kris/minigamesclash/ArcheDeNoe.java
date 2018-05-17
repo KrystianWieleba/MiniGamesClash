@@ -71,6 +71,7 @@ public class ArcheDeNoe extends AppCompatActivity {
             animauxArche.add(animal);
             //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
             //Un schéma aide... hauteurArche=(478/1080)*(350*dens)
+            //peut être utiliser OnMeasure
             //Bon pour l'instant j'ai bidouillé avec un terme en plus pour que ça marche...
             if ((hauteurEcran-posArche-154.9/2*densiteEcran+49*((float)350/(float)1080)*densiteEcran-114.5*densiteEcran)<80*densiteEcran){
                 arche.setVisibility(GONE);
