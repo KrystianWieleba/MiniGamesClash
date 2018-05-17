@@ -101,7 +101,7 @@ public class Game1 extends AppCompatActivity {
             Score.setVisibility(View.VISIBLE);
 
 
-            // Compte à rebours de 30sec
+            // Compte à rebours de 20sec
             new CountDownTimer(20000, 10) {
                 // Appel à la méthode position à chaque tick
                 public void onTick(long tick){

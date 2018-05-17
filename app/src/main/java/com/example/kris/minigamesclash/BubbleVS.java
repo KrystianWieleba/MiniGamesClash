@@ -51,8 +51,8 @@ public class BubbleVS extends AppCompatActivity {
     private int orangeX = -500;
     private int orangeY = 2000;
 
-    int redPlayer;
-    int bluePlayer;
+    private int redPlayer;
+    private int bluePlayer;
 
     private int score = 0;
 
@@ -101,11 +101,13 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
+        //Places les deux boules vers le centre de l'écran
         red2.setX(screenWidth/2 - 300);
         red2.setY(screenHeight/2 -200);
         blue2.setX(screenWidth/2 + 100);
         blue2.setY(screenHeight/2 - 200);
 
+        //Placer les explications (optimiser pour mon portable)
         red3.setX(100);
         red3.setY(1200);
         blue3.setX(100);
@@ -115,6 +117,7 @@ public class BubbleVS extends AppCompatActivity {
         blue4.setX(550);
         blue4.setY(1350);
 
+        //Listener sur les imageView
         blue2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +125,7 @@ public class BubbleVS extends AppCompatActivity {
                 bluePlayer = 1;
                 redPlayer = 0;
 
-                choix();
+                onTouch();
             }
         });
 
@@ -133,14 +136,14 @@ public class BubbleVS extends AppCompatActivity {
                 bluePlayer = 0;
                 redPlayer = 1;
 
-                choix();
+                onTouch();
             }
         });
 
 
     }
 
-    public boolean choix() {
+    public boolean onTouch() {
 
         // Permet de ne lancer le timer qu'une seule fois
         if (init == false) {
@@ -196,6 +199,7 @@ public class BubbleVS extends AppCompatActivity {
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
                     redY = -100;
                     redX = (int)Math.floor(Math.random() * (frameWidth - red.getWidth()));
+                    //En fonction de la couleur choisit, le score incrémenté est différent
                     if (redPlayer == 1) {
                         score += 20;
                     } else if (redPlayer == 0){

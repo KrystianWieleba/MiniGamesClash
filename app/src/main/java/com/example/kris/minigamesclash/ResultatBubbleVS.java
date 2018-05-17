@@ -22,16 +22,16 @@ public class ResultatBubbleVS extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("BubbleVS");
     DatabaseReference myRef2 = database.getReference("Players");
 
-    Button player1;
-    Button player2;
-    TextView winner;
-    public long p1;
-    public long p2;
-    public int P1;
-    public int P2;
+    private Button player1;
+    private Button player2;
+    private TextView winner;
+    private  long p1;
+    private  long p2;
+    private  int P1;
+    private  int P2;
     private String nom1;
     private String nom2;
-    CountDownTimer timer;
+
 
 
 
@@ -51,6 +51,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //Récupère le score actuel de chaque joueur pour l'incrémenter plus tard
                 p1 = dataSnapshot.child("Score player 1").getValue(long.class);
                 p2 = dataSnapshot.child("Score player 2").getValue(long.class);
                 P1 = (int) p1;
@@ -60,6 +61,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
                 nom1 = dataSnapshot.child("Player 1").getValue(String.class);
                 nom2 = dataSnapshot.child("Player 2").getValue(String.class);
 
+                //Met le nom du joueur comme bouton
                 player1.setText(nom1);
                 player2.setText(nom2);
 
@@ -72,6 +74,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
         });
     }
 
+    //2crit le score du joueur puis appel à la méthode win
     public void name1(View view) {
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +112,8 @@ public class ResultatBubbleVS extends AppCompatActivity {
     public void win() {
 
 
-        timer = new CountDownTimer(6000000, 2000) {
+        //Permet de revérifier tous les tick juqu'a que les deux joueurs aient écrit leur scores'
+        new CountDownTimer(100000, 500) {
 
             public void onTick(long tick) {
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,33 +123,36 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         for (DataSnapshot childs : dataSnapshot.getChildren()) {
                             i++;
                         }
+                        //Vérifie que les deux joueurs aient bien écrit leurs scores
                         if (i == 2) {
 
                             // le premier joueur a rentrer son score ne rentre pas dans le if...
 
-                            timer.cancel();
+                            //cancel le timer
+                            cancel();
+
                             Long player1 = dataSnapshot.child("Player 1").getValue(Long.class);
                             Long player2 = dataSnapshot.child("Player 2").getValue(Long.class);
+                            //Check qui remporte le jeu
                             if (player1 > player2) {
                                 winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + player1 + " won !");
                                 winner.setVisibility(View.VISIBLE);
+                                //incrémente le score final
                                 P1 += 1;
                                 myRef2.child("Score player 1").setValue(P1);
                                 delete();
-                                //timer.cancel();
+
                             } else if (player1 < player2) {
                                 winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + player2 + " won !");
                                 winner.setVisibility(View.VISIBLE);
                                 P2 += 1;
                                 myRef2.child("Score player 2").setValue(P2);
                                 delete();
-                                //timer.cancel();
+
                             } else {
                                 winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + "DRAW !");
                                 winner.setVisibility(View.VISIBLE);
-
                                 delete();
-                                //timer.cancel();
                             }
                         }
                     }
@@ -154,25 +161,17 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         Log.w("Failed to read value.", error.toException());
                     }
                 });
-
             }
-
-
-            public void onFinish() {
-
-            }
-
-
+            public void onFinish() {}
         }.start();
-
-
     }
 
+    //supprime les chils du jeu bublleVS et au bout de 5sec passe à l'interface
     public void delete() {
         myRef.child("Player 1").removeValue();
         myRef.child("Player 2").removeValue();
 
-        new CountDownTimer(5000, 10) {
+        new CountDownTimer(5000, 100) {
             // Appel à la méthode position à chaque tick
             public void onTick(long tick){
 

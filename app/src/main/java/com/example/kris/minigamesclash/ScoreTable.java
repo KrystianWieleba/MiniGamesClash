@@ -13,8 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ScoreTable extends AppCompatActivity {
 
-    TextView rankingScore = null;
-    TextView leaderboardText;
+    private TextView rankingScore = null;
+    private TextView leaderboardText;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Bubble Destroyer");
@@ -33,6 +33,7 @@ public class ScoreTable extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //Lit les jouerus du top5 et leurs scores à partie de firebase
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
                     int First = Integer.parseInt(childs.child("1st").getValue().toString());
@@ -50,6 +51,7 @@ public class ScoreTable extends AppCompatActivity {
 
                     int[] tab = {Fifth, Fourth, Third, Second, First};
 
+                    //Affichage du top5
                     rankingScore.setText("1 - " + tab[4] + "  ( " + Nfirst + " )" + "\n\n" + "2 - " + tab[3] + "  ( " + Nsecond + " )"  + "\n\n" + "3 - " + tab[2] + "  ( " + Nthird + " )"  + "\n\n" + "4 - " + tab[1] + "  ( " + Nfourth + " )"  + "\n\n" + "5 - " + tab[0] + "  ( " + Nfifth + " )" );
                 }
                 leaderboardText.setVisibility(View.VISIBLE);

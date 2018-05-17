@@ -16,13 +16,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class InterfaceActivity extends AppCompatActivity {
 
-    TextView playersScores;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Players");
-    public long First;
-    public long Second;
-    public int first;
-    public int second;
+
+    private TextView playersScores;
+    private long First;
+    private long Second;
+    private int first;
+    private int second;
     private String name1;
     private String name2;
 
@@ -39,6 +41,7 @@ public class InterfaceActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //Lire à partir de firebase les noms et score des joueurs respectifs pour les afficher
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
                     name1 = dataSnapshot.child("Player 1").getValue(String.class);

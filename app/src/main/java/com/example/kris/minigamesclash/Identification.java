@@ -19,12 +19,14 @@ import static android.view.View.INVISIBLE;
 
 public class Identification extends AppCompatActivity {
 
-    Button button;
-    EditText playernick;
-    String nick;
+    private Button button;
+    private EditText playernick;
+    private String nick;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Players");
+    DatabaseReference myRef2 = database.getReference("BubbleVS");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,18 @@ public class Identification extends AppCompatActivity {
         playernick = (EditText) findViewById(R.id.playernick);
         button = (Button) findViewById(R.id.button);
 
+        //temporaire, pour être sure que firebase est vide
+        myRef.child("Player 1").removeValue();
+        myRef.child("Player 2").removeValue();
+        myRef.child("Score player 1").removeValue();
+        myRef.child("Score player 2").removeValue();
+        myRef2.child("Player 1").removeValue();
+        myRef2.child("Player 2").removeValue();
 
-        new CountDownTimer(600000, 2000) {
+
+
+        //Attends que les deux joueurs soit identifier pour lancer le jeu
+        new CountDownTimer(600000, 500) {
             public void onTick(long tick){
 
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,6 +89,7 @@ public class Identification extends AppCompatActivity {
 
                 button.setVisibility(INVISIBLE);
 
+                //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
 
                         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,6 +101,7 @@ public class Identification extends AppCompatActivity {
                                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                                     i++;
                                 }
+                                //Astuce pour crée les childs des deux joueurs dans l'ordre
                                 if (i == 0 ) {
                                     myRef.child("Player 1").setValue(nick);
                                     myRef.child("Score player 1").setValue(0);

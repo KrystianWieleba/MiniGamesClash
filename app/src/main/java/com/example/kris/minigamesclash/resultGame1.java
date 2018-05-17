@@ -20,13 +20,13 @@ public class resultGame1 extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Bubble Destroyer");
 
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button leaderboard;
-    EditText playernick;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
+    private Button button5;
+    private Button leaderboard;
+    private EditText playernick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class resultGame1 extends AppCompatActivity {
 
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
+                    //lit les 5 scores du leaderboard à partir de firebase
                     int First = Integer.parseInt(childs.child("1st").getValue().toString());
                     int Second = Integer.parseInt(childs.child("2nd").getValue().toString());
                     int Third = Integer.parseInt(childs.child("3rd").getValue().toString());
@@ -62,10 +63,14 @@ public class resultGame1 extends AppCompatActivity {
                     int Fifth = Integer.parseInt(childs.child("5th").getValue().toString());
 
 
+                    //crée un tableau à trier avec ces scores
                     int[] tab = {Fifth, Fourth, Third, Second, First};
 
+
+                    //récupère le score obtenu du joueur
                     int score = getIntent().getIntExtra("SCORE", 0);
 
+                    //trie à bulle initial
                     for (int i = 4; i > 0; i--) {
                         for (int j = 0; j < i; j++) {
                             if (tab[j] > tab[j + 1]) {
@@ -76,6 +81,7 @@ public class resultGame1 extends AppCompatActivity {
                         }
                     }
 
+                    //en fonction du score obtenu, le compare aux scores du classement, et si dans le top 5, score prend la valeur du 5ème score le supprimant
                     if (score > tab[4]) {
                         button1.setVisibility(View.VISIBLE);
                         tab[0] = score;
@@ -103,6 +109,7 @@ public class resultGame1 extends AppCompatActivity {
                     }
 
 
+                    //tri averc le score en compte
                     for (int i = 4; i > 0; i--) {
                         for (int j = 0; j < i; j++) {
                             if (tab[j] > tab[j + 1]) {
@@ -113,6 +120,7 @@ public class resultGame1 extends AppCompatActivity {
                         }
                     }
 
+                    //Remplace les scores avec celles  récemmen,t triées
                     myRef.child("Leaderboard").child("5th").setValue(tab[0]);
                     myRef.child("Leaderboard").child("4th").setValue(tab[1]);
                     myRef.child("Leaderboard").child("3rd").setValue(tab[2]);
@@ -148,6 +156,7 @@ public class resultGame1 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
+    //2crit le nom du joueur pour l'update dans le leaderboard de firebase
     public void name1(View view) {
 
         button1.setOnClickListener(new View.OnClickListener() {
