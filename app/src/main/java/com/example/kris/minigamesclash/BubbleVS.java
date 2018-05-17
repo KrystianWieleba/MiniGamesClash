@@ -45,8 +45,8 @@ public class BubbleVS extends AppCompatActivity {
     private int orangeX = -500;
     private int orangeY = 2000;
 
-    boolean redPlayer = false;
-    boolean bluePlayer = false;
+    int redPlayer;
+    int bluePlayer;
 
     private int score = 0;
 
@@ -89,20 +89,19 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
-        red2.setX(100);
-        red2.setY(300);
-        blue2.setX(300);
-        blue2.setY(300);
+        red2.setX(screenWidth/2 - 200);
+        red2.setY(screenHeight/2);
+        blue2.setX(screenWidth/2 + 200);
+        blue2.setY(screenHeight/2);
 
-        red2.setClickable(true);
-        blue2.setClickable(true);
-
-        red2.setOnClickListener(new View.OnClickListener() {
+        blue2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                bluePlayer = true;
+                bluePlayer = 1;
+                redPlayer = 0;
 
+                choix();
             }
         });
 
@@ -110,16 +109,17 @@ public class BubbleVS extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                redPlayer = true;
+                bluePlayer = 0;
+                redPlayer = 1;
 
-
+                choix();
             }
         });
+
 
     }
 
-
-    public boolean onTouchEvent(MotionEvent user) {
+    public boolean choix() {
 
         // Permet de ne lancer le timer qu'une seule fois
         if (init == false) {
@@ -136,8 +136,6 @@ public class BubbleVS extends AppCompatActivity {
             red2.setVisibility(GONE);
             blue2.setVisibility(GONE);
             Score.setVisibility(View.VISIBLE);
-
-
 
 
 
@@ -162,23 +160,6 @@ public class BubbleVS extends AppCompatActivity {
         }
 
         // Fixer l'imageView blue en tant que listener
-        blue.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent user) {
-                // Si blue est appuyé, réinitialisa sa position et incrémente le score
-                if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
-                    blueY = -100;
-                    blueX = (int) Math.floor(Math.random() * (frameWidth - blue.getWidth()));
-                    if (redPlayer = true) {
-                        score -= 20;
-                    } else if (bluePlayer = true) {
-                        score += 20;
-                    }
-                }
-                return true;
-            }
-        });
-
         red.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent user) {
@@ -186,15 +167,34 @@ public class BubbleVS extends AppCompatActivity {
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
                     redY = -100;
                     redX = (int)Math.floor(Math.random() * (frameWidth - red.getWidth()));
-                    if (redPlayer = true) {
+                    if (redPlayer == 1) {
                         score += 20;
-                    } else if (bluePlayer = true) {
+                    } else if (redPlayer == 0){
                         score -= 20;
                     }
                 }
                 return true;
             }
         });
+
+        blue.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent user) {
+                // Si blue est appuyé, réinitialisa sa position et incrémente le score
+                if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
+                    blueY = -100;
+                    blueX = (int) Math.floor(Math.random() * (frameWidth - blue.getWidth()));
+                    if (bluePlayer == 1) {
+                        score += 20;
+                    } else if (bluePlayer == 0) {
+                        score -= 20;
+                    }
+                }
+                return true;
+            }
+        });
+
+
 
         green.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -222,9 +222,11 @@ public class BubbleVS extends AppCompatActivity {
             }
         });
 
-        return true;
 
+        return true;
     }
+
+
 
 
     public void position() {

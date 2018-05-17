@@ -25,6 +25,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
     Button player1;
     Button player2;
     TextView winner;
+    public long p1;
+    public long p2;
+    public int P1;
+    public int P2;
 
 
     @Override
@@ -42,6 +46,26 @@ public class ResultatBubbleVS extends AppCompatActivity {
 
         int score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
+
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                p1 = dataSnapshot.child("Player 1").getValue(long.class);
+                p2 = dataSnapshot.child("Player 2").getValue(long.class);
+                P1 = (int) p1;
+                P1=0;
+                P2 = (int) p2;
+                P2=0;
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -89,7 +113,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
     public void win() {
 
 
-        new CountDownTimer(60000, 10) {
+        new CountDownTimer(60000, 2000) {
 
             public void onTick(long tick){
 
@@ -112,7 +136,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
 
                         if (i == 2) {
 
-
+                            cancel();
 
                             Long player1 = dataSnapshot.child("Player1").getValue(Long.class);
                             Long player2 = dataSnapshot.child("Player2").getValue(Long.class);
@@ -123,22 +147,34 @@ public class ResultatBubbleVS extends AppCompatActivity {
                             if (player1 > player2) {
                                 winner.setText("Player 1 won !");
                                 winner.setVisibility(View.VISIBLE);
-                                myRef2.child("Player 1").setValue(+1);
+
+
+                                P1 += 1;
+                                myRef2.child("Player 1").setValue(P1);
+
+
+                                delete();
 
 
                             } else if (player1 < player2) {
                                 winner.setText("Player 2 won !");
                                 winner.setVisibility(View.VISIBLE);
-                                myRef2.child("Player 2").setValue(+1);
+
+                                P2 += 1;
+                                myRef2.child("Player 2").setValue(P2);
+
+
+
+                                delete();
 
                             } else {
                                 winner.setText("DRAW !");
                                 winner.setVisibility(View.VISIBLE);
+                                delete();
 
                             }
 
-                            //myRef.child("Player1").removeValue();
-                            //myRef.child("Player2").removeValue();
+
 
 
 
@@ -163,13 +199,30 @@ public class ResultatBubbleVS extends AppCompatActivity {
         }.start();
 
 
-
-
-
-
-
             }
 
+
+            public void delete() {
+
+                myRef.child("VS").child("Player1").removeValue();
+                myRef.child("VS").child("Player2").removeValue();
+
+                new CountDownTimer(5000, 10) {
+                    // Appel à la méthode position à chaque tick
+                    public void onTick(long tick){
+
+                    }
+
+                    // Lance l'activité result à la fin du compte à rebours
+                    public void onFinish() {
+
+                        Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                        startActivity(intent);
+
+                    }
+                }.start();
+
+            }
 
 
 
