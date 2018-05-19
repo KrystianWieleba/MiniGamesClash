@@ -66,7 +66,7 @@ public class ArcheDeNoe extends AppCompatActivity {
             posArche+=coule*(densiteEcran/2); //le divise par 2 vient de ce que j'ai fait mes mesures avec ma densite d'ecran de 2
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
-                anim.setY(anim.getY()+coule);
+                anim.setY(anim.getY()+coule*(densiteEcran/2));
             }
             animauxArche.add(animal);
             //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
