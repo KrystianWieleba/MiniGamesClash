@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,7 +38,6 @@ public class BubbleVS extends AppCompatActivity {
     private TextView msg1;
     private TextView msg2;
 
-
     private int frameWidth;
     private int screenWidth;
     private int screenHeight;
@@ -53,9 +53,7 @@ public class BubbleVS extends AppCompatActivity {
 
     private int redPlayer;
     private int bluePlayer;
-
     private int score = 0;
-
     private boolean init = false;
 
     @Override
@@ -79,17 +77,20 @@ public class BubbleVS extends AppCompatActivity {
         msg1 = (TextView) findViewById(R.id.msg1);
         msg2 = (TextView) findViewById(R.id.msg2);
 
-
         // Fixer le score invisible au lancement
         Score.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
-        WindowManager wm = getWindowManager();
-        Display disp = wm.getDefaultDisplay();
-        Point size = new Point();
-        disp.getSize(size);
-        screenHeight = size.y;
-        screenWidth = size.x;
+        //WindowManager wm = getWindowManager();
+        //Display disp = wm.getDefaultDisplay();
+        //Point size = new Point();
+        //disp.getSize(size);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenHeight = displayMetrics.heightPixels;
+        screenWidth = displayMetrics.widthPixels;
+        //screenHeight = size.y;
+        //screenWidth = size.x;
 
         // Placer initialement les bulles en dehors de l'écran
         red.setX(-500);
@@ -121,10 +122,8 @@ public class BubbleVS extends AppCompatActivity {
         blue2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 bluePlayer = 1;
                 redPlayer = 0;
-
                 onTouch();
             }
         });
@@ -132,15 +131,11 @@ public class BubbleVS extends AppCompatActivity {
         red2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 bluePlayer = 0;
                 redPlayer = 1;
-
                 onTouch();
             }
         });
-
-
     }
 
     public boolean onTouch() {
@@ -166,9 +161,6 @@ public class BubbleVS extends AppCompatActivity {
             msg1.setVisibility(GONE);
             msg2.setVisibility(GONE);
             Score.setVisibility(View.VISIBLE);
-
-
-
 
 
             // Compte à rebours de 30sec
@@ -258,8 +250,6 @@ public class BubbleVS extends AppCompatActivity {
 
         return true;
     }
-
-
 
 
     public void position() {

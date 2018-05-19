@@ -31,9 +31,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
     private  int P2;
     private String nom1;
     private String nom2;
-
-
-
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player1 = (Button) findViewById(R.id.player1);
         player2 = (Button) findViewById(R.id.player2);
 
-        int score = getIntent().getIntExtra("SCORE", 0);
+        score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
 
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -57,17 +55,13 @@ public class ResultatBubbleVS extends AppCompatActivity {
                 P1 = (int) p1;
                 P2 = (int) p2;
 
-
                 nom1 = dataSnapshot.child("Player 1").getValue(String.class);
                 nom2 = dataSnapshot.child("Player 2").getValue(String.class);
 
                 //Met le nom du joueur comme bouton
                 player1.setText(nom1);
                 player2.setText(nom2);
-
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -79,12 +73,9 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int score = getIntent().getIntExtra("SCORE", 0);
                 myRef.child("Player 1").setValue(score);
-
                 player1.setVisibility(View.INVISIBLE);
                 player2.setVisibility(View.INVISIBLE);
-
                 win();
             }
         });
@@ -94,29 +85,18 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int score = getIntent().getIntExtra("SCORE", 0);
                 myRef.child("Player 2").setValue(score);
-
                 player1.setVisibility(View.INVISIBLE);
                 player2.setVisibility(View.INVISIBLE);
-
                 win();
             }
         });
     }
 
-
-
-
-
     public void win() {
-
-
         //Permet de revérifier tous les tick juqu'a que les deux joueurs aient écrit leur scores'
-        new CountDownTimer(100000, 500) {
 
-            public void onTick(long tick) {
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0;
@@ -125,12 +105,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         }
                         //Vérifie que les deux joueurs aient bien écrit leurs scores
                         if (i == 2) {
-
                             // le premier joueur a rentrer son score ne rentre pas dans le if...
-
-                            //cancel le timer
-                            cancel();
-
                             Long player1 = dataSnapshot.child("Player 1").getValue(Long.class);
                             Long player2 = dataSnapshot.child("Player 2").getValue(Long.class);
                             //Check qui remporte le jeu
@@ -161,25 +136,22 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         Log.w("Failed to read value.", error.toException());
                     }
                 });
-            }
-            public void onFinish() {}
-        }.start();
     }
 
     //supprime les chils du jeu bublleVS et au bout de 5sec passe à l'interface
     public void delete() {
-        myRef.child("Player 1").removeValue();
-        myRef.child("Player 2").removeValue();
+        //myRef.child("Player 1").removeValue();
+        //myRef.child("Player 2").removeValue();
 
-        new CountDownTimer(5000, 100) {
+        new CountDownTimer(8000, 100) {
             // Appel à la méthode position à chaque tick
             public void onTick(long tick){
+
 
             }
             // Lance l'activité result à la fin du compte à rebours
             public void onFinish() {
-                Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), InterfaceActivity.class));
             }
         }.start();
     }

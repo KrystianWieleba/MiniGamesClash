@@ -37,62 +37,27 @@ public class Identification extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
 
         //temporaire, pour être sure que firebase est vide
-        myRef.child("Player 1").removeValue();
-        myRef.child("Player 2").removeValue();
-        myRef.child("Score player 1").removeValue();
-        myRef.child("Score player 2").removeValue();
-        myRef2.child("Player 1").removeValue();
-        myRef2.child("Player 2").removeValue();
+        //myRef.child("Player 1").removeValue();
+        //myRef.child("Player 2").removeValue();
+        //myRef.child("Score player 1").removeValue();
+        //myRef.child("Score player 2").removeValue();
+        //myRef2.child("Player 1").removeValue();
+        //myRef2.child("Player 2").removeValue();
 
-
-
-        //Attends que les deux joueurs soit identifier pour lancer le jeu
-        new CountDownTimer(600000, 500) {
-            public void onTick(long tick){
-
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        int i = 0;
-
-                        for (DataSnapshot childs : dataSnapshot.getChildren()) {
-                            i++;
-                        }
-
-                        if (i ==4) {
-
-                            cancel();
-                            startActivity(new Intent(getApplicationContext(), BubbleVS.class));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w("Failed to read value.", error.toException());
-                    }
-                });
-
-            }
-            public void onFinish() {
-                //Temps d'attentes dépassé
-            }
-        }.start();
 
     }
 
     public void name1(View view) {
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                waitt();
                 button.setVisibility(INVISIBLE);
-
                 //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
 
-                        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        myRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -105,20 +70,38 @@ public class Identification extends AppCompatActivity {
                                 if (i == 0 ) {
                                     myRef.child("Player 1").setValue(nick);
                                     myRef.child("Score player 1").setValue(0);
-
                                 } else if (i ==2 ) {
                                     myRef.child("Player 2").setValue(nick);
                                     myRef.child("Score player 2").setValue(0);
-
                                 }
-
                             }
-
                             @Override
                             public void onCancelled(DatabaseError error) {
                                 Log.w("Failed to read value.", error.toException());
                             }
                         });
+            }
+        });
+    }
+
+    public void waitt() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+
+                for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                    i++;
+                }
+
+                if (i ==4) {
+                    startActivity(new Intent(getApplicationContext(), BubbleVS.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("Failed to read value.", error.toException());
             }
         });
     }

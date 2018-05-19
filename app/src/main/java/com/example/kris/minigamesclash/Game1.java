@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,12 +65,11 @@ public class Game1 extends AppCompatActivity {
         Score.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
-        WindowManager wm = getWindowManager();
-        Display disp = wm.getDefaultDisplay();
-        Point size = new Point();
-        disp.getSize(size);
-        screenHeight = size.y;
-        screenWidth = size.x;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenHeight = displayMetrics.heightPixels;
+        screenWidth = displayMetrics.widthPixels;
 
         // Placer initialement les bulles en dehors de l'écran
         red.setX(-500);
