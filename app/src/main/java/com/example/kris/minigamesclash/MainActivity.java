@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), friends.class));
+                startActivity(new Intent(getApplicationContext(), Identification.class));
 
                 // Effet bouton Friends
 

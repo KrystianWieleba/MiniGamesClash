@@ -14,11 +14,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.view.View.GONE;
+
 public class InterfaceActivity extends AppCompatActivity {
 
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Players");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Players");
 
     private TextView playersScores;
     private long First;
@@ -27,13 +29,14 @@ public class InterfaceActivity extends AppCompatActivity {
     private int second;
     private String name1;
     private String name2;
+    private Button suite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interface);
 
-        Button suite = (Button) findViewById(R.id.suite);
+        suite = (Button) findViewById(R.id.suite);
         playersScores = (TextView) findViewById(R.id.playersScores);
 
 
@@ -56,6 +59,11 @@ public class InterfaceActivity extends AppCompatActivity {
                 }
                 playersScores.setText(name1 + " : " + first + "\n\n" + name2 + " : " + second);
 
+                if (first==2 || second==2) {
+                    suite.setVisibility(GONE);
+                    //permettre aux jouerus une revanche ?
+                }
+
 
 
             }
@@ -70,7 +78,13 @@ public class InterfaceActivity extends AppCompatActivity {
         suite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+
+                //startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
+
+
+
             }
         });
     }

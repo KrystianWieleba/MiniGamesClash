@@ -18,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ResultatBubbleVS extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("BubbleVS");
-    DatabaseReference myRef2 = database.getReference("Players");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("BubbleVS");
+    private DatabaseReference myRef2 = database.getReference("Players");
 
     private Button player1;
     private Button player2;
@@ -105,6 +105,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         }
                         //Vérifie que les deux joueurs aient bien écrit leurs scores
                         if (i == 2) {
+                            nextActivity();
                             // le premier joueur a rentrer son score ne rentre pas dans le if...
                             Long player1 = dataSnapshot.child("Player 1").getValue(Long.class);
                             Long player2 = dataSnapshot.child("Player 2").getValue(Long.class);
@@ -115,19 +116,16 @@ public class ResultatBubbleVS extends AppCompatActivity {
                                 //incrémente le score final
                                 P1 += 1;
                                 myRef2.child("Score player 1").setValue(P1);
-                                delete();
 
                             } else if (player1 < player2) {
                                 winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + player2 + " won !");
                                 winner.setVisibility(View.VISIBLE);
                                 P2 += 1;
                                 myRef2.child("Score player 2").setValue(P2);
-                                delete();
 
                             } else {
                                 winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + "DRAW !");
                                 winner.setVisibility(View.VISIBLE);
-                                delete();
                             }
                         }
                     }
@@ -139,16 +137,12 @@ public class ResultatBubbleVS extends AppCompatActivity {
     }
 
     //supprime les chils du jeu bublleVS et au bout de 5sec passe à l'interface
-    public void delete() {
+    public void nextActivity() {
         //myRef.child("Player 1").removeValue();
         //myRef.child("Player 2").removeValue();
 
-        new CountDownTimer(8000, 100) {
-            // Appel à la méthode position à chaque tick
-            public void onTick(long tick){
-
-
-            }
+        new CountDownTimer(8000, 10) {
+            public void onTick(long tick){}
             // Lance l'activité result à la fin du compte à rebours
             public void onFinish() {
                 startActivity(new Intent(getApplicationContext(), InterfaceActivity.class));

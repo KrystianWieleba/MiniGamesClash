@@ -23,9 +23,9 @@ public class Identification extends AppCompatActivity {
     private EditText playernick;
     private String nick;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Players");
-    DatabaseReference myRef2 = database.getReference("BubbleVS");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Players");
+    private DatabaseReference myRef2 = database.getReference("BubbleVS");
 
 
     @Override
@@ -38,11 +38,11 @@ public class Identification extends AppCompatActivity {
 
         //temporaire, pour être sure que firebase est vide
         //myRef.child("Player 1").removeValue();
-        //myRef.child("Player 2").removeValue();
+        myRef.child("Player 2").removeValue();
         //myRef.child("Score player 1").removeValue();
-        //myRef.child("Score player 2").removeValue();
+        myRef.child("Score player 2").removeValue();
         //myRef2.child("Player 1").removeValue();
-        //myRef2.child("Player 2").removeValue();
+        myRef2.child("Player 2").removeValue();
 
 
     }
