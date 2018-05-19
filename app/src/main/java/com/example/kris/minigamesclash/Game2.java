@@ -19,11 +19,11 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
     private TextView temps;
     private Button retour;
     private View layout;
-    private float posSnail=50;
     private CountDownTimer countDownTimer;
     private boolean debutTimer=false;
     private DisplayMetrics metrics;
     private float longueurEcran;
+    private float posSnail;
     private float densiteEcran;
 
     @Override
@@ -39,12 +39,13 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
         retour.setVisibility(View.INVISIBLE);
         layout.setOnClickListener(this);
         retour.setOnClickListener(this);
-        snail.setX(50);
 
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         longueurEcran=metrics.widthPixels;
         densiteEcran=metrics.density;
+        posSnail=longueurEcran/20;
+        snail.setX(posSnail);
     }
 
     //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
