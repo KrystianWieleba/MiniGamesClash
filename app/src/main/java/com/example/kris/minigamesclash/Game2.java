@@ -24,6 +24,7 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float posSnail;
+    private float increment;
     private float densiteEcran;
 
     @Override
@@ -45,6 +46,7 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
         longueurEcran=metrics.widthPixels;
         densiteEcran=metrics.density;
         posSnail=longueurEcran/20;
+        increment=longueurEcran/85;
         snail.setX(posSnail);
     }
 
@@ -75,7 +77,7 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
         }
         //sinon, on fait avancer l'escargot
         else {
-            posSnail += 12;
+            posSnail += increment;
             snail.setX(posSnail);
         }
 
