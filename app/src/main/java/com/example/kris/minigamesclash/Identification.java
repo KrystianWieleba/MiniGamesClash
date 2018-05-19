@@ -96,6 +96,7 @@ public class Identification extends AppCompatActivity {
 
                 if (i ==4) {
                     startActivity(new Intent(getApplicationContext(), BubbleVS.class));
+                    myRef.removeEventListener(this);
                 }
             }
 

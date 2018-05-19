@@ -17,8 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class resultGame1 extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Bubble Destroyer");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Bubble Destroyer");
     private Button button1;
     private Button leaderboard;
     private EditText playernick;

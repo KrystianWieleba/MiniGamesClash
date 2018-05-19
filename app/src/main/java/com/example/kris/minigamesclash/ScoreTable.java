@@ -1,5 +1,6 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +17,8 @@ public class ScoreTable extends AppCompatActivity {
     private TextView rankingScore = null;
     private TextView leaderboardText;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Bubble Destroyer");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Bubble Destroyer");
 
 
     @Override
@@ -61,7 +62,13 @@ public class ScoreTable extends AppCompatActivity {
             }
         });
 
+
+
 }
+
+    public void backToMenu(View view) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 
 }
 
