@@ -92,7 +92,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             mer.bringToFront();
             nbAnimaux+=1;
             posArche+=coule*(densiteEcran/2);
-            myRef.child("posArche").setValue(posArche);
+            myRef.child("posArche").setValue(coule);
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
                 anim.setY(anim.getY()+coule*(densiteEcran/2));
@@ -144,11 +144,10 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                               if (atoidejouer==0){
                                                                   miseajournewanimal();
-                                                                  posArcheTemp=posArche;
-                                                                  posArche=Integer.parseInt(dataSnapshot.getValue().toString());
-                                                                  arche.setY(posArche);
+                                                                  coule=Integer.parseInt(dataSnapshot.getValue().toString());
+                                                                  arche.setY(posArche+coule*(densiteEcran/2));
                                                                   for(ImageView anim : animauxArche){
-                                                                      anim.setY(anim.getY()+(posArche-posArcheTemp));
+                                                                      anim.setY(anim.getY()+(coule));
                                                                   }
                                                                   animauxArche.add(animal);
                                                                   testcoule();
