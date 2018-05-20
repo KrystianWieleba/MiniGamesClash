@@ -45,17 +45,19 @@ public class ResultatBubbleVS extends AppCompatActivity {
         finalScore.setText(score + "");
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        // Ecris le nom des joueurs dans led boutond
+        player1.setText(nomJ1);
+        player2.setText(nomJAdv);
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Récupère le score actuel de chaque joueur pour pouvoir l'incrémenter plus tard
-                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
-                scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
+
+                    scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
+                    scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
 
 
-                // Ecris le nom des joueurs dans led boutond
-                player1.setText(nomJ1);
-                player2.setText(nomJAdv);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

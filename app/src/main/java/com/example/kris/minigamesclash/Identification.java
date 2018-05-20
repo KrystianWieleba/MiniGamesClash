@@ -23,6 +23,8 @@ public class Identification extends AppCompatActivity {
     private EditText playernick;
     private String nick;
     private Intent intent;
+    private String nick1;
+    private String nick2;
 
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -57,7 +59,7 @@ public class Identification extends AppCompatActivity {
                 //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
 
-                        myRef.addValueEventListener(new ValueEventListener() {
+                        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -69,11 +71,14 @@ public class Identification extends AppCompatActivity {
                                 //Astuce pour crée les childs des deux joueurs dans l'ordre
                                 if (i == 0 ) {
                                     myRef.child(nick).setValue(0);
-                                    intent.putExtra("nomJ1", nick);
+                                    myRef.child("nick1").setValue(nick);
 
-                                } else if (i ==1 ) {
+
+
+                                } else if (i ==2 ) {
                                     myRef.child(nick).setValue(0);
-                                    intent.putExtra("nomJAdv", nick);
+                                    myRef.child("nick2").setValue(nick);
+
                                 }
                             }
                             @Override
@@ -95,10 +100,19 @@ public class Identification extends AppCompatActivity {
                     i++;
                 }
 
-                if (i ==2) {
+                if (i ==4) {
+                    nick1 = dataSnapshot.child("nick1").getValue(String.class);
+                    nick2 = dataSnapshot.child("nick2").getValue(String.class);
+
+                    intent.putExtra("nomJ1", nick1);
+                    intent.putExtra("nomJAdv", nick2);
 
                     startActivity(intent);
+
                     myRef.removeEventListener(this);
+                    myRef.child("nick1").removeValue();
+                    myRef.child("nick2").removeValue();
+
                 }
             }
 
