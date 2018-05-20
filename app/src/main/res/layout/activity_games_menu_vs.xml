@@ -55,6 +55,17 @@
         android:textSize="30sp"
         android:background="@drawable/colorbutton"/>
 
+    <Button
+        android:id="@+id/boutonGame4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:layout_margin="10dp"
+        android:text="Morpion"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:background="@drawable/colorbutton"/>
 
 
 

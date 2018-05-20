@@ -11,6 +11,7 @@ public class GamesMenuVS extends AppCompatActivity {
     Button boutonGame1;
     Button boutonGame2;
     Button boutonGame3;
+    Button boutonGame4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class GamesMenuVS extends AppCompatActivity {
         boutonGame1 = (Button) findViewById(R.id.boutonGame1);
         boutonGame2 = (Button) findViewById(R.id.boutonGame2);
         boutonGame3 = (Button) findViewById(R.id.boutonGame3);
+        boutonGame4 = (Button) findViewById(R.id.boutonGame4);
 
         boutonGame1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +53,16 @@ public class GamesMenuVS extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+
+                // Effet bouton Training
+
+            }
+        });
+        boutonGame4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), MorpionVSActivity.class));
 
                 // Effet bouton Training
 
