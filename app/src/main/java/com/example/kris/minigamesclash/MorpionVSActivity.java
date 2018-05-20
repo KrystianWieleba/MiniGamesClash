@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MorpionVSActivity extends AppCompatActivity implements View.OnClickListener {
@@ -15,6 +18,12 @@ public class MorpionVSActivity extends AppCompatActivity implements View.OnClick
     ArrayList<Button> buttons = new ArrayList<>();
     boolean player1 = true;
     int turn = 0;
+    private String nomJ1;
+    private String nomJAdv;
+    int atoidejouer=1;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Morpion");
 
 
     @Override
