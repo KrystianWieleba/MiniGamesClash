@@ -55,6 +55,8 @@ public class BubbleVS extends AppCompatActivity {
     private int bluePlayer;
     private int score = 0;
     private boolean init = false;
+    private String nomJ1;
+    private String nomJAdv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,9 @@ public class BubbleVS extends AppCompatActivity {
         red4 = (ImageView) findViewById(R.id.red4);
         msg1 = (TextView) findViewById(R.id.msg1);
         msg2 = (TextView) findViewById(R.id.msg2);
+
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
 
         // Fixer le score invisible au lancement
         Score.setVisibility(View.INVISIBLE);
@@ -177,6 +182,8 @@ public class BubbleVS extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ResultatBubbleVS.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
+                    intent.putExtra("nomJ1", nomJ1);
+                    intent.putExtra("nomJAdv", nomJAdv);
                     startActivity(intent);
 
                 }

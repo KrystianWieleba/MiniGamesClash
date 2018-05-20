@@ -23,11 +23,10 @@ public class Identification extends AppCompatActivity {
     private EditText playernick;
     private String nick;
     private Intent intent;
-    private Intent intent2;
+
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
-    private DatabaseReference myRef2 = database.getReference("BubbleVS");
 
 
     @Override
@@ -42,8 +41,8 @@ public class Identification extends AppCompatActivity {
         //myRef.child("Player 1").removeValue();
 
 
-        intent = new Intent(getApplicationContext(), InterfaceActivity.class);
-        intent2 = new Intent(getApplicationContext(), ResultatBubbleVS.class);
+        intent = new Intent(getApplicationContext(), BubbleVS.class);
+
 
 
     }
@@ -71,12 +70,10 @@ public class Identification extends AppCompatActivity {
                                 if (i == 0 ) {
                                     myRef.child(nick).setValue(0);
                                     intent.putExtra("nomJ1", nick);
-                                    intent2.putExtra("nomJ1", nick);
 
                                 } else if (i ==1 ) {
                                     myRef.child(nick).setValue(0);
                                     intent.putExtra("nomJAdv", nick);
-                                    intent2.putExtra("nomJAdv", nick);
                                 }
                             }
                             @Override
@@ -100,7 +97,7 @@ public class Identification extends AppCompatActivity {
 
                 if (i ==2) {
 
-                    startActivity(new Intent(getApplicationContext(), BubbleVS.class));
+                    startActivity(intent);
                     myRef.removeEventListener(this);
                 }
             }

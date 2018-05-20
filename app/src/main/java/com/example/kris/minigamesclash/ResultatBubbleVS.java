@@ -18,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ResultatBubbleVS extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference("BubbleVS");
-    private DatabaseReference myRef2 = database.getReference("Players");
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("BubbleVS");
+    DatabaseReference myRef2 = database.getReference("Players");
 
     private Button player1;
     private Button player2;
@@ -45,7 +45,6 @@ public class ResultatBubbleVS extends AppCompatActivity {
         finalScore.setText(score + "");
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
-
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -62,7 +61,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
     }
+
 
     // Ecrit le score du joueur puis appel à la méthode win
     public void name1(View view) {
@@ -136,7 +138,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
         new CountDownTimer(8000, 10) {
             public void onTick(long tick){}
             public void onFinish() {
-                startActivity(new Intent(getApplicationContext(), InterfaceActivity.class));
+                Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                intent.putExtra("nomJ1", nomJ1);
+                intent.putExtra("nomJAdv", nomJAdv);
+                startActivity(intent);
             }
         }.start();
     }
