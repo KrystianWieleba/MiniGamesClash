@@ -29,8 +29,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     List<ImageView> animauxArche;
     public ImageView animal;
     private int nbAnimaux = 0;
-    private int posArche;
-    private int posArcheTemp;
+    private float posArche;
     private int coule;
     private String animalCourant;
     private DisplayMetrics metrics;
@@ -124,7 +123,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         hauteurEcran=metrics.heightPixels;
         densiteEcran=metrics.density;
-        posArche=(int)(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
+        posArche=(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
         arche.setY(posArche);
 
         myRef.child("animal").addValueEventListener(new ValueEventListener() {
@@ -145,7 +144,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                               if (atoidejouer==0){
                                                                   miseajournewanimal();
                                                                   coule=Integer.parseInt(dataSnapshot.getValue().toString());
-                                                                  posArche=(int)(posArche+coule*(densiteEcran/2));
+                                                                  posArche=posArche+coule*(densiteEcran/2);
                                                                   arche.setY(posArche);
                                                                   for(ImageView anim : animauxArche){
                                                                       anim.setY(anim.getY()+(coule));
