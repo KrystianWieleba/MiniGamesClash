@@ -1,11 +1,13 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private ImageView lapin;
     private ImageView mer;
     private FrameLayout layout;
+    private Button retour;
     List<ImageView> animauxArche;
     public ImageView animal;
     private int nbAnimaux = 0;
@@ -36,6 +39,8 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurEcran;
     private float densiteEcran;
     private float hauteurArche;
+    private String nomJ1;
+    private String nomJAdv;
     int atoidejouer=(-1);
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,10 +106,25 @@ public class ArcheVSActivity extends AppCompatActivity {
         }
     };
 
+    private OnClickListener clickListenerRetour = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //code de retour au menu avec intent
+            Intent intent=new Intent(getApplicationContext(), Identification.class);
+            intent.putExtra("nomJ1",nomJ1);
+            intent.putExtra("nomJAdv",nomJAdv);
+            startActivity(intent);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arche_vs);
+
+        //le bouton de retour au menu est d'abord caché
+        retour=(Button) findViewById(R.id.retour);
+        retour.setVisibility(View.INVISIBLE);
 
         elephant=(ImageView) findViewById(R.id.elephant);
         lion=(ImageView) findViewById(R.id.lion);
@@ -125,6 +145,9 @@ public class ArcheVSActivity extends AppCompatActivity {
         densiteEcran=metrics.density;
         posArche=(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
         arche.setY(posArche);
+
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
 
         myRef.child("animal").addValueEventListener(new ValueEventListener() {
             @Override
