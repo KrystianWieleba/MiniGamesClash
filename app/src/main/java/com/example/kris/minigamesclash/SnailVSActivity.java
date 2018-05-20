@@ -36,8 +36,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float densiteEcran;
-    private String refSnail1="Krystian";
-    private String refSnailAdv="Eric";
+    private String nomJ1;
+    private String nomJAdv;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
 
@@ -67,15 +67,18 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         snail1.setX(posSnail1);
         snailAdv.setX(posSnailAdv);
 
-        myRef.child(refSnail1).setValue((posSnail1*10000)/longueurEcran);
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
+
+        myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
-        myRef.child(refSnailAdv).addValueEventListener(new ValueEventListener() {
+        myRef.child(nomJAdv).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
                     countDownTimer.cancel();
-                    temps.setText("Perdu ! "+refSnailAdv +" gagne la manche.");
+                    temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
                     //On fait apparaître le bouton de retour au menu
                     retour.setVisibility(View.VISIBLE);
                 }
@@ -120,10 +123,13 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             posSnail1 += increment;
             snail1.setX(posSnail1);
         }
-        myRef.child(refSnail1).setValue((posSnail1*10000)/longueurEcran);
+        myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         if (v.getId()==retour.getId()){
             //code de retour au menu avec intent
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            Intent intent=new Intent(getApplicationContext(), Identification.class);
+            intent.putExtra("nomJ1",nomJ1);
+            intent.putExtra("nomJAdv",nomJAdv);
+            startActivity(intent);
         }
     }
 }
