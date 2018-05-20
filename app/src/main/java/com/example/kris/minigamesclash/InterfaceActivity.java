@@ -18,17 +18,27 @@ import static android.view.View.GONE;
 
 public class InterfaceActivity extends AppCompatActivity {
 
+    //pour moi il faut que l'interface prenne en entree les noms des joueurs (via le intent)
+    //+quand il sort dun minijeu, le gagnant (quoique on peut mettre le score global a jour directmt a la fin du mini jeu)
+    // noms recus a partir de ton activite didentication quon mettra au debut
+    // ca permettra notamment d'avoir plusieurs parties en cours simultanement
+    //Du coup je me demande si on lancerait pas linterface que apres un minijeu (et on a que l'identif au tout debut)
+    //Il faudra aussi penser à virer tous les "dechets" de la database avant de quitter
+
+    //Du coup j'ai fait des modifs qui font que depuis resultbubblevs ça peut ne plus marcher dsl :P
+
+    //pour l'instant par rapport au menu on laisse l'accès aux mini-jeux vs individuellement
+    //on rajoute juste un bouton "all".
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
 
     private TextView playersScores;
-    private long First;
-    private long Second;
-    private int first;
-    private int second;
-    private String name1;
-    private String name2;
+    private String nomJ1;
+    private String nomJAdv;
+    private long scoreJ1;
+    private long scoreJAdv;
+    private int avanceeDuel; //=somme des scores globaux des joueurs
     private Button suite;
 
     @Override
@@ -40,28 +50,20 @@ public class InterfaceActivity extends AppCompatActivity {
         playersScores = (TextView) findViewById(R.id.playersScores);
 
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //Lire à partir de firebase les noms et score des joueurs respectifs pour les afficher
-                for (DataSnapshot childs : dataSnapshot.getChildren()) {
-
-                    name1 = dataSnapshot.child("Player 1").getValue(String.class);
-                    name2 = dataSnapshot.child("Player 2").getValue(String.class);
+                //il faudra changer ds les minijeux : ils doivent inscrire leur score avec leur nom comme ref
+                scoreJ1 = (int)dataSnapshot.child(nomJ1).getValue(int.class); //pq mettre le score en long ??
+                scoreJAdv = (int)dataSnapshot.child(nomJAdv).getValue(int.class);
 
 
-                    First = dataSnapshot.child("Score player 1").getValue(long.class);
-                    first = (int) First;
-                    Second = dataSnapshot.child("Score player 2").getValue(long.class);
-                    second = (int) Second;
+                playersScores.setText(nomJ1 + " : " + scoreJ1 + "\n\n" + "VS" + "\n\n" + nomJAdv + " : " + scoreJAdv);
 
-                }
-                playersScores.setText(name1 + " : " + first + "\n\n" + name2 + " : " + second);
-
-                if (first==2 || second==2) {
-                    suite.setVisibility(GONE);
-                    //permettre aux jouerus une revanche ?
+                if (scoreJ1==2 || scoreJAdv==2) {
+                    suite.setText("RETOUR AU MENU");
+                    //permettre aux joueurs une revanche ?
                 }
 
 
@@ -78,11 +80,25 @@ public class InterfaceActivity extends AppCompatActivity {
         suite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
-
-                //startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
-
+                avanceeDuel=(int)(scoreJ1+scoreJAdv);
+                if (scoreJ1==2 || scoreJAdv==2){
+                    avanceeDuel=-1;
+                }
+                switch (avanceeDuel) {
+                    case -1:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        break;
+                    case 0:
+                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        break;
+                    //startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
+                }
 
 
             }
