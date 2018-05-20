@@ -86,21 +86,24 @@ public class InterfaceActivity extends AppCompatActivity {
                 if (scoreJ1==2 || scoreJAdv==2){
                     avanceeDuel=-1;
                 }
+                Intent intent;
                 switch (avanceeDuel) {
-                    case -1:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        break;
                     case 0:
-                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
                     case 2:
-                        startActivity(new Intent(getApplicationContext(), ArcheVSActivity.class));
+                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
+                    default:
+                        intent=new Intent(getApplicationContext(), MainActivity.class);
                     //startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
                 }
+                intent.putExtra("nomJ1",nomJ1);
+                intent.putExtra("nomJAdv",nomJAdv);
+                startActivity(intent);
 
 
             }
