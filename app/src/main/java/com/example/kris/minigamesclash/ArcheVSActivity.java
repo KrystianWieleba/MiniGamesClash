@@ -92,7 +92,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             mer.bringToFront();
             nbAnimaux+=1;
             posArche+=coule*(densiteEcran/2);
-            myRef.child("posArche").setValue(coule);
+            myRef.child("coule").setValue(coule);
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
                 anim.setY(anim.getY()+coule*(densiteEcran/2));
@@ -139,7 +139,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             }
         });
 
-        myRef.child("posArche").addValueEventListener(new ValueEventListener() {
+        myRef.child("coule").addValueEventListener(new ValueEventListener() {
                                                           @Override
                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                               if (atoidejouer==0){
