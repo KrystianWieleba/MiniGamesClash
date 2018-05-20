@@ -41,7 +41,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurArche;
     private String nomJ1;
     private String nomJAdv;
-    int atoidejouer=(-1);
+    int atoidejouer=(1);
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Arche");
@@ -177,9 +177,6 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                   elephant.setVisibility(View.VISIBLE);
                                                                   lion.setVisibility(View.VISIBLE);
                                                                   lapin.setVisibility(View.VISIBLE);
-                                                                  atoidejouer=1;
-                                                              }
-                                                              else if(atoidejouer==-1){ //cas 0 mais au lancement
                                                                   atoidejouer=1;
                                                               }
                                                               else {
