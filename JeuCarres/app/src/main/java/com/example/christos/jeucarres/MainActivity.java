@@ -93,12 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add(but63);
         buttons.add(but65);
 
-        if (res[1][1] == 1) {
-            butA.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.carrebleu));
-        } else if (res[1][1] == 1) {
-            butA.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.carrerouge));
-        }
-
         for (Button but : buttons) {
             but.setBackgroundDrawable(null);
             but.setOnClickListener(this);
@@ -200,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[0][1] != 0 && res[1][0] != 0 && res[1][2] != 0 && res[2][1] != 0 && res[1][1] == 0) {
             res[1][1] = player;
-            R.id.buttonA.setBackground(R.drawable.carrebleu);
+            R.id.buttonA.setBackground(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
