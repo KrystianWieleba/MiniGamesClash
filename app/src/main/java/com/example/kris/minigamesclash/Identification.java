@@ -22,6 +22,8 @@ public class Identification extends AppCompatActivity {
     private Button button;
     private EditText playernick;
     private String nick;
+    private Intent intent;
+    private Intent intent2;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
@@ -38,11 +40,10 @@ public class Identification extends AppCompatActivity {
 
         //temporaire, pour être sure que firebase est vide
         //myRef.child("Player 1").removeValue();
-        myRef.child("Player 2").removeValue();
-        //myRef.child("Score player 1").removeValue();
-        myRef.child("Score player 2").removeValue();
-        //myRef2.child("Player 1").removeValue();
-        myRef2.child("Player 2").removeValue();
+
+
+        intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+        intent2 = new Intent(getApplicationContext(), ResultatBubbleVS.class);
 
 
     }
@@ -68,11 +69,14 @@ public class Identification extends AppCompatActivity {
                                 }
                                 //Astuce pour crée les childs des deux joueurs dans l'ordre
                                 if (i == 0 ) {
-                                    myRef.child("Player 1").setValue(nick);
-                                    myRef.child("Score player 1").setValue(0);
-                                } else if (i ==2 ) {
-                                    myRef.child("Player 2").setValue(nick);
-                                    myRef.child("Score player 2").setValue(0);
+                                    myRef.child(nick).setValue(0);
+                                    intent.putExtra("nomJ1", nick);
+                                    intent2.putExtra("nomJ1", nick);
+
+                                } else if (i ==1 ) {
+                                    myRef.child(nick).setValue(0);
+                                    intent.putExtra("nomJAdv", nick);
+                                    intent2.putExtra("nomJAdv", nick);
                                 }
                             }
                             @Override
@@ -94,7 +98,8 @@ public class Identification extends AppCompatActivity {
                     i++;
                 }
 
-                if (i ==4) {
+                if (i ==2) {
+
                     startActivity(new Intent(getApplicationContext(), BubbleVS.class));
                     myRef.removeEventListener(this);
                 }

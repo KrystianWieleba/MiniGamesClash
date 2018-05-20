@@ -36,8 +36,8 @@ public class InterfaceActivity extends AppCompatActivity {
     private TextView playersScores;
     private String nomJ1;
     private String nomJAdv;
-    private long scoreJ1;
-    private long scoreJAdv;
+    private int scoreJ1;
+    private int scoreJAdv;
     private int avanceeDuel; //=somme des scores globaux des joueurs
     private Button suite;
 
@@ -49,14 +49,16 @@ public class InterfaceActivity extends AppCompatActivity {
         suite = (Button) findViewById(R.id.suite);
         playersScores = (TextView) findViewById(R.id.playersScores);
 
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //il faudra changer ds les minijeux : ils doivent inscrire leur score avec leur nom comme ref
-                scoreJ1 = (int)dataSnapshot.child(nomJ1).getValue(int.class); //pq mettre le score en long ??
-                scoreJAdv = (int)dataSnapshot.child(nomJAdv).getValue(int.class);
+                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class); //pq mettre le score en long ?? ah c'était car il me semblait que int marchait pas ( à cause de mon listener peut être)
+                scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
 
 
                 playersScores.setText(nomJ1 + " : " + scoreJ1 + "\n\n" + "VS" + "\n\n" + nomJAdv + " : " + scoreJAdv);
