@@ -53,7 +53,7 @@
             android:name=".SnailVSActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".Identification" />
-        <activity android:name=".MorpionVSActivity"></activity>
+        <activity android:name=".MorpionVSActivity" />
     </application>
 
 </manifest>

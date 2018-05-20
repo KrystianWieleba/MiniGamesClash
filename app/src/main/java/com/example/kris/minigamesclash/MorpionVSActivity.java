@@ -20,7 +20,7 @@ public class MorpionVSActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_morpion_vs);
 
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
