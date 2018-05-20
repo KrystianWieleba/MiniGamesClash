@@ -107,11 +107,11 @@ public class Identification extends AppCompatActivity {
                     intent.putExtra("nomJ1", nick1);
                     intent.putExtra("nomJAdv", nick2);
 
-                    startActivity(intent);
-
                     myRef.removeEventListener(this);
                     myRef.child("nick1").removeValue();
                     myRef.child("nick2").removeValue();
+
+                    startActivity(intent);
 
                 }
             }
