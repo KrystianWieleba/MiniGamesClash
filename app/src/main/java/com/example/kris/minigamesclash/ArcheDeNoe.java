@@ -42,20 +42,20 @@ public class ArcheDeNoe extends AppCompatActivity {
                     coule=24+(int)(5*Math.random());
                     layout.addView(animal,150,150);
                     animal.setImageResource(R.drawable.elephantdebout);
-                    animal.setY(posArche+210);
+                    animal.setY(posArche+105*densiteEcran);
                     break;
                 case R.id.lion:
                     coule=15+(int)(3*Math.random());
                     layout.addView(animal,120,120);
                     animal.setImageResource(R.drawable.lion);
-                    animal.setY(posArche+230);
+                    animal.setY(posArche+115*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lion);
                     break;
                 case R.id.lapin:
                     coule=3+(int)(2*Math.random());
                     layout.addView(animal,65,65);
                     animal.setImageResource(R.drawable.lapin);
-                    animal.setY(posArche+250);
+                    animal.setY(posArche+125*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lapin);
                     break;
             }
@@ -63,10 +63,10 @@ public class ArcheDeNoe extends AppCompatActivity {
             arche.bringToFront();
             mer.bringToFront();
             nbAnimaux+=1;
-            posArche+=coule;
+            posArche+=coule*(densiteEcran/2); //le divise par 2 vient de ce que j'ai fait mes mesures avec ma densite d'ecran de 2
             arche.setY(posArche);
             for(ImageView anim : animauxArche){
-                anim.setY(anim.getY()+coule);
+                anim.setY(anim.getY()+coule*(densiteEcran/2));
             }
             animauxArche.add(animal);
             //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)

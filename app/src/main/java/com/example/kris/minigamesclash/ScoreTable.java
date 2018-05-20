@@ -1,5 +1,6 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +17,8 @@ public class ScoreTable extends AppCompatActivity {
     private TextView rankingScore = null;
     private TextView leaderboardText;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Bubble Destroyer");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Bubble Destroyer");
 
 
     @Override
@@ -48,11 +49,8 @@ public class ScoreTable extends AppCompatActivity {
                     String Nfourth = childs.child("Name 4th").getValue().toString();
                     String Nfifth = childs.child("Name 5th").getValue().toString();
 
-
-                    int[] tab = {Fifth, Fourth, Third, Second, First};
-
                     //Affichage du top5
-                    rankingScore.setText("1 - " + tab[4] + "  ( " + Nfirst + " )" + "\n\n" + "2 - " + tab[3] + "  ( " + Nsecond + " )"  + "\n\n" + "3 - " + tab[2] + "  ( " + Nthird + " )"  + "\n\n" + "4 - " + tab[1] + "  ( " + Nfourth + " )"  + "\n\n" + "5 - " + tab[0] + "  ( " + Nfifth + " )" );
+                    rankingScore.setText("1 - " + First + "  ( " + Nfirst + " )" + "\n\n" + "2 - " + Second + "  ( " + Nsecond + " )"  + "\n\n" + "3 - " + Third + "  ( " + Nthird + " )"  + "\n\n" + "4 - " + Fourth + "  ( " + Nfourth + " )"  + "\n\n" + "5 - " + Fifth + "  ( " + Nfifth + " )" );
                 }
                 leaderboardText.setVisibility(View.VISIBLE);
 
@@ -64,7 +62,13 @@ public class ScoreTable extends AppCompatActivity {
             }
         });
 
+
+
 }
+
+    public void backToMenu(View view) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 
 }
 

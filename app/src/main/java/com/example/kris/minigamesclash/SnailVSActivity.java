@@ -28,15 +28,16 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private TextView temps;
     private Button retour;
     private View layout;
-    private float posSnail1=50;
-    private float posSnailAdv=50;
+    private float posSnail1;
+    private float posSnailAdv;
+    private float increment;
     private CountDownTimer countDownTimer;
     private boolean debutTimer=false;
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float densiteEcran;
-    private String refSnail1="Krystian";
-    private String refSnailAdv="Eric";
+    private String nomJ1;
+    private String nomJAdv;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
 
@@ -60,22 +61,28 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         longueurEcran=metrics.widthPixels;
         densiteEcran=metrics.density;
-        snail1.setX(50);
-        snailAdv.setX(50);
+        posSnailAdv=longueurEcran/20;
+        posSnail1=longueurEcran/20;
+        increment=longueurEcran/80;
+        snail1.setX(posSnail1);
+        snailAdv.setX(posSnailAdv);
 
-        myRef.child(refSnail1).setValue(posSnail1);
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
+
+        myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
-        myRef.child(refSnailAdv).addValueEventListener(new ValueEventListener() {
+        myRef.child(nomJAdv).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
                     countDownTimer.cancel();
-                    temps.setText("Perdu ! "+refSnailAdv +" gagne la manche.");
+                    temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
                     //On fait apparaître le bouton de retour au menu
                     retour.setVisibility(View.VISIBLE);
                 }
-                posSnailAdv=(float)Integer.parseInt(dataSnapshot.getValue().toString());
+                posSnailAdv=(longueurEcran*Float.parseFloat(dataSnapshot.getValue().toString()))/10000;
                 snailAdv.setX(posSnailAdv);
 
             }
@@ -113,13 +120,16 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         }
         //sinon, on fait avancer l'escargot
         else {
-            posSnail1 += 12;
+            posSnail1 += increment;
             snail1.setX(posSnail1);
         }
-        myRef.child(refSnail1).setValue(posSnail1);
+        myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         if (v.getId()==retour.getId()){
             //code de retour au menu avec intent
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            Intent intent=new Intent(getApplicationContext(), Identification.class);
+            intent.putExtra("nomJ1",nomJ1);
+            intent.putExtra("nomJAdv",nomJAdv);
+            startActivity(intent);
         }
     }
 }

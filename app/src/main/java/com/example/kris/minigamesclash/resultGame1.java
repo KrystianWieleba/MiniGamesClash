@@ -17,16 +17,28 @@ import com.google.firebase.database.ValueEventListener;
 
 public class resultGame1 extends AppCompatActivity {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Bubble Destroyer");
-
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Bubble Destroyer");
     private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
-    private Button button5;
     private Button leaderboard;
     private EditText playernick;
+    private int score;
+    private String nick;
+    private int[] tab = new int[5];
+
+    public void name1(View view) {
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nick = playernick.getText().toString();
+
+                playernick.setVisibility(View.GONE);
+                button1.setVisibility(View.GONE);
+                leaderboard.setVisibility(View.VISIBLE);
+                writeName();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +49,12 @@ public class resultGame1 extends AppCompatActivity {
         TextView finalScore = (TextView) findViewById(R.id.finalScore);
         playernick = (EditText) findViewById(R.id.playernick);
         button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
-        button5 = (Button) findViewById(R.id.button5);
         leaderboard = (Button) findViewById(R.id.leaderboard);
 
         leaderboard.setVisibility(View.INVISIBLE);
 
-        int score = getIntent().getIntExtra("SCORE", 0);
+        score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
-
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -56,77 +63,19 @@ public class resultGame1 extends AppCompatActivity {
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
                     //lit les 5 scores du leaderboard à partir de firebase
-                    int First = Integer.parseInt(childs.child("1st").getValue().toString());
-                    int Second = Integer.parseInt(childs.child("2nd").getValue().toString());
-                    int Third = Integer.parseInt(childs.child("3rd").getValue().toString());
-                    int Fourth = Integer.parseInt(childs.child("4th").getValue().toString());
-                    int Fifth = Integer.parseInt(childs.child("5th").getValue().toString());
+                    tab[4] = Integer.parseInt(childs.child("1st").getValue().toString());
+                    tab[3] = Integer.parseInt(childs.child("2nd").getValue().toString());
+                    tab[2] = Integer.parseInt(childs.child("3rd").getValue().toString());
+                    tab[1] = Integer.parseInt(childs.child("4th").getValue().toString());
+                    tab[0] = Integer.parseInt(childs.child("5th").getValue().toString());
 
-
-                    //crée un tableau à trier avec ces scores
-                    int[] tab = {Fifth, Fourth, Third, Second, First};
-
-
-                    //récupère le score obtenu du joueur
-                    int score = getIntent().getIntExtra("SCORE", 0);
-
-                    //trie à bulle initial
-                    for (int i = 4; i > 0; i--) {
-                        for (int j = 0; j < i; j++) {
-                            if (tab[j] > tab[j + 1]) {
-                                int temp = tab[j];
-                                tab[j] = tab[j + 1];
-                                tab[j + 1] = temp;
-                            }
-                        }
-                    }
-
-                    //en fonction du score obtenu, le compare aux scores du classement, et si dans le top 5, score prend la valeur du 5ème score le supprimant
-                    if (score > tab[4]) {
+                    if (score > tab[0]) {
+                        tab[0] = score;
                         button1.setVisibility(View.VISIBLE);
-                        tab[0] = score;
-
-                    } else if (score > tab[3] && score < tab[4]) {
-                        button2.setVisibility(View.VISIBLE);
-                        tab[0] = score;
-
-                    } else if (score > tab[2] && score < tab[3]) {
-                        button3.setVisibility(View.VISIBLE);
-                        tab[0] = score;
-
-                    } else if (score > tab[1] && score < tab[2]) {
-                        button4.setVisibility(View.VISIBLE);
-                        tab[0] = score;
-
-                    } else if (score > tab[0] && score < tab[1]) {
-                        button5.setVisibility(View.VISIBLE);
-
-                        tab[0] = score;
                     } else {
                         playernick.setVisibility(View.GONE);
                         leaderboard.setVisibility(View.VISIBLE);
-
                     }
-
-
-                    //tri averc le score en compte
-                    for (int i = 4; i > 0; i--) {
-                        for (int j = 0; j < i; j++) {
-                            if (tab[j] > tab[j + 1]) {
-                                int temp = tab[j];
-                                tab[j] = tab[j + 1];
-                                tab[j + 1] = temp;
-                            }
-                        }
-                    }
-
-                    //Remplace les scores avec celles  récemmen,t triées
-                    myRef.child("Leaderboard").child("5th").setValue(tab[0]);
-                    myRef.child("Leaderboard").child("4th").setValue(tab[1]);
-                    myRef.child("Leaderboard").child("3rd").setValue(tab[2]);
-                    myRef.child("Leaderboard").child("2nd").setValue(tab[3]);
-                    myRef.child("Leaderboard").child("1st").setValue(tab[4]);
-
                 }
             }
 
@@ -135,9 +84,44 @@ public class resultGame1 extends AppCompatActivity {
                 Log.w("Failed to read value.", error.toException());
             }
         });
-
     }
 
+    public void writeName() {
+        //en fonction du score obtenu, le compare aux scores du classement, et si dans le top 5, score prend la valeur du 5ème score le supprimant
+        if (score > tab[4]) {
+            myRef.child("Leaderboard").child("Name 1st").setValue(nick);
+
+        } else if (score > tab[3] && score < tab[4]) {
+            myRef.child("Leaderboard").child("Name 2nd").setValue(nick);
+
+        } else if (score > tab[2] && score < tab[3]) {
+            myRef.child("Leaderboard").child("Name 3rd").setValue(nick);
+
+        } else if (score > tab[1] && score < tab[2]) {
+            myRef.child("Leaderboard").child("Name 4th").setValue(nick);
+
+        } else if (score > tab[0] && score < tab[1]) {
+            myRef.child("Leaderboard").child("Name 5th").setValue(nick);
+        }
+
+        //tri à bulle
+        for (int i = 4; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (tab[j] > tab[j + 1]) {
+                    int temp = tab[j];
+                    tab[j] = tab[j + 1];
+                    tab[j + 1] = temp;
+                }
+            }
+        }
+
+        //Remplace les scores avec celles  récemmen,t triées
+        myRef.child("Leaderboard").child("5th").setValue(tab[0]);
+        myRef.child("Leaderboard").child("4th").setValue(tab[1]);
+        myRef.child("Leaderboard").child("3rd").setValue(tab[2]);
+        myRef.child("Leaderboard").child("2nd").setValue(tab[3]);
+        myRef.child("Leaderboard").child("1st").setValue(tab[4]);
+    }
 
     public void tryAgain(View view) {
         // Relance l'activité du jeu à l'appuie du bouton tryAgain
@@ -145,103 +129,17 @@ public class resultGame1 extends AppCompatActivity {
     }
 
     public void scoreTable(View view) {
-
         Intent intent2 = new Intent(getApplicationContext(), ScoreTable.class);
         startActivity(intent2);
 
     }
 
     public void backToMenu(View view) {
-
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
     //2crit le nom du joueur pour l'update dans le leaderboard de firebase
-    public void name1(View view) {
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String nick = playernick.getText().toString();
-
-                myRef.child("Leaderboard").child("Name 1st").setValue(nick);
-
-                playernick.setVisibility(View.GONE);
-                button1.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-
-            }
-        });
-    }
-
-    public void name2(View view) {
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String nick = playernick.getText().toString();
-
-                myRef.child("Leaderboard").child("Name 2nd").setValue(nick);
-
-                playernick.setVisibility(View.GONE);
-                button2.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-
-            }
-        });
-    }
-
-    public void name3(View view) {
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String nick = playernick.getText().toString();
-
-                myRef.child("Leaderboard").child("Name 3rd").setValue(nick);
-
-                playernick.setVisibility(View.GONE);
-                button3.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-
-            }
-        });
-    }
-
-    public void name4(View view) {
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String nick = playernick.getText().toString();
-
-                myRef.child("Leaderboard").child("Name 4th").setValue(nick);
-
-                playernick.setVisibility(View.GONE);
-                button4.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-
-            }
-        });
-    }
-
-    public void name5(View view) {
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String nick = playernick.getText().toString();
-
-                myRef.child("Leaderboard").child("Name 5th").setValue(nick);
-
-                playernick.setVisibility(View.GONE);
-                button5.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-
-            }
-        });
-    }
 
 
 }

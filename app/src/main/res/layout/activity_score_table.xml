@@ -25,5 +25,13 @@
         android:layout_marginTop="60dp"
         android:textSize="20sp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to menu"
+        android:textSize="8sp"
+        android:layout_marginTop="300dp"
+        android:onClick="backToMenu" />
+
 
 </LinearLayout>

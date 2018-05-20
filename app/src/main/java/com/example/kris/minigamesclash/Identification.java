@@ -22,10 +22,13 @@ public class Identification extends AppCompatActivity {
     private Button button;
     private EditText playernick;
     private String nick;
+    private Intent intent;
+    private String nick1;
+    private String nick2;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Players");
-    DatabaseReference myRef2 = database.getReference("BubbleVS");
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference("Players");
 
 
     @Override
@@ -37,58 +40,22 @@ public class Identification extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
 
         //temporaire, pour être sure que firebase est vide
-        myRef.child("Player 1").removeValue();
-        myRef.child("Player 2").removeValue();
-        myRef.child("Score player 1").removeValue();
-        myRef.child("Score player 2").removeValue();
-        myRef2.child("Player 1").removeValue();
-        myRef2.child("Player 2").removeValue();
+        //myRef.child("Player 1").removeValue();
 
 
+        intent = new Intent(getApplicationContext(), BubbleVS.class);
 
-        //Attends que les deux joueurs soit identifier pour lancer le jeu
-        new CountDownTimer(600000, 500) {
-            public void onTick(long tick){
 
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        int i = 0;
-
-                        for (DataSnapshot childs : dataSnapshot.getChildren()) {
-                            i++;
-                        }
-
-                        if (i ==4) {
-
-                            cancel();
-                            startActivity(new Intent(getApplicationContext(), BubbleVS.class));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w("Failed to read value.", error.toException());
-                    }
-                });
-
-            }
-            public void onFinish() {
-                //Temps d'attentes dépassé
-            }
-        }.start();
 
     }
 
     public void name1(View view) {
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                waitt();
                 button.setVisibility(INVISIBLE);
-
                 //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
 
@@ -103,22 +70,55 @@ public class Identification extends AppCompatActivity {
                                 }
                                 //Astuce pour crée les childs des deux joueurs dans l'ordre
                                 if (i == 0 ) {
-                                    myRef.child("Player 1").setValue(nick);
-                                    myRef.child("Score player 1").setValue(0);
+                                    myRef.child(nick).setValue(0);
+                                    myRef.child("nick1").setValue(nick);
+
+
 
                                 } else if (i ==2 ) {
-                                    myRef.child("Player 2").setValue(nick);
-                                    myRef.child("Score player 2").setValue(0);
+                                    myRef.child(nick).setValue(0);
+                                    myRef.child("nick2").setValue(nick);
 
                                 }
-
                             }
-
                             @Override
                             public void onCancelled(DatabaseError error) {
                                 Log.w("Failed to read value.", error.toException());
                             }
                         });
+            }
+        });
+    }
+
+    public void waitt() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+
+                for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                    i++;
+                }
+
+                if (i ==4) {
+                    nick1 = dataSnapshot.child("nick1").getValue(String.class);
+                    nick2 = dataSnapshot.child("nick2").getValue(String.class);
+
+                    intent.putExtra("nomJ1", nick1);
+                    intent.putExtra("nomJAdv", nick2);
+
+                    myRef.removeEventListener(this);
+                    myRef.child("nick1").removeValue();
+                    myRef.child("nick2").removeValue();
+
+                    startActivity(intent);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("Failed to read value.", error.toException());
             }
         });
     }

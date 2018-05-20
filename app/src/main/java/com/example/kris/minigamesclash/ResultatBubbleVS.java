@@ -25,15 +25,11 @@ public class ResultatBubbleVS extends AppCompatActivity {
     private Button player1;
     private Button player2;
     private TextView winner;
-    private  long p1;
-    private  long p2;
-    private  int P1;
-    private  int P2;
-    private String nom1;
-    private String nom2;
-
-
-
+    private int score;
+    private String nomJ1;
+    private String nomJAdv;
+    private int scoreJ1;
+    private int scoreJAdv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,46 +41,41 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player1 = (Button) findViewById(R.id.player1);
         player2 = (Button) findViewById(R.id.player2);
 
-        int score = getIntent().getIntExtra("SCORE", 0);
+        score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
-
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
+        // Ecris le nom des joueurs dans led boutond
+        player1.setText(nomJ1);
+        player2.setText(nomJAdv);
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Récupère le score actuel de chaque joueur pour l'incrémenter plus tard
-                p1 = dataSnapshot.child("Score player 1").getValue(long.class);
-                p2 = dataSnapshot.child("Score player 2").getValue(long.class);
-                P1 = (int) p1;
-                P2 = (int) p2;
+                //Récupère le score actuel de chaque joueur pour pouvoir l'incrémenter plus tard
 
+                    scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
+                    scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
 
-                nom1 = dataSnapshot.child("Player 1").getValue(String.class);
-                nom2 = dataSnapshot.child("Player 2").getValue(String.class);
-
-                //Met le nom du joueur comme bouton
-                player1.setText(nom1);
-                player2.setText(nom2);
 
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
     }
 
-    //2crit le score du joueur puis appel à la méthode win
+
+    // Ecrit le score du joueur puis appel à la méthode win
     public void name1(View view) {
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int score = getIntent().getIntExtra("SCORE", 0);
-                myRef.child("Player 1").setValue(score);
-
+                myRef.child(nomJ1).setValue(score);
                 player1.setVisibility(View.INVISIBLE);
                 player2.setVisibility(View.INVISIBLE);
-
                 win();
             }
         });
@@ -94,29 +85,16 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int score = getIntent().getIntExtra("SCORE", 0);
-                myRef.child("Player 2").setValue(score);
-
+                myRef.child(nomJAdv).setValue(score);
                 player1.setVisibility(View.INVISIBLE);
                 player2.setVisibility(View.INVISIBLE);
-
                 win();
             }
         });
     }
 
-
-
-
-
     public void win() {
-
-
-        //Permet de revérifier tous les tick juqu'a que les deux joueurs aient écrit leur scores'
-        new CountDownTimer(100000, 500) {
-
-            public void onTick(long tick) {
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 0;
@@ -125,34 +103,27 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         }
                         //Vérifie que les deux joueurs aient bien écrit leurs scores
                         if (i == 2) {
-
+                            nextActivity();
                             // le premier joueur a rentrer son score ne rentre pas dans le if...
-
-                            //cancel le timer
-                            cancel();
-
-                            Long player1 = dataSnapshot.child("Player 1").getValue(Long.class);
-                            Long player2 = dataSnapshot.child("Player 2").getValue(Long.class);
+                            int player1 = dataSnapshot.child(nomJ1).getValue(int.class);
+                            int player2 = dataSnapshot.child(nomJAdv).getValue(int.class);
                             //Check qui remporte le jeu
                             if (player1 > player2) {
-                                winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + player1 + " won !");
+                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + nomJ1 + " won !");
                                 winner.setVisibility(View.VISIBLE);
                                 //incrémente le score final
-                                P1 += 1;
-                                myRef2.child("Score player 1").setValue(P1);
-                                delete();
+                                scoreJ1 += 1;
+                                myRef2.child(nomJ1).setValue(scoreJ1);
 
                             } else if (player1 < player2) {
-                                winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + player2 + " won !");
+                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + nomJAdv + " won !");
                                 winner.setVisibility(View.VISIBLE);
-                                P2 += 1;
-                                myRef2.child("Score player 2").setValue(P2);
-                                delete();
+                                scoreJAdv += 1;
+                                myRef2.child(nomJAdv).setValue(scoreJAdv);
 
                             } else {
-                                winner.setText(nom1 + " : " + player1 + "\n" + nom2 + " : " + player2 + "\n\n" + "DRAW !");
+                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + "DRAW !");
                                 winner.setVisibility(View.VISIBLE);
-                                delete();
                             }
                         }
                     }
@@ -161,24 +132,17 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         Log.w("Failed to read value.", error.toException());
                     }
                 });
-            }
-            public void onFinish() {}
-        }.start();
     }
 
-    //supprime les chils du jeu bublleVS et au bout de 5sec passe à l'interface
-    public void delete() {
-        myRef.child("Player 1").removeValue();
-        myRef.child("Player 2").removeValue();
 
-        new CountDownTimer(5000, 100) {
-            // Appel à la méthode position à chaque tick
-            public void onTick(long tick){
-
-            }
-            // Lance l'activité result à la fin du compte à rebours
+    public void nextActivity() {
+        //Au bout de 8sec lance l'interfce
+        new CountDownTimer(8000, 10) {
+            public void onTick(long tick){}
             public void onFinish() {
                 Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                intent.putExtra("nomJ1", nomJ1);
+                intent.putExtra("nomJAdv", nomJAdv);
                 startActivity(intent);
             }
         }.start();
