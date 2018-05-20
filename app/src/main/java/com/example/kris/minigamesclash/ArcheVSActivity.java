@@ -145,7 +145,8 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                               if (atoidejouer==0){
                                                                   miseajournewanimal();
                                                                   coule=Integer.parseInt(dataSnapshot.getValue().toString());
-                                                                  arche.setY(posArche+coule*(densiteEcran/2));
+                                                                  posArche=(int)(posArche+coule*(densiteEcran/2));
+                                                                  arche.setY(posArche);
                                                                   for(ImageView anim : animauxArche){
                                                                       anim.setY(anim.getY()+(coule));
                                                                   }
