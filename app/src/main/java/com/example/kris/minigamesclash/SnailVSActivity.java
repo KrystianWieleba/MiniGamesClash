@@ -126,7 +126,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         if (v.getId()==retour.getId()){
             //code de retour au menu avec intent
-            Intent intent=new Intent(getApplicationContext(), Identification.class);
+            Intent intent=new Intent(getApplicationContext(), InterfaceActivity.class);
             intent.putExtra("nomJ1",nomJ1);
             intent.putExtra("nomJAdv",nomJAdv);
             startActivity(intent);

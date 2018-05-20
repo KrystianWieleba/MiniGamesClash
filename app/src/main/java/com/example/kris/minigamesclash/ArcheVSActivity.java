@@ -110,7 +110,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             //code de retour au menu avec intent
-            Intent intent=new Intent(getApplicationContext(), Identification.class);
+            Intent intent=new Intent(getApplicationContext(), InterfaceActivity.class);
             intent.putExtra("nomJ1",nomJ1);
             intent.putExtra("nomJAdv",nomJAdv);
             startActivity(intent);
