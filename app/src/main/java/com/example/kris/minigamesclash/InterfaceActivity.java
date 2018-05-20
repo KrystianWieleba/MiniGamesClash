@@ -89,10 +89,10 @@ public class InterfaceActivity extends AppCompatActivity {
                 Intent intent;
                 switch (avanceeDuel) {
                     case 0:
-                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
+                        intent=new Intent(getApplicationContext(), BubbleVS.class);
                         break;
                     case 1:
-                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
+                        intent=new Intent(getApplicationContext(), SnailVSActivity.class);
                         break;
                     case 2:
                         intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
