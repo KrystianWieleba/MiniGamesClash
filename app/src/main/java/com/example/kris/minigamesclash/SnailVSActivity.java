@@ -36,8 +36,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float densiteEcran;
-    private String refSnail1="Eric";
-    private String refSnailAdv="Krystian";
+    private String refSnail1="Krystian";
+    private String refSnailAdv="Eric";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
 
@@ -120,7 +120,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             posSnail1 += increment;
             snail1.setX(posSnail1);
         }
-        myRef.child(refSnail1).setValue((posSnail1)/**10000)/longueurEcran*/);
+        myRef.child(refSnail1).setValue((posSnail1*10000)/longueurEcran);
         if (v.getId()==retour.getId()){
             //code de retour au menu avec intent
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
