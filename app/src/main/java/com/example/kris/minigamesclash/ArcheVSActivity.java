@@ -42,12 +42,12 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurArche;
     private String nomJ1;
     private String nomJAdv;
-    int atoidejouer=(1);
+    int atoidejouer=(0);
     private int scoreJ1;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Arche");
-    DatabaseReference myRef2 = database.getReference("Scores");
+    DatabaseReference myRef2 = database.getReference("Players");
 
     private void testcoule(){
         //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
@@ -61,6 +61,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             for (ImageView anim : animauxArche) {
                 anim.setVisibility(GONE);
             }
+
 
             //Message de fin et retour...
 
@@ -172,6 +173,7 @@ public class ArcheVSActivity extends AppCompatActivity {
 
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        atoidejouer = getIntent().getIntExtra("tour", 0);
 
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -214,12 +216,18 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                   lapin.setVisibility(View.VISIBLE);
                                                                   atoidejouer=1;
                                                               }
+
                                                               else {
                                                                   elephant.setVisibility(View.INVISIBLE);
                                                                   lion.setVisibility(View.INVISIBLE);
                                                                   lapin.setVisibility(View.INVISIBLE);
                                                                   atoidejouer=0;
                                                               }
+
+
+
+
+
                                                           }
 
                                                           @Override
