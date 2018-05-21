@@ -1,4 +1,4 @@
-package com.example.christos.morpionvs;
+package com.example.christos.morpiontraining;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -58,15 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        // Vérification que la case est libre
-
         if (v.getBackground() != null) {
             return;
         }
-
-        // Changements impliqués lorsque le joueur 1 ou le joueur 2 sélectionnent une case
-        // Le choix du joueur est pris en compte dans le tableau d'état du jeu
-        // Et il apparaît sur l'écran avec le symbole du joueur
 
         if (player1) {
             if (v.getId() == R.id.button00) {
@@ -97,44 +91,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 res[2][2] = "x";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpioncross));
             }
-
         } else {
-            if (v.getId() == R.id.button00) {
+
+            // On construit un tableau qui prend l'état du jeu
+
+            String a = res[0][0];
+            String b = res[0][1];
+            String c = res[0][2];
+            String d = res[1][0];
+            String e = res[1][1];
+            String f = res[1][2];
+            String g = res[2][0];
+            String h = res[2][1];
+            String i = res[2][2];
+
+            String[] tab = {a, b, c, d, e, f, g, h, i};
+
+            // On génère un nombre aléatoire entre 0 et 8, et on vérifie que la case correspondante est vide
+
+            int n = (int) Math.round(Math.random() * 10);
+
+            while (n == 9 || tab[n] != " ") {
+                n = (int) Math.round(Math.random() * 10);
+            }
+
+            if (n == 0) {
                 res[0][0] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button01) {
+            } else if (n == 1) {
                 res[0][1] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button02) {
+            } else if (n == 2) {
                 res[0][2] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button10) {
+            } else if (n ==  3) {
                 res[1][0] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button11) {
+            } else if (n == 4) {
                 res[1][1] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button12) {
+            } else if (n == 5) {
                 res[1][2] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button20) {
+            } else if (n == 6) {
                 res[2][0] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button21) {
+            } else if (n == 7) {
                 res[2][1] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
-            } else if (v.getId() == R.id.button22) {
+            } else if (n == 8) {
                 res[2][2] = "o";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpionround));
             }
         }
 
-        // On incrémente nombre de tour (utilisé pour le cas d'égalité)
-
         turn++;
-
-        // Conditions de victoire ou d'égalité
-        // Si elles ne sont pas vérifiées, on passe au tour suivant et on change de joueur
 
         if (Win()) {
             if (player1) {
@@ -150,11 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    //Conditions de victoire
-
     boolean Win() {
-
-        // Ligne
 
         for (int i=0; i<3; i++) {
             if (res[i][0].equals(res[i][1]) && res[i][0].equals(res[i][2]) && !res[i][0].equals(" ") ) {
@@ -162,15 +169,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        // Colonne
-
         for (int j=0; j<3; j++) {
             if ( res[0][j].equals(res[1][j]) && res[0][j].equals(res[2][j]) && !res[0][j].equals(" ") ) {
                 return true;
             }
         }
-
-        // Diagonales
 
         if ( res[0][0].equals(res[1][1]) && res[0][0].equals(res[2][2]) && !res[0][0].equals(" ") ) {
             return true;

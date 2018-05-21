@@ -67,6 +67,7 @@
 
         <Button
             android:id="@+id/buttonA"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -79,6 +80,7 @@
 
         <Button
             android:id="@+id/buttonB"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -91,6 +93,7 @@
 
         <Button
             android:id="@+id/buttonC"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -165,6 +168,7 @@
 
         <Button
             android:id="@+id/buttonD"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -177,6 +181,7 @@
 
         <Button
             android:id="@+id/buttonE"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -189,6 +194,7 @@
 
         <Button
             android:id="@+id/buttonF"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -263,6 +269,7 @@
 
         <Button
             android:id="@+id/buttonG"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -275,6 +282,7 @@
 
         <Button
             android:id="@+id/buttonH"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
@@ -287,6 +295,7 @@
 
         <Button
             android:id="@+id/buttonI"
+            android:background="@drawable/carreviolet"
             android:layout_width="50dp"
             android:layout_height="110dp"
             android:layout_weight="1"/>
