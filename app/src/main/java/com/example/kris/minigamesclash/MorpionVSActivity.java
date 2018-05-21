@@ -131,6 +131,9 @@ public class MorpionVSActivity extends AppCompatActivity {
             but.setOnClickListener(onClickListenerCases);
         }
 
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
+
         if (nomJ1.compareTo(nomJAdv)>0){
             symboleJ1="x";
             symboleJAdv="o";
@@ -211,7 +214,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                             but22.setBackgroundDrawable(croixourondJAdv);
                             but22.setVisibility(View.INVISIBLE);
                             break;
-                            
+
                     }
                     turn++;
                     if (Win()) {
