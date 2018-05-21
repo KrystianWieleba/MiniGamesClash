@@ -44,7 +44,7 @@ public class Identification extends AppCompatActivity {
 
 
 
-        intent = new Intent(getApplicationContext(), SnailVSActivity.class);
+        intent = new Intent(getApplicationContext(), ArcheVSActivity.class);
 
     }
 
@@ -106,9 +106,11 @@ public class Identification extends AppCompatActivity {
                     if (currentNick==nick1) {
                         intent.putExtra("nomJ1", nick1);
                         intent.putExtra("nomJAdv", nick2);
+                        intent.putExtra("tour", 0);
                     } else if (currentNick==nick2) {
                         intent.putExtra("nomJ1", nick2);
                         intent.putExtra("nomJAdv", nick1);
+                        intent.putExtra("tour", 1);
 
                     }
 
