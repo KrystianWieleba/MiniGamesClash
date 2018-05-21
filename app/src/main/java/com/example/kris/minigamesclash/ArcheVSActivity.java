@@ -125,6 +125,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         //le bouton de retour au menu est d'abord caché
         retour=(Button) findViewById(R.id.retour);
         retour.setVisibility(View.INVISIBLE);
+        retour.setOnClickListener(clickListenerRetour);
 
         elephant=(ImageView) findViewById(R.id.elephant);
         lion=(ImageView) findViewById(R.id.lion);

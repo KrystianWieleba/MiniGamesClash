@@ -1,11 +1,13 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -23,6 +25,7 @@ public class ArcheDeNoe extends AppCompatActivity {
     private ImageView lapin;
     private ImageView mer;
     private FrameLayout layout;
+    private Button retour;
     List<ImageView> animauxArche;
     public ImageView animal;
     private int nbAnimaux = 0;
@@ -82,7 +85,18 @@ public class ArcheDeNoe extends AppCompatActivity {
                     anim.setVisibility(GONE);
                 }
                 //Message de fin et retour...
+                retour.setVisibility(View.VISIBLE);
+                retour.setOnClickListener(clickListenerRetour);
             }
+        }
+    };
+
+    private OnClickListener clickListenerRetour = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //code de retour au menu avec intent
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         }
     };
 
@@ -90,6 +104,9 @@ public class ArcheDeNoe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arche_de_noe);
+        //le bouton de retour au menu est d'abord caché
+        retour=(Button) findViewById(R.id.retour);
+        retour.setVisibility(View.INVISIBLE);
 
         elephant=(ImageView) findViewById(R.id.elephant);
         lion=(ImageView) findViewById(R.id.lion);
