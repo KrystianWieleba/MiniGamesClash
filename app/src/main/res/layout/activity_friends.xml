@@ -1,9 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.kris.minigamesclash.friends">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/colorbackground">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mini Games Clash"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="40sp"
+        android:layout_weight="0"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Bubble Destroyer"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Ne laisses pas filer les bulles qui tombe du ciel. Cliques vite dessus avant qu’elles ne disparaissent ! Mais prends garde à la couleur !"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Snail Rush"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dans cette course endiablée cliques le plus rapidement possible sur ton écran pour battre ton adversaire !"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Arche de Noé"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Touches un animal pour le faire embarquer sur le navire. Mais attention le navire n’a qu’une capacité limité ! Soit plus rusé que ton adversaire pour ne pas être responsable du naufrage…"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Morpion"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Il s’agit d’un Morpion des plus classiques. Cliques sur les cases de manière judicieuse pour parvenir à aligner trois symboles avant ton adversaire."
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Jeux des Carrés"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dans ce jeu le but est de conquérir plus de zones que ton adversaire. Pour ce faire, soit le dernier à sélectionner un rectangle qui entoure un carré."
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:layout_weight="0"
+        />
+
+    <Button
+        android:id="@+id/boutonRetour"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:layout_margin="10dp"
+        android:text="Retour"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20sp"
+        android:background="@drawable/colorbutton" />
+
+
+</LinearLayout>

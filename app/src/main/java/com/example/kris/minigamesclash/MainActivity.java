@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), Identification.class));
+                // startActivity(new Intent(getApplicationContext(), Identification.class));
+                startActivity(new Intent(getApplicationContext(), friends.class));
 
-                // Effet bouton Friends
 
             }
         });
