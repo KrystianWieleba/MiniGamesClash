@@ -41,34 +41,33 @@ public class ResultatBubbleVS extends AppCompatActivity {
         player1 = (Button) findViewById(R.id.player1);
         player2 = (Button) findViewById(R.id.player2);
 
+        //Récupération et écriture du score
         score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
+
+        // Récupérer le nom des joueurs
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
-        // Ecris le nom des joueurs dans led boutond
+
+        // Ecris le nom des joueurs dans les boutons
         player1.setText(nomJ1);
         player2.setText(nomJAdv);
+
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Récupère le score actuel de chaque joueur pour pouvoir l'incrémenter plus tard
-
+                //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
                     scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
                     scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
-
-
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-
     }
 
-
-    // Ecrit le score du joueur puis appel à la méthode win
+    // Ecrit le score du joueur dand firebase puis appel à la méthode win
     public void name1(View view) {
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,10 +103,10 @@ public class ResultatBubbleVS extends AppCompatActivity {
                         //Vérifie que les deux joueurs aient bien écrit leurs scores
                         if (i == 2) {
                             nextActivity();
-                            // le premier joueur a rentrer son score ne rentre pas dans le if...
+                            // Récupère les scores des deux joueurs
                             int player1 = dataSnapshot.child(nomJ1).getValue(int.class);
                             int player2 = dataSnapshot.child(nomJAdv).getValue(int.class);
-                            //Check qui remporte le jeu
+                            // Vérifie qui remporte le jeu avec affichage d'un message correspondant
                             if (player1 > player2) {
                                 winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + nomJ1 + " won !");
                                 winner.setVisibility(View.VISIBLE);
@@ -141,6 +140,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
             public void onTick(long tick){}
             public void onFinish() {
                 Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                // Fait suivre le nom des joueurs
                 intent.putExtra("nomJ1", nomJ1);
                 intent.putExtra("nomJAdv", nomJAdv);
                 startActivity(intent);

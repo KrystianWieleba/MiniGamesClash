@@ -26,7 +26,6 @@ public class Identification extends AppCompatActivity {
     private String nick1;
     private String nick2;
 
-
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
 
@@ -39,13 +38,10 @@ public class Identification extends AppCompatActivity {
         playernick = (EditText) findViewById(R.id.playernick);
         button = (Button) findViewById(R.id.button);
 
-        //temporaire, pour être sure que firebase est vide
-        //myRef.child("Player 1").removeValue();
+        // S'assurer que firebase est vide
+        //myRef.child().removeValue();
 
-
-        intent = new Intent(getApplicationContext(), BubbleVS.class);
-
-
+        intent = new Intent(getApplicationContext(), SnailVSActivity.class);
 
     }
 
@@ -64,7 +60,6 @@ public class Identification extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
                                 int i = 0;
-
                                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                                     i++;
                                 }
@@ -73,12 +68,9 @@ public class Identification extends AppCompatActivity {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick1").setValue(nick);
 
-
-
                                 } else if (i ==2 ) {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick2").setValue(nick);
-
                                 }
                             }
                             @Override
@@ -95,18 +87,20 @@ public class Identification extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
-
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                     i++;
                 }
-
+                // Attends jusque les deux joueurs soient identifiés
                 if (i ==4) {
+                    // Astuce sinon erreur
                     nick1 = dataSnapshot.child("nick1").getValue(String.class);
                     nick2 = dataSnapshot.child("nick2").getValue(String.class);
 
+                    // Fait suivre le nom des joueurs à la prochaine activité
                     intent.putExtra("nomJ1", nick1);
                     intent.putExtra("nomJAdv", nick2);
 
+                    // Suppriler le listener et childs inutiles pour la suite
                     myRef.removeEventListener(this);
                     myRef.child("nick1").removeValue();
                     myRef.child("nick2").removeValue();

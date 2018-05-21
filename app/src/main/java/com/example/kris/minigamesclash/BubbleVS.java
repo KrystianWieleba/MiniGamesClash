@@ -63,7 +63,7 @@ public class BubbleVS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubble_vs);
 
-        // Instancier les objets
+        // Instancier les view
         Score = (TextView) findViewById(R.id.Score);
         start = (TextView) findViewById(R.id.start);
         blue = (ImageView) findViewById(R.id.blue);
@@ -79,6 +79,7 @@ public class BubbleVS extends AppCompatActivity {
         msg1 = (TextView) findViewById(R.id.msg1);
         msg2 = (TextView) findViewById(R.id.msg2);
 
+        // Récupérer le nom des deux joueurs
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
 
@@ -86,16 +87,10 @@ public class BubbleVS extends AppCompatActivity {
         Score.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
-        //WindowManager wm = getWindowManager();
-        //Display disp = wm.getDefaultDisplay();
-        //Point size = new Point();
-        //disp.getSize(size);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
         screenWidth = displayMetrics.widthPixels;
-        //screenHeight = size.y;
-        //screenWidth = size.x;
 
         // Placer initialement les bulles en dehors de l'écran
         red.setX(-500);
@@ -107,13 +102,13 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
-        //Places les deux boules vers le centre de l'écran
+        //Places les deux boules servant de boutons centrés
         red2.setX(screenWidth/2 - 300);
         red2.setY(screenHeight/2 -200);
         blue2.setX(screenWidth/2 + 100);
         blue2.setY(screenHeight/2 - 200);
 
-        //Placer les explications (optimiser pour mon portable)
+        //Placer les explications (optimisé pour mon portable)
         red3.setX(100);
         red3.setY(1200);
         blue3.setX(100);
@@ -123,7 +118,7 @@ public class BubbleVS extends AppCompatActivity {
         blue4.setX(550);
         blue4.setY(1350);
 
-        //Listener sur les imageView
+        //Listener sur les imageView afin de faire le choix de couleur
         blue2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +142,6 @@ public class BubbleVS extends AppCompatActivity {
 
         // Permet de ne lancer le timer qu'une seule fois
         if (init == false) {
-
             init = true;
 
             // Instancier le frame
@@ -155,7 +149,7 @@ public class BubbleVS extends AppCompatActivity {
             // Obtenir la largeur du frame
             frameWidth = frame.getWidth();
 
-            // Changer la visibilité
+            // Changer la visibilité des view
             start.setVisibility(GONE);
             red2.setVisibility(GONE);
             blue2.setVisibility(GONE);
@@ -168,20 +162,19 @@ public class BubbleVS extends AppCompatActivity {
             Score.setVisibility(View.VISIBLE);
 
 
-            // Compte à rebours de 30sec
+            // Compte à rebours de 20sec
             new CountDownTimer(20000, 10) {
                 // Appel à la méthode position à chaque tick
                 public void onTick(long tick){
-
                     position();
                 }
 
-                // Lance l'activité result à la fin du compte à rebours
+                // Lance la prochaine activité à la fin du compte à rebours
                 public void onFinish() {
-
                     Intent intent = new Intent(getApplicationContext(), ResultatBubbleVS.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);
+                    // Fait suivre le nom des joueurs
                     intent.putExtra("nomJ1", nomJ1);
                     intent.putExtra("nomJAdv", nomJAdv);
                     startActivity(intent);
@@ -194,7 +187,7 @@ public class BubbleVS extends AppCompatActivity {
         red.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent user) {
-
+                // Si red est appuyé, réinitialisa sa position et incrémente le score
                 if ( user.getAction() == MotionEvent.ACTION_DOWN ) {
                     redY = -100;
                     redX = (int)Math.floor(Math.random() * (frameWidth - red.getWidth()));
@@ -263,6 +256,7 @@ public class BubbleVS extends AppCompatActivity {
 
         // Vitesse
         redY += 10;
+        // Reposition des bulles après dépassement de l'écran
         if (redY > screenHeight) {
             // Fréquence d'apparition ( 0 --> apparition immédiate après dépassement de l'écran )
             redY = -100;

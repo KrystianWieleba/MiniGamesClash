@@ -52,7 +52,7 @@ public class Game1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1);
 
-        // Instancier les objets
+        // Instancier les view
         Score = (TextView) findViewById(R.id.Score);
         start = (TextView) findViewById(R.id.start);
         blue = (ImageView) findViewById(R.id.blue);
@@ -65,7 +65,6 @@ public class Game1 extends AppCompatActivity {
         Score.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
@@ -110,7 +109,6 @@ public class Game1 extends AppCompatActivity {
 
                 // Lance l'activité result à la fin du compte à rebours
                 public void onFinish() {
-
                     Intent intent = new Intent(getApplicationContext(), resultGame1.class);
                     // Prends en compte le score final dans result
                     intent.putExtra("SCORE", score);

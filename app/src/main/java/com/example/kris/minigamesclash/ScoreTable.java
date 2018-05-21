@@ -34,7 +34,7 @@ public class ScoreTable extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //Lit les jouerus du top5 et leurs scores à partie de firebase
+                //Lit les jouerus du top5 et leurs scores à partir de firebase
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
                     int First = Integer.parseInt(childs.child("1st").getValue().toString());

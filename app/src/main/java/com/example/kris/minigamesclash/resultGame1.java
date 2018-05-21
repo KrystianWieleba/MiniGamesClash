@@ -26,26 +26,12 @@ public class resultGame1 extends AppCompatActivity {
     private String nick;
     private int[] tab = new int[5];
 
-    public void name1(View view) {
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nick = playernick.getText().toString();
-
-                playernick.setVisibility(View.GONE);
-                button1.setVisibility(View.GONE);
-                leaderboard.setVisibility(View.VISIBLE);
-                writeName();
-            }
-        });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_game1);
 
-        // Instacnier finalScore
+        // Instancier
         TextView finalScore = (TextView) findViewById(R.id.finalScore);
         playernick = (EditText) findViewById(R.id.playernick);
         button1 = (Button) findViewById(R.id.button1);
@@ -53,6 +39,7 @@ public class resultGame1 extends AppCompatActivity {
 
         leaderboard.setVisibility(View.INVISIBLE);
 
+        // R&cupère et écrit le score obtenu
         score = getIntent().getIntExtra("SCORE", 0);
         finalScore.setText(score + "");
 
@@ -69,6 +56,7 @@ public class resultGame1 extends AppCompatActivity {
                     tab[1] = Integer.parseInt(childs.child("4th").getValue().toString());
                     tab[0] = Integer.parseInt(childs.child("5th").getValue().toString());
 
+                    // Si le score est dans le top 5, remplace le dernier score le supprimant
                     if (score > tab[0]) {
                         tab[0] = score;
                         button1.setVisibility(View.VISIBLE);
@@ -86,8 +74,22 @@ public class resultGame1 extends AppCompatActivity {
         });
     }
 
+    public void name1(View view) {
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nick = playernick.getText().toString();
+
+                playernick.setVisibility(View.GONE);
+                button1.setVisibility(View.GONE);
+                leaderboard.setVisibility(View.VISIBLE);
+                writeName();
+            }
+        });
+    }
+
     public void writeName() {
-        //en fonction du score obtenu, le compare aux scores du classement, et si dans le top 5, score prend la valeur du 5ème score le supprimant
+        // en fonction du score obtenu, le compare aux scores du classement, et le remplace dnas la place correspondante dans firebase
         if (score > tab[4]) {
             myRef.child("Leaderboard").child("Name 1st").setValue(nick);
 
@@ -115,7 +117,7 @@ public class resultGame1 extends AppCompatActivity {
             }
         }
 
-        //Remplace les scores avec celles  récemmen,t triées
+        //Remplace les scores avec celles  récemmennt triées
         myRef.child("Leaderboard").child("5th").setValue(tab[0]);
         myRef.child("Leaderboard").child("4th").setValue(tab[1]);
         myRef.child("Leaderboard").child("3rd").setValue(tab[2]);
@@ -138,7 +140,7 @@ public class resultGame1 extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
-    //2crit le nom du joueur pour l'update dans le leaderboard de firebase
+
 
 
 

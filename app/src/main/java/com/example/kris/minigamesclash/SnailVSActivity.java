@@ -71,6 +71,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         nomJAdv = getIntent().getStringExtra("nomJAdv");
 
         myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
+        myRef.child(nomJAdv).setValue((posSnail1*10000)/longueurEcran);
         //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
         myRef.child(nomJAdv).addValueEventListener(new ValueEventListener() {
             @Override
