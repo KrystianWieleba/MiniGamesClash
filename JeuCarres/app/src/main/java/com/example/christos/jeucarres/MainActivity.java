@@ -194,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[0][1] != 0 && res[1][0] != 0 && res[1][2] != 0 && res[2][1] != 0 && res[1][1] == 0) {
             res[1][1] = player;
+            Button but = (Button) findViewById(R.id.buttonA);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -203,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[0][3] != 0 && res[1][2] != 0 && res[1][4] != 0 && res[2][3] != 0 && res[1][3] == 0) {
             res[1][3] = player;
+            Button but = (Button) findViewById(R.id.buttonB);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -212,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[0][5] != 0 && res[1][4] != 0 && res[1][6] != 0 && res[2][5] != 0 && res[1][5] == 0) {
             res[1][5] = player;
+            Button but = (Button) findViewById(R.id.buttonC);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -221,6 +227,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[2][1] != 0 && res[3][0] != 0 && res[3][2] != 0 && res[4][1] != 0 && res[3][1] == 0) {
             res[3][1] = player;
+            Button but = (Button) findViewById(R.id.buttonD);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -230,6 +238,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[2][3] != 0 && res[3][2] != 0 && res[3][4] != 0 && res[4][3] != 0 && res[3][3] == 0) {
             res[3][3] = player;
+            Button but = (Button) findViewById(R.id.buttonE);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -239,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[2][5] != 0 && res[3][4] != 0 && res[3][6] != 0 && res[4][5] != 0 && res[3][5] == 0) {
             res[3][5] = player;
+            Button but = (Button) findViewById(R.id.buttonF);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -248,6 +260,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[4][1] != 0 && res[5][0] != 0 && res[5][2] != 0 && res[6][1] != 0 && res[5][1] == 0) {
             res[5][1] = player;
+            Button but = (Button) findViewById(R.id.buttonG);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -257,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[4][3] != 0 && res[5][2] != 0 && res[5][4] != 0 && res[6][3] != 0 && res[5][3] == 0) {
             res[5][3] = player;
+            Button but = (Button) findViewById(R.id.buttonH);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -266,6 +282,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (res[4][5] != 0 && res[5][4] != 0 && res[5][6] != 0 && res[6][5] != 0 && res[5][5] == 0) {
             res[5][5] = player;
+            Button but = (Button) findViewById(R.id.buttonI);
+            but.setBackgroundDrawable(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
