@@ -33,13 +33,7 @@
             android:layout_height="120dp"
             android:src="@drawable/snail"
             android:layout_gravity="center_vertical"/>
-        <Button
-            android:id="@+id/retour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="25dp"
-            android:text="Retour au menu" />
+
 
     </FrameLayout>
 

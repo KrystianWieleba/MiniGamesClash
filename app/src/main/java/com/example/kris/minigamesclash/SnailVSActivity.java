@@ -26,20 +26,19 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private ImageView snail1;
     private ImageView snailAdv;
     private TextView temps;
-    private Button retour;
     private View layout;
     private float posSnail1;
     private float posSnailAdv;
     private float increment;
-    private CountDownTimer countDownTimer;
-    private boolean debutTimer=false;
     private DisplayMetrics metrics;
     private float longueurEcran;
     private float densiteEcran;
     private String nomJ1;
     private String nomJAdv;
+    private int scoreJ1;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
+    DatabaseReference myRef2 = database.getReference("Players");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +52,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         snailAdv.setY(snailAdv.getY()-40);
         layout=(View) findViewById(R.id.layout);
         //le bouton de retour au menu est d'abord caché
-        retour=(Button) findViewById(R.id.retour);
-        retour.setVisibility(View.INVISIBLE);
         layout.setOnClickListener(this);
-        retour.setOnClickListener(this);
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         longueurEcran=metrics.widthPixels;
@@ -70,6 +66,17 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
 
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
+                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         myRef.child(nomJAdv).setValue((posSnail1*10000)/longueurEcran);
         //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
@@ -78,13 +85,18 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
-                    countDownTimer.cancel();
+
+                    // Immobiliser le joueur perdant
+                    layout.setClickable(false);
                     temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
-                    //On fait apparaître le bouton de retour au menu
-                    retour.setVisibility(View.VISIBLE);
+                    nextActivity();
+
+
                 }
                 posSnailAdv=(longueurEcran*Float.parseFloat(dataSnapshot.getValue().toString()))/10000;
                 snailAdv.setX(posSnailAdv);
+
+
 
             }
             @Override
@@ -97,27 +109,18 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
     @Override
     public void onClick(View v) {
-        //si ça n'a pas encore commencé, on lance le timer
-        if (!debutTimer){
-            debutTimer=true;
-            countDownTimer= new CountDownTimer(14000,100) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    //bidouilles pour afficher un joli compteur à un chiffre après la virgule
-                    temps.setText(new Float((float)((14000-millisUntilFinished)/100)/10).toString());
-                }
-                @Override
-                public void onFinish() {
-                    temps.setText("Trop nul...");
-                }
-            }.start();
-        }
+
         //si l'escargot atteint le bout de l'écran, on arrête le timer
-        else if ((posSnail1+120*densiteEcran)>=longueurEcran){
-            countDownTimer.cancel();
+        if ((posSnail1+120*densiteEcran)>=longueurEcran){
+
             //On fait apparaître le bouton de retour au menu
-            temps.setText("Vous remportez la manche !");
-            retour.setVisibility(View.VISIBLE);
+            temps.setText(nomJ1 + " remporte la manche !");
+            scoreJ1 +=1;
+            myRef2.child(nomJ1).setValue(scoreJ1);
+            // Sinon le score continue d'être incrémenté à chque clique
+            layout.setClickable(false);
+            nextActivity();
+
         }
         //sinon, on fait avancer l'escargot
         else {
@@ -125,14 +128,24 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             snail1.setX(posSnail1);
         }
         myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
-        if (v.getId()==retour.getId()){
-            //code de retour au menu avec intent
-            Intent intent=new Intent(getApplicationContext(), InterfaceActivity.class);
-            intent.putExtra("nomJ1",nomJ1);
-            intent.putExtra("nomJAdv",nomJAdv);
-            startActivity(intent);
-        }
+
     }
+
+    public void nextActivity() {
+        //Au bout de 8sec lance l'interfce
+        new CountDownTimer(8000, 10) {
+            public void onTick(long tick){}
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                // Fait suivre le nom des joueurs
+                intent.putExtra("nomJ1", nomJ1);
+                intent.putExtra("nomJAdv", nomJAdv);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+
 }
 
 //Il faudra ajouter une ligne à la fin pour supprimer le child avc l'id aleatoire (pour l'instant le faire à la main)

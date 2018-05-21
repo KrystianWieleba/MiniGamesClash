@@ -41,11 +41,7 @@ public class Identification extends AppCompatActivity {
         playernick = (EditText) findViewById(R.id.playernick);
         button = (Button) findViewById(R.id.button);
 
-        // S'assurer que firebase est vide
-        myRef.removeValue();
-        myRef2.removeValue();
-        myRef3.removeValue();
-        myRef4.removeValue();
+
 
 
         intent = new Intent(getApplicationContext(), SnailVSActivity.class);
