@@ -49,7 +49,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="40"
     android:layout_margin="10dp"
-    android:text="Friends"
+    android:text="Règles"
     android:textStyle="bold"
     android:textColor="@android:color/holo_blue_dark"
     android:textSize="30sp"
