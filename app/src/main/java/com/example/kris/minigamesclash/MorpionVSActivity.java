@@ -42,7 +42,7 @@ public class MorpionVSActivity extends AppCompatActivity {
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
     int atoidejouer=1;
-    private String nomJpret="";
+    private String nomJpret=" ";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Morpion");
@@ -265,6 +265,12 @@ public class MorpionVSActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     nomJpret=dataSnapshot.getValue().toString();
+                    if (nomJAdv.equals(nomJpret)) {
+                        for (Button but : buttons) {
+                            but.setEnabled(true);
+                        }
+                        myRef.child("pret" + nomJAdv).removeValue();
+                    }
                 }
 
                 @Override
@@ -273,15 +279,6 @@ public class MorpionVSActivity extends AppCompatActivity {
                 }
             };
             myRef.child("pret"+nomJAdv).addValueEventListener(eventListenerPrets);
-            while(!nomJpret.equals(nomJAdv)) {
-
-            }
-            myRef.child("pret"+nomJAdv).removeEventListener(eventListenerPrets);
-            myRef.child("pret"+nomJAdv).removeValue();
-            for (Button but : buttons) {
-                but.setEnabled(true);
-            }
-
         }
     }
 
