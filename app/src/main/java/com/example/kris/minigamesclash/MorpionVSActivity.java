@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class MorpionVSActivity extends AppCompatActivity {
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
     int atoidejouer=1;
+    private String nomJpret="";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Morpion");
@@ -128,6 +131,7 @@ public class MorpionVSActivity extends AppCompatActivity {
 
         for (Button but : buttons) {
             but.setBackgroundDrawable(null);
+            but.setEnabled(false); //pour empêcher de jouer avant que l'autre adversaire soit prêt
             but.setOnClickListener(onClickListenerCases);
         }
 
@@ -250,6 +254,35 @@ public class MorpionVSActivity extends AppCompatActivity {
             }
         });
 
+        //pour s'assurer que les deux joueurs sont prêts avant de permettre le jeu
+        //le joueur qui ne joue pas se signale prêt via la database
+        if (atoidejouer==0){
+            myRef.child("pret"+nomJ1).setValue(nomJ1);
+        }
+        else {
+            myRef.child("pret"+nomJAdv).setValue(nomJAdv);
+            ValueEventListener eventListenerPrets=new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    nomJpret=dataSnapshot.getValue().toString();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("Failed to read value.", databaseError.toException());
+                }
+            };
+            myRef.child("pret"+nomJAdv).addValueEventListener(eventListenerPrets);
+            while(!nomJpret.equals(nomJAdv)) {
+
+            }
+            myRef.child("pret"+nomJAdv).removeEventListener(eventListenerPrets);
+            myRef.child("pret"+nomJAdv).removeValue();
+            for (Button but : buttons) {
+                but.setEnabled(true);
+            }
+
+        }
     }
 
 
