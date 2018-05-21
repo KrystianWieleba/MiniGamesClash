@@ -134,7 +134,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
     }
 
 
-    public void nextActivity() {
+    private void nextActivity() {
         //Au bout de 8sec lance l'interfce
         new CountDownTimer(8000, 10) {
             public void onTick(long tick){}

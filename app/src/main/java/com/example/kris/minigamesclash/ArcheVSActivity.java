@@ -1,6 +1,7 @@
 package com.example.kris.minigamesclash;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -42,9 +43,11 @@ public class ArcheVSActivity extends AppCompatActivity {
     private String nomJ1;
     private String nomJAdv;
     int atoidejouer=(1);
+    private int scoreJ1;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Arche");
+    DatabaseReference myRef2 = database.getReference("Scores");
 
     private void testcoule(){
         //L'arche coule lorsque une certaine partie de l'image est submergée (49pxls au-dessus de la moitié)
@@ -58,8 +61,28 @@ public class ArcheVSActivity extends AppCompatActivity {
             for (ImageView anim : animauxArche) {
                 anim.setVisibility(GONE);
             }
+
             //Message de fin et retour...
+
+            scoreJ1 +=1;
+            myRef2.child(nomJ1).setValue(scoreJ1);
+            nextActivity();
+
         }
+    }
+
+    private void nextActivity() {
+        //Au bout de 8sec lance l'interfce
+        new CountDownTimer(8000, 10) {
+            public void onTick(long tick){}
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                // Fait suivre le nom des joueurs
+                intent.putExtra("nomJ1", nomJ1);
+                intent.putExtra("nomJAdv", nomJAdv);
+                startActivity(intent);
+            }
+        }.start();
     }
 
     private OnClickListener clickListenerAnimaux = new OnClickListener() {
@@ -149,6 +172,17 @@ public class ArcheVSActivity extends AppCompatActivity {
 
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
+                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         myRef.child("animal").addValueEventListener(new ValueEventListener() {
             @Override
