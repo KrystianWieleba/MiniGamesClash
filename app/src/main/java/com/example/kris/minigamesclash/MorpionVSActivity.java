@@ -220,7 +220,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                             break;
 
                     }
-                    turn++;
+                    turn+=3; //test
                     if (Win()) {
                         if (player1) {
                             player1Win();
@@ -269,7 +269,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                         for (Button but : buttons) {
                             but.setEnabled(true);
                         }
-                        myRef.child("pret" + nomJAdv).removeValue();
+                        myRef.child("pret" + nomJAdv).setValue("");
                     }
                 }
 
