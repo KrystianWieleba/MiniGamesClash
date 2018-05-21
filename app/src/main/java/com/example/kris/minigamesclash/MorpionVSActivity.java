@@ -269,7 +269,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                         for (Button but : buttons) {
                             but.setEnabled(true);
                         }
-                        myRef.child("pret" + nomJAdv).setValue("");
+                        myRef.child("pret" + nomJAdv).setValue("trucbidule");//je comprends pas comment ce code peut sexecuter alors que je suis tout seul
                     }
                 }
 
