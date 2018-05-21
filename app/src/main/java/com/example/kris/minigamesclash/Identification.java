@@ -28,7 +28,9 @@ public class Identification extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
-
+    DatabaseReference myRef2 = database.getReference("BubbleVS");
+    DatabaseReference myRef3 = database.getReference("Snail");
+    DatabaseReference myRef4 = database.getReference("Morpion");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,11 @@ public class Identification extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
 
         // S'assurer que firebase est vide
-        //myRef.child().removeValue();
+        myRef.removeValue();
+        myRef2.removeValue();
+        myRef3.removeValue();
+        myRef4.removeValue();
+
 
         intent = new Intent(getApplicationContext(), SnailVSActivity.class);
 
