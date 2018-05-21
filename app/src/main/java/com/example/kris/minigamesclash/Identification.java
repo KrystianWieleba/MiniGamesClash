@@ -25,6 +25,7 @@ public class Identification extends AppCompatActivity {
     private Intent intent;
     private String nick1;
     private String nick2;
+    private String currentNick;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference("Players");
@@ -60,6 +61,7 @@ public class Identification extends AppCompatActivity {
                 button.setVisibility(INVISIBLE);
                 //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
+                currentNick = nick;
 
                         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -74,9 +76,11 @@ public class Identification extends AppCompatActivity {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick1").setValue(nick);
 
+
                                 } else if (i ==2 ) {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick2").setValue(nick);
+
                                 }
                             }
                             @Override
@@ -95,16 +99,26 @@ public class Identification extends AppCompatActivity {
                 int i = 0;
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                     i++;
+
                 }
                 // Attends jusque les deux joueurs soient identifiés
                 if (i ==4) {
                     // Astuce sinon erreur
                     nick1 = dataSnapshot.child("nick1").getValue(String.class);
                     nick2 = dataSnapshot.child("nick2").getValue(String.class);
+                    // Afin que le joueur actuel soit vraiment considéré comme joueur1 et son adversaire comme adversaire et pas joueur 1 et joueur 2
+                    if (currentNick==nick1) {
+                        intent.putExtra("nomJ1", nick1);
+                        intent.putExtra("nomJAdv", nick2);
+                    } else if (currentNick==nick2) {
+                        intent.putExtra("nomJ1", nick2);
+                        intent.putExtra("nomJAdv", nick1);
+
+                    }
 
                     // Fait suivre le nom des joueurs à la prochaine activité
-                    intent.putExtra("nomJ1", nick1);
-                    intent.putExtra("nomJAdv", nick2);
+
+
 
                     // Suppriler le listener et childs inutiles pour la suite
                     myRef.removeEventListener(this);
