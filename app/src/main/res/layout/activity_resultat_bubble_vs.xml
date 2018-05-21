@@ -7,42 +7,11 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FiNAL SCORE"
-        android:textSize="25sp"/>
-
-    <TextView
-        android:id="@+id/finalScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="0"
-        android:textSize="40sp" />
-
-    <Button
-        android:id="@+id/player1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="name1"
-        android:text=""
-        android:textSize="10sp" />
-
-    <Button
-        android:id="@+id/player2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="name2"
-        android:text=""
-        android:textSize="10sp" />
-
-
-    <TextView
         android:id="@+id/winner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:textSize="25sp" />
+        android:textSize="30sp" />
 
 
 
