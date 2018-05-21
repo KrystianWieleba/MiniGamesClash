@@ -48,7 +48,7 @@ public class MorpionVSActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             v.setBackgroundDrawable(croixourondJ1);
-            v.setVisibility(View.INVISIBLE);
+            v.setClickable(false);
                 if (v.getId() == R.id.button00) {
                     res[0][0] = symboleJ1;
                     myRef.child("case00").setValue(symboleJ1);
@@ -172,47 +172,47 @@ public class MorpionVSActivity extends AppCompatActivity {
                         case "case00":
                             res[0][0] = symboleJAdv;
                             but00.setBackgroundDrawable(croixourondJAdv);
-                            but00.setVisibility(View.INVISIBLE);
+                            but00.setClickable(false);
                             break;
                         case "case01":
                             res[0][1] = symboleJAdv;
                             but01.setBackgroundDrawable(croixourondJAdv);
-                            but01.setVisibility(View.INVISIBLE);
+                            but01.setClickable(false);
                             break;
                         case "case02":
                             res[0][2] = symboleJAdv;
                             but02.setBackgroundDrawable(croixourondJAdv);
-                            but02.setVisibility(View.INVISIBLE);
+                            but02.setClickable(false);
                             break;
                         case "case10":
                             res[1][0] = symboleJAdv;
                             but10.setBackgroundDrawable(croixourondJAdv);
-                            but10.setVisibility(View.INVISIBLE);
+                            but10.setClickable(false);
                             break;
                         case "case11":
                             res[1][1] = symboleJAdv;
                             but11.setBackgroundDrawable(croixourondJAdv);
-                            but11.setVisibility(View.INVISIBLE);
+                            but11.setClickable(false);
                             break;
                         case "case12":
                             res[1][2] = symboleJAdv;
                             but12.setBackgroundDrawable(croixourondJAdv);
-                            but12.setVisibility(View.INVISIBLE);
+                            but12.setClickable(false);
                             break;
                         case "case20":
                             res[2][0] = symboleJAdv;
                             but20.setBackgroundDrawable(croixourondJAdv);
-                            but20.setVisibility(View.INVISIBLE);
+                            but20.setClickable(false);
                             break;
                         case "case21":
                             res[2][1] = symboleJAdv;
                             but21.setBackgroundDrawable(croixourondJAdv);
-                            but21.setVisibility(View.INVISIBLE);
+                            but21.setClickable(false);
                             break;
                         case "case22":
                             res[2][2] = symboleJAdv;
                             but22.setBackgroundDrawable(croixourondJAdv);
-                            but22.setVisibility(View.INVISIBLE);
+                            but22.setClickable(false);
                             break;
 
                     }
