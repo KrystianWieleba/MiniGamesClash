@@ -85,8 +85,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
-
-                    // Immobiliser le joueur perdant
+                    // Immobiliser le joueur perdant, ne marche plus ? il me semble que ça marchait | à retester,,en simulant sur mon portabel et simulatuer, le simulateur bloque, mais sur mon protbale non...
                     layout.setClickable(false);
                     temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
                     nextActivity();
