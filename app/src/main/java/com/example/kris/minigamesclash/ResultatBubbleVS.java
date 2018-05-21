@@ -30,6 +30,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
     private String nomJAdv;
     private int scoreJ1;
     private int scoreJAdv;
+    private int tour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class ResultatBubbleVS extends AppCompatActivity {
         // Récupérer le nom des joueurs
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        tour = getIntent().getIntExtra("tour", 0);
+
 
         // Ecris le nom des joueurs dans les boutons
         player1.setText(nomJ1);
@@ -143,6 +146,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
                 // Fait suivre le nom des joueurs
                 intent.putExtra("nomJ1", nomJ1);
                 intent.putExtra("nomJAdv", nomJAdv);
+                intent.putExtra("tour", tour);
                 startActivity(intent);
             }
         }.start();

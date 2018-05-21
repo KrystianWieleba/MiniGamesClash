@@ -57,6 +57,7 @@ public class BubbleVS extends AppCompatActivity {
     private boolean init = false;
     private String nomJ1;
     private String nomJAdv;
+    private int tour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class BubbleVS extends AppCompatActivity {
         // Récupérer le nom des deux joueurs
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        tour = getIntent().getIntExtra("tour", 0);
 
         // Fixer le score invisible au lancement
         Score.setVisibility(View.INVISIBLE);
@@ -177,6 +179,7 @@ public class BubbleVS extends AppCompatActivity {
                     // Fait suivre le nom des joueurs
                     intent.putExtra("nomJ1", nomJ1);
                     intent.putExtra("nomJAdv", nomJAdv);
+                    intent.putExtra("tour", tour);
                     startActivity(intent);
 
                 }

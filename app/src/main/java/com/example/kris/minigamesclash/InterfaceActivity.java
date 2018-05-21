@@ -40,6 +40,8 @@ public class InterfaceActivity extends AppCompatActivity {
     private int scoreJAdv;
     private int avanceeDuel; //=somme des scores globaux des joueurs
     private Button suite;
+    private int tour;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class InterfaceActivity extends AppCompatActivity {
 
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        tour = getIntent().getIntExtra("tour", 0);
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,6 +107,7 @@ public class InterfaceActivity extends AppCompatActivity {
                 }
                 intent.putExtra("nomJ1",nomJ1);
                 intent.putExtra("nomJAdv",nomJAdv);
+                intent.putExtra("tour", tour);
                 startActivity(intent);
 
 

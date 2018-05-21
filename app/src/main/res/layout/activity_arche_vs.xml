@@ -36,6 +36,16 @@
             android:clickable="true"
             android:layout_gravity="top"
             android:translationX="325dp"/>
+
+        <TextView
+            android:id="@+id/winText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="25sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp" />
+
         <ImageView
             android:id="@+id/arche"
             android:layout_width="350dp"

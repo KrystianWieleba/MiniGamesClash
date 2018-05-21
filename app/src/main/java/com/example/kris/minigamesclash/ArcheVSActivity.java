@@ -11,6 +11,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private ImageView lion;
     private ImageView lapin;
     private ImageView mer;
+    private TextView winText;
     private FrameLayout layout;
     private Button retour;
     List<ImageView> animauxArche;
@@ -42,7 +45,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private float hauteurArche;
     private String nomJ1;
     private String nomJAdv;
-    int atoidejouer=(0);
+    int atoidejouer;
     private int scoreJ1;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -62,9 +65,9 @@ public class ArcheVSActivity extends AppCompatActivity {
                 anim.setVisibility(GONE);
             }
 
-
+            winText.setText(nomJ1 + " est le meilleur Noé !");
+            myRef.child("win").setValue(1);
             //Message de fin et retour...
-
             scoreJ1 +=1;
             myRef2.child(nomJ1).setValue(scoreJ1);
             nextActivity();
@@ -156,6 +159,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         lapin=(ImageView) findViewById(R.id.lapin);
         arche=(ImageView) findViewById(R.id.arche);
         mer=(ImageView)findViewById(R.id.mer);
+        winText=(TextView)findViewById(R.id.winText);
         layout=(FrameLayout) findViewById(R.id.layout);
         hauteurArche=arche.getMeasuredHeight();
         elephant.setOnClickListener(clickListenerAnimaux);
@@ -175,6 +179,12 @@ public class ArcheVSActivity extends AppCompatActivity {
         nomJAdv = getIntent().getStringExtra("nomJAdv");
         atoidejouer = getIntent().getIntExtra("tour", 0);
 
+        // Initialiser les chils
+        myRef.child("win").setValue(0);
+        myRef.child("animal").setValue("");
+        myRef.child("coule").setValue(0);
+
+
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,6 +200,8 @@ public class ArcheVSActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 animalCourant=dataSnapshot.getValue().toString();
+
+
             }
 
             @Override
@@ -210,11 +222,11 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                       anim.setY(anim.getY()+(coule));
                                                                   }
                                                                   animauxArche.add(animal);
-                                                                  testcoule();
                                                                   elephant.setVisibility(View.VISIBLE);
                                                                   lion.setVisibility(View.VISIBLE);
                                                                   lapin.setVisibility(View.VISIBLE);
                                                                   atoidejouer=1;
+                                                                  testcoule();
                                                               }
 
                                                               else {
@@ -234,9 +246,39 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           public void onCancelled(DatabaseError databaseError) {
                                                               Log.w("Failed to read value.", databaseError.toException());
                                                           }
-                                                      }
+                                                      });
 
-        );
+        myRef.child("win").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if ( dataSnapshot.getValue(int.class) == 1 ) {
+
+                    winText.setText(nomJAdv + " est le meilleur Noé !");
+
+                    arche.setVisibility(GONE);
+                    elephant.setVisibility(GONE);
+                    lion.setVisibility(GONE);
+                    lapin.setVisibility(GONE);
+                     for (ImageView anim : animauxArche) {
+                       anim.setVisibility(GONE);
+                     }
+                     nextActivity();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
     }
 
