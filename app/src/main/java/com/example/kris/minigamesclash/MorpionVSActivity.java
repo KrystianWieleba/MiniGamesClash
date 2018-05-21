@@ -211,6 +211,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                             but22.setBackgroundDrawable(croixourondJAdv);
                             but22.setVisibility(View.INVISIBLE);
                             break;
+                            
                     }
                     turn++;
                     if (Win()) {
