@@ -58,9 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        // Vérification que la case est libre
+
         if (v.getBackground() != null) {
             return;
         }
+
+        // Changements impliqués lorsque le joueur 1 ou le joueur 2 sélectionnent une case
+        // Le choix du joueur est pris en compte dans le tableau d'état du jeu
+        // Et il apparaît sur l'écran avec le symbole du joueur
 
         if (player1) {
             if (v.getId() == R.id.button00) {
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 res[2][2] = "x";
                 v.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.morpioncross));
             }
+
         } else {
             if (v.getId() == R.id.button00) {
                 res[0][0] = "o";
@@ -122,7 +129,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        // On incrémente nombre de tour (utilisé pour le cas d'égalité)
+
         turn++;
+
+        // Conditions de victoire ou d'égalité
+        // Si elles ne sont pas vérifiées, on passe au tour suivant et on change de joueur
 
         if (Win()) {
             if (player1) {
@@ -138,7 +150,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //Conditions de victoire
+
     boolean Win() {
+
+        // Ligne
 
         for (int i=0; i<3; i++) {
             if (res[i][0].equals(res[i][1]) && res[i][0].equals(res[i][2]) && !res[i][0].equals(" ") ) {
@@ -146,11 +162,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        // Colonne
+
         for (int j=0; j<3; j++) {
             if ( res[0][j].equals(res[1][j]) && res[0][j].equals(res[2][j]) && !res[0][j].equals(" ") ) {
                 return true;
             }
         }
+
+        // Diagonales
 
         if ( res[0][0].equals(res[1][1]) && res[0][0].equals(res[2][2]) && !res[0][0].equals(" ") ) {
             return true;
