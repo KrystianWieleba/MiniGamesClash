@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kris.minigamesclash.credits">
+    android:orientation="vertical"
+    android:background="@drawable/colorbackground">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mini Games Clash"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="40sp"
+        android:layout_weight="0"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:text="Christos est le meilleur chef de projet. C'est l'occasion de voir si quelqu'un lit les Crédits..."
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp"
+        android:layout_weight="0"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        android:id="@+id/boutonRetour"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Retour"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20sp"
+        android:background="@drawable/colorbutton" />
+
+</LinearLayout>
