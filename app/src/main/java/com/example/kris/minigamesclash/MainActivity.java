@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         myRef2.removeValue();
         myRef3.removeValue();
         myRef4.removeValue();
+        myRef5.removeValue();
 
 
 

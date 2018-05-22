@@ -35,7 +35,6 @@ public class MorpionVSActivity extends AppCompatActivity {
 
     String res[][] = new String[3][3];
     ArrayList<Button> buttons = new ArrayList<>();
-    boolean player1 = true;
     int turn = 0;
     private String nomJ1;
     private String nomJAdv;
@@ -89,15 +88,10 @@ public class MorpionVSActivity extends AppCompatActivity {
             turn++;
 
             if (Win()) {
-                if (player1) {
                     player1Win();
-                } else {
-                    player2Win();
-                }
+
             } else if (turn == 9) {
                 draw();
-            } else {
-                player1 = !player1;
             }
         }
     };
@@ -238,15 +232,10 @@ public class MorpionVSActivity extends AppCompatActivity {
                     }
                     turn++; //test
                     if (Win()) {
-                        if (player1) {
-                            player1Win();
-                        } else {
                             player2Win();
-                        }
+
                     } else if (turn == 9) {
                         draw();
-                    } else {
-                        player1 = !player1;
                     }
                     for (Button but : buttons) {
                         but.setEnabled(true);
@@ -353,16 +342,35 @@ public class MorpionVSActivity extends AppCompatActivity {
     // Les Toast sont là uniquement pour voir les résultats au moment du développement
 
     void player1Win(){
-        Toast.makeText(this, "Player 1 wins !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, nomJ1+" wins !", Toast.LENGTH_SHORT).show();
+        scoreJ1 +=1;
+        myRef2.child(nomJ1).setValue(scoreJ1);
+        nextActivity();
     }
 
     void player2Win(){
-        Toast.makeText(this, "Player 2 wins !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, nomJAdv+" wins !", Toast.LENGTH_SHORT).show();
+        nextActivity();
     }
 
     void draw(){
         Toast.makeText(this, "Draw !", Toast.LENGTH_SHORT).show();
+        nextActivity();
     }
 
 
+
+    private void nextActivity() {
+        //Au bout de 8sec lance l'interfce
+        new CountDownTimer(8000, 10) {
+            public void onTick(long tick){}
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), InterfaceActivity.class);
+                // Fait suivre le nom des joueurs
+                intent.putExtra("nomJ1", nomJ1);
+                intent.putExtra("nomJAdv", nomJAdv);
+                startActivity(intent);
+            }
+        }.start();
+    }
 }

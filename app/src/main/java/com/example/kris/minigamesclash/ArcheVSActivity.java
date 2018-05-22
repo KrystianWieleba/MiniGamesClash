@@ -255,7 +255,7 @@ public class ArcheVSActivity extends AppCompatActivity {
 
                 if ( dataSnapshot.getValue(int.class) == 1 ) {
 
-                    winText.setText(nomJAdv + " est le meilleur Noé !");
+                    winText.setText(nomJ1 + " est le meilleur Noé !");
 
                     arche.setVisibility(GONE);
                     elephant.setVisibility(GONE);
