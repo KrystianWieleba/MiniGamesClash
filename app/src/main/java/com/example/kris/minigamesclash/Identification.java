@@ -27,11 +27,8 @@ public class Identification extends AppCompatActivity {
     private String nick2;
     private String currentNick;
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference("Players");
-    DatabaseReference myRef2 = database.getReference("BubbleVS");
-    DatabaseReference myRef3 = database.getReference("Snail");
-    DatabaseReference myRef4 = database.getReference("Morpion");
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Players");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +38,7 @@ public class Identification extends AppCompatActivity {
         playernick = (EditText) findViewById(R.id.playernick);
         button = (Button) findViewById(R.id.button);
 
-
-
-
+        // intent de la première activité à lancer
         intent = new Intent(getApplicationContext(), SnailVSActivity.class);
 
     }

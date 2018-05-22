@@ -23,7 +23,7 @@ import static android.view.View.GONE;
 
 public class BubbleVS extends AppCompatActivity {
 
-    private TextView Score;
+    private TextView scoreDisplay;
     private TextView start;
     private ImageView blue;
     private ImageView red;
@@ -65,7 +65,7 @@ public class BubbleVS extends AppCompatActivity {
         setContentView(R.layout.activity_bubble_vs);
 
         // Instancier les view
-        Score = (TextView) findViewById(R.id.Score);
+        scoreDisplay = (TextView) findViewById(R.id.Score);
         start = (TextView) findViewById(R.id.start);
         blue = (ImageView) findViewById(R.id.blue);
         red = (ImageView) findViewById(R.id.red);
@@ -86,7 +86,7 @@ public class BubbleVS extends AppCompatActivity {
         tour = getIntent().getIntExtra("tour", 0);
 
         // Fixer le score invisible au lancement
-        Score.setVisibility(View.INVISIBLE);
+        scoreDisplay.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -104,13 +104,13 @@ public class BubbleVS extends AppCompatActivity {
         orange.setX(-500);
         orange.setY(2000);
 
-        //Places les deux boules servant de boutons centrés
+        //Placer les deux bulles centrés servant de boutons
         red2.setX(screenWidth/2 - 300);
         red2.setY(screenHeight/2 -200);
         blue2.setX(screenWidth/2 + 100);
         blue2.setY(screenHeight/2 - 200);
 
-        //Placer les explications (optimisé pour mon portable)
+        //Placer les explications du VS (optimisé pour mon portable ou similaire)
         red3.setX(100);
         red3.setY(1200);
         blue3.setX(100);
@@ -161,7 +161,7 @@ public class BubbleVS extends AppCompatActivity {
             blue4.setVisibility(GONE);
             msg1.setVisibility(GONE);
             msg2.setVisibility(GONE);
-            Score.setVisibility(View.VISIBLE);
+            scoreDisplay.setVisibility(View.VISIBLE);
 
 
             // Compte à rebours de 20sec
@@ -174,7 +174,7 @@ public class BubbleVS extends AppCompatActivity {
                 // Lance la prochaine activité à la fin du compte à rebours
                 public void onFinish() {
                     Intent intent = new Intent(getApplicationContext(), ResultatBubbleVS.class);
-                    // Prends en compte le score final dans result
+                    // Prends en compte le score du joueur
                     intent.putExtra("SCORE", score);
                     // Fait suivre le nom des joueurs
                     intent.putExtra("nomJ1", nomJ1);
@@ -298,7 +298,7 @@ public class BubbleVS extends AppCompatActivity {
         orange.setY(orangeY);
 
         // Actualisation du score
-        Score.setText("Score : " + score);
+        scoreDisplay.setText("Score : " + score);
 
     }
 
