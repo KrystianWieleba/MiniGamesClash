@@ -49,7 +49,7 @@ public class ResultatBubbleVS extends AppCompatActivity {
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
+                //Récupère le score final du joueur pour pouvoir l'incrémenter par la suite
                     scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
             }
             @Override
@@ -72,33 +72,27 @@ public class ResultatBubbleVS extends AppCompatActivity {
                     // Vérifie qui remporte le jeu avec affichage d'un message correspondant
                     if (score > scoreAdv) {
                         winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + nomJ1 + " won !");
-                        winner.setVisibility(View.VISIBLE);
                         //incrémente le score final
                         scoreJ1 += 1;
                         myRef2.child(nomJ1).setValue(scoreJ1);
                     } else if (score < scoreAdv) {
                         winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + nomJAdv + " won !");
-                        winner.setVisibility(View.VISIBLE);
 
                     } else {
                         winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + "DRAW !");
-                        winner.setVisibility(View.VISIBLE);
                     }
-
-                    //myRef.removeEventListener(this);
                     nextActivity();
 
                 } else {
                     winner.setText("En attente de l'autre joueur");
-                    winner.setVisibility(View.VISIBLE);
                 }
+                winner.setVisibility(View.VISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.w("Failed to read value.", error.toException());
             }
         });
-
     }
 
     private void nextActivity() {

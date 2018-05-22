@@ -75,17 +75,12 @@ public class resultGame1 extends AppCompatActivity {
     }
 
     public void name1(View view) {
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 nick = playernick.getText().toString();
 
                 playernick.setVisibility(View.GONE);
                 button1.setVisibility(View.GONE);
                 leaderboard.setVisibility(View.VISIBLE);
                 writeName();
-            }
-        });
     }
 
     public void writeName() {

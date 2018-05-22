@@ -44,34 +44,30 @@ public class Identification extends AppCompatActivity {
     }
 
     public void name1(View view) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                // apple à waitt qui attend que les deux joueurs soient identifiés
                 waitt();
+
                 button.setVisibility(INVISIBLE);
+
                 //Lit le nom à partir de l'edittext
                 nick = playernick.getText().toString();
+                // servira à ce que chaque joueur soit le joueur1 de son point de vue
                 currentNick = nick;
 
                         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-
                                 int i = 0;
                                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                                     i++;
                                 }
-                                //Astuce pour crée les childs des deux joueurs dans l'ordre
+                                // créer les childs des deux joueurs dans l'ordre
                                 if (i == 0 ) {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick1").setValue(nick);
-
-
                                 } else if (i ==2 ) {
                                     myRef.child(nick).setValue(0);
                                     myRef.child("nick2").setValue(nick);
-
                                 }
                             }
                             @Override
@@ -79,8 +75,7 @@ public class Identification extends AppCompatActivity {
                                 Log.w("Failed to read value.", error.toException());
                             }
                         });
-            }
-        });
+
     }
 
     public void waitt() {
@@ -90,7 +85,6 @@ public class Identification extends AppCompatActivity {
                 int i = 0;
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
                     i++;
-
                 }
                 // Attends jusque les deux joueurs soient identifiés
                 if (i ==4) {
@@ -99,27 +93,22 @@ public class Identification extends AppCompatActivity {
                     nick2 = dataSnapshot.child("nick2").getValue(String.class);
                     // Afin que le joueur actuel soit vraiment considéré comme joueur1 et son adversaire comme adversaire et pas joueur 1 et joueur 2
                     if (currentNick==nick1) {
+                        // Fait suivre le nom des joueurs à la prochaine activité
                         intent.putExtra("nomJ1", nick1);
                         intent.putExtra("nomJAdv", nick2);
+                        // sert dans certains jeux pour qu'un joueur attente le tour de l'autre initialement
                         intent.putExtra("tour", 0);
                     } else if (currentNick==nick2) {
                         intent.putExtra("nomJ1", nick2);
                         intent.putExtra("nomJAdv", nick1);
                         intent.putExtra("tour", 1);
-
                     }
-
-                    // Fait suivre le nom des joueurs à la prochaine activité
-
-
-
                     // Suppriler le listener et childs inutiles pour la suite
                     myRef.removeEventListener(this);
                     myRef.child("nick1").removeValue();
                     myRef.child("nick2").removeValue();
 
                     startActivity(intent);
-
                 }
             }
 
