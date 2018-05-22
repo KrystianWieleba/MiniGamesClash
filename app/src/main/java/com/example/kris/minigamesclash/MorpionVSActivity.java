@@ -41,7 +41,7 @@ public class MorpionVSActivity extends AppCompatActivity {
     private String symboleJAdv;
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
-    int atoidejouer=(-1);
+    int atoidejouer=(1);
     private String nomJpret=" ";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -106,12 +106,9 @@ public class MorpionVSActivity extends AppCompatActivity {
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
                 res[i][j] = " ";
-            }
-        }
-
-        for (int i=0;i<3;i++) {
-            for (int j=0;j<3;j++) {
-                myRef.child("case" + i + "" + j).setValue(" ");
+                if (atoidejouer==1){
+                    myRef.child("case" + i + "" + j).setValue(" ");
+                }
             }
         }
 
