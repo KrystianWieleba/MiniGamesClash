@@ -49,7 +49,7 @@ public class ArcheDeNoe extends AppCompatActivity {
                     break;
                 case R.id.lion:
                     coule=15+(int)(3*Math.random());
-                    layout.addView(animal,(int)(60*densiteEcran),(int)(6*densiteEcran));
+                    layout.addView(animal,(int)(60*densiteEcran),(int)(60*densiteEcran));
                     animal.setImageResource(R.drawable.lion);
                     animal.setY(posArche+115*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lion);
