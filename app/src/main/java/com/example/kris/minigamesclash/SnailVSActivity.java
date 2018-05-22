@@ -36,6 +36,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     private String nomJ1;
     private String nomJAdv;
     private int scoreJ1;
+    private int tour;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Snail");
     DatabaseReference myRef2 = database.getReference("Players");
@@ -65,6 +66,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
 
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
+        tour = getIntent().getIntExtra("tour", 0);
 
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -139,6 +141,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
                 // Fait suivre le nom des joueurs
                 intent.putExtra("nomJ1", nomJ1);
                 intent.putExtra("nomJAdv", nomJAdv);
+                intent.putExtra("tour", tour);
                 startActivity(intent);
             }
         }.start();

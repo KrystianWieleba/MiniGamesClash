@@ -369,6 +369,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                 // Fait suivre le nom des joueurs
                 intent.putExtra("nomJ1", nomJ1);
                 intent.putExtra("nomJAdv", nomJAdv);
+                intent.putExtra("tour", atoidejouer);
                 startActivity(intent);
             }
         }.start();

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
 
 
@@ -11,7 +11,7 @@
         android:id="@+id/playernick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="100dp"
         android:hint="type your name"
         android:textSize="20sp" />
 
@@ -22,7 +22,7 @@
         android:layout_marginTop="20dp"
         android:onClick="name1"
         android:text="submit name"
-        android:textSize="8sp" />
+        android:textSize="10sp" />
 
 
 
