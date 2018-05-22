@@ -51,7 +51,6 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
     }
 
     //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
-    //mais une autre manière de faire est possible, je changerai peut-etre
     @Override
     public void onClick(View v) {
         //si ça n'a pas encore commencé, on lance le timer
@@ -70,7 +69,7 @@ public class Game2 extends AppCompatActivity implements OnClickListener {
             }.start();
         }
         //si l'escargot atteint le bout de l'écran, on arrête le timer
-        else if ((posSnail+120*densiteEcran)>=longueurEcran){
+        else if ((posSnail+(longueurEcran/5))>=longueurEcran){
             countDownTimer.cancel();
             //On fait apparaître le bouton de retour au menu
             retour.setVisibility(View.VISIBLE);
