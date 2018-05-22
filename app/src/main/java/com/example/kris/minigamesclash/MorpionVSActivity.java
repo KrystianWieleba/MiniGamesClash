@@ -339,7 +339,6 @@ public class MorpionVSActivity extends AppCompatActivity {
 
     }
 
-    // Les Toast sont là uniquement pour voir les résultats au moment du développement
 
     void player1Win(){
         Toast.makeText(this, nomJ1+" wins !", Toast.LENGTH_SHORT).show();

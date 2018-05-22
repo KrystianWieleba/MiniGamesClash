@@ -64,11 +64,12 @@ public class ArcheVSActivity extends AppCompatActivity {
             for (ImageView anim : animauxArche) {
                 anim.setVisibility(GONE);
             }
-
+            //Message de fin
             winText.setText(nomJAdv + " est le meilleur Noé !");
             winText2.setVisibility(View.INVISIBLE);
+            // Afin de signaler au jouer adversa sa victoire
             myRef.child("win").setValue(1);
-            //Message de fin et prochaine activité
+            // Incrémentation du score du kouer adverse
             scoreJAdv +=1;
             myRef2.child(nomJAdv).setValue(scoreJAdv);
             nextActivity();
@@ -220,6 +221,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                               }
 
                                                               else {
+                                                                  // Vérifie si le joueur a gagné
                                                                   check();
                                                                   elephant.setVisibility(View.INVISIBLE);
                                                                   lion.setVisibility(View.INVISIBLE);
@@ -245,17 +247,15 @@ public class ArcheVSActivity extends AppCompatActivity {
 
     }
 
+    // Permet de lire quand le joueur gagne à partir du child crée lors de la dé&faite de l'adversaire
     public void check() {
         myRef.child("win").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
                 if (dataSnapshot.getValue(int.class) == 1) {
 
-
                     winText2.setText(nomJ1 + " est le meilleur Noé !");
-
 
                     arche.setVisibility(GONE);
                     elephant.setVisibility(GONE);
@@ -264,6 +264,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                     for (ImageView anim : animauxArche) {
                         anim.setVisibility(GONE);
                     }
+
                     nextActivity();
                 }
 

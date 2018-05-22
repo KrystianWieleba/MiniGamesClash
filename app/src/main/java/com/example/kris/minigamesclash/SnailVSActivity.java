@@ -81,18 +81,17 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
 
         myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
         myRef.child(nomJAdv).setValue((posSnail1*10000)/longueurEcran);
-        //attention ça crashe si l'adversaire n'a pas encore créé de child avec value, il faudrait donc s'en assurer
+
         myRef.child(nomJAdv).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 posSnailAdv=(longueurEcran*Float.parseFloat(dataSnapshot.getValue().toString()))/10000;
                 if ((posSnailAdv+(longueurEcran/5))>=longueurEcran) {
-                    // Immobiliser le joueur perdant, ne marche plus ? il me semble que ça marchait | à retester,,en simulant sur mon portabel et simulatuer, le simulateur bloque, mais sur mon protbale non...
+                    // Immobiliser le joueur perdant
                     layout.setClickable(false);
                     temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
                     nextActivity();
-
 
                 }
                 snailAdv.setX(posSnailAdv);
@@ -103,7 +102,10 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
                 Log.w("Failed to read value.", databaseError.toException());
             }
         });
+
     }
+
+
 
     //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
     @Override
@@ -149,38 +151,3 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
 
 
 }
-
-//Il faudra ajouter une ligne à la fin pour supprimer le child avc l'id aleatoire (pour l'instant le faire à la main)
-
-
-//Code initial pour id joueurs (pas fonctionnel) :
-
-/*//Phase d'initialisation des identifiants (qu'on pourra peut-être mettre au debut du vs)
-        int temp = (int)(Math.random()*1000000);
-        refSnail1=Integer.toString(temp);
-        myRef.child(refSnail1);
-
-        myRef.child(refSnail1).setValue(posSnail1);
-
-        ValueEventListener eventL1 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childs : dataSnapshot.getChildren()) {
-                    String refTemp=childs.getKey();
-                    if (refTemp!=refSnail1){
-                        refSnailAdv=refTemp;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("Failed to read value.", databaseError.toException());
-            }
-        };
-
-        while (refSnailAdv==null) {
-            myRef.addListenerForSingleValueEvent(eventL1);
-        }
-/*
-        myRef.removeEventListener(eventL1);*/

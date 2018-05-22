@@ -33,10 +33,6 @@ public class GamesMenu extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), Game1.class));
 
-
-
-                // Effet bouton Training
-
             }
         });
 
@@ -45,10 +41,6 @@ public class GamesMenu extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), Game2.class));
-
-
-
-                // Effet bouton Training
 
             }
         });
@@ -59,10 +51,6 @@ public class GamesMenu extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), ArcheDeNoe.class));
 
-
-
-                // Effet bouton Training
-
             }
         });
 
@@ -72,10 +60,6 @@ public class GamesMenu extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), jeuxdescarres.class));
 
-
-
-                // Effet bouton Training
-
             }
         });
 
@@ -84,10 +68,6 @@ public class GamesMenu extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), MorpionActivity.class));
-
-
-
-                // Effet bouton Training
 
             }
         });
