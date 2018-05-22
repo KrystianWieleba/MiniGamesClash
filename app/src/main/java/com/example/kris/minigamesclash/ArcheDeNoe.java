@@ -43,20 +43,20 @@ public class ArcheDeNoe extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.elephant:
                     coule=24+(int)(5*Math.random());
-                    layout.addView(animal,150,150);
+                    layout.addView(animal,(int)(75*densiteEcran),(int)(75*densiteEcran));
                     animal.setImageResource(R.drawable.elephantdebout);
                     animal.setY(posArche+105*densiteEcran);
                     break;
                 case R.id.lion:
                     coule=15+(int)(3*Math.random());
-                    layout.addView(animal,120,120);
+                    layout.addView(animal,(int)(60*densiteEcran),(int)(6*densiteEcran));
                     animal.setImageResource(R.drawable.lion);
                     animal.setY(posArche+115*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lion);
                     break;
                 case R.id.lapin:
                     coule=3+(int)(2*Math.random());
-                    layout.addView(animal,65,65);
+                    layout.addView(animal,(int)(32.5*densiteEcran),(int)(32.5*densiteEcran));
                     animal.setImageResource(R.drawable.lapin);
                     animal.setY(posArche+125*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lapin);
@@ -108,6 +108,11 @@ public class ArcheDeNoe extends AppCompatActivity {
         retour=(Button) findViewById(R.id.retour);
         retour.setVisibility(View.INVISIBLE);
 
+        metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        hauteurEcran=metrics.heightPixels;
+        densiteEcran=metrics.density;
+
         elephant=(ImageView) findViewById(R.id.elephant);
         lion=(ImageView) findViewById(R.id.lion);
         lapin=(ImageView) findViewById(R.id.lapin);
@@ -121,10 +126,6 @@ public class ArcheDeNoe extends AppCompatActivity {
 
         animauxArche = new ArrayList<ImageView>();
 
-        metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        hauteurEcran=metrics.heightPixels;
-        densiteEcran=metrics.density;
         posArche=(int)(hauteurEcran-(175+130)*densiteEcran);//175<->moitié de la hauteur de l'image;130<->surface de l'eau+marge
         arche.setY(posArche);
     }
