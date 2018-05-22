@@ -44,7 +44,7 @@ public class Identification extends AppCompatActivity {
 
 
 
-        intent = new Intent(getApplicationContext(), BubbleVS.class);
+        intent = new Intent(getApplicationContext(), SnailVSActivity.class);
 
     }
 
