@@ -97,14 +97,14 @@ public class ArcheVSActivity extends AppCompatActivity {
                 case R.id.elephant:
                     myRef.child("animal").setValue("elephant");
                     coule=24+(int)(5*Math.random());
-                    layout.addView(animal,150,150);
+                    layout.addView(animal,(int)(75*densiteEcran),(int)(75*densiteEcran));
                     animal.setImageResource(R.drawable.elephantdebout);
                     animal.setY(posArche+105*densiteEcran);
                     break;
                 case R.id.lion:
                     myRef.child("animal").setValue("lion");
                     coule=15+(int)(3*Math.random());
-                    layout.addView(animal,120,120);
+                    layout.addView(animal,(int)(60*densiteEcran),(int)(60*densiteEcran));
                     animal.setImageResource(R.drawable.lion);
                     animal.setY(posArche+115*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lion);
@@ -112,7 +112,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                 case R.id.lapin:
                     myRef.child("animal").setValue("lapin");
                     coule=3+(int)(2*Math.random());
-                    layout.addView(animal,65,65);
+                    layout.addView(animal,(int)(32.5*densiteEcran),(int)(32.5*densiteEcran));
                     animal.setImageResource(R.drawable.lapin);
                     animal.setY(posArche+125*densiteEcran);
                     //animauxArche[nbAnimaux].setImageResource(R.drawable.lapin);
@@ -284,17 +284,17 @@ public class ArcheVSActivity extends AppCompatActivity {
         animal=new ImageView(ArcheVSActivity.this);
         switch(animalCourant){
             case "elephant":
-                layout.addView(animal,150,150);
+                layout.addView(animal,(int)(75*densiteEcran),(int)(75*densiteEcran));
                 animal.setImageResource(R.drawable.elephantdebout);
                 animal.setY(posArche+105*densiteEcran);
                 break;
             case "lion":
-                layout.addView(animal,120,120);
+                layout.addView(animal,(int)(60*densiteEcran),(int)(60*densiteEcran));
                 animal.setImageResource(R.drawable.lion);
                 animal.setY(posArche+115*densiteEcran);
                 break;
             case "lapin":
-                layout.addView(animal,65,65);
+                layout.addView(animal,(int)(32.5*densiteEcran),(int)(32.5*densiteEcran));
                 animal.setImageResource(R.drawable.lapin);
                 animal.setY(posArche+125*densiteEcran);
                 break;

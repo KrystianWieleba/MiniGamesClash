@@ -88,7 +88,9 @@ public class ResultatBubbleVS extends AppCompatActivity {
                     //myRef.removeEventListener(this);
                     nextActivity();
 
-
+                } else {
+                    winner.setText("En attente de l'autre joueur");
+                    winner.setVisibility(View.VISIBLE);
                 }
             }
             @Override
