@@ -13,11 +13,14 @@ import java.util.ArrayList;
 
 public class MorpionActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //contiendra l'état des cases
     String res[][] = new String[3][3];
+
     ArrayList<Button> buttons = new ArrayList<>();
     int turn = 0;
     int vic = 0;
 
+    //chaque bouton représente une case du morpion
     Button but00;
     Button but01;
     Button but02;
@@ -35,6 +38,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_morpion);
 
+        //initialise l'état de chaque case
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
                 res[i][j] = " ";
@@ -71,13 +75,14 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        // Vérification que la case est libre
+        // Vérifie que la case est bien libre
 
         if (v.getBackground() != null) {
             return;
         }
 
         // Prise en compte du choix de la case dans le tableau du jeu et affichage pour les joueurs
+        //l'utilisateur prend les croix
 
         if (v.getId() == R.id.button00) {
             res[0][0] = "x";
@@ -110,13 +115,13 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
 
         turn++;
 
-        // Vérification si le joueur a gagné
+        // Vérifie si le joueur a gagné
 
         if (Win() && vic == 0) {
             vic = 1;
             player1Win();
         } else if (turn == 9) {
-            draw();
+            egalite();
         }
 
 
@@ -186,10 +191,10 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
+    //teste s'il y a victoire
     boolean Win() {
 
-        // Ligne
+        //teste les lignes
 
         for (int i=0; i<3; i++) {
             if (res[i][0].equals(res[i][1]) && res[i][0].equals(res[i][2]) && !res[i][0].equals(" ") ) {
@@ -197,7 +202,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-        // Colonne
+        // teste les colonnes
 
         for (int j=0; j<3; j++) {
             if ( res[0][j].equals(res[1][j]) && res[0][j].equals(res[2][j]) && !res[0][j].equals(" ") ) {
@@ -205,7 +210,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
-        // Diagonales
+        // teste les diagonales
 
         if ( res[0][0].equals(res[1][1]) && res[0][0].equals(res[2][2]) && !res[0][0].equals(" ") ) {
             return true;
@@ -221,8 +226,10 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
 
     // Affichage du vainqueur et retour au menu principal
 
+    //cas de victoire du joueur
     void player1Win(){
         Toast.makeText(this, "Vous remportez la partie !", Toast.LENGTH_SHORT).show();
+        //Patiente 1,5s avant de retourner
         new CountDownTimer(1500, 10) {
             public void onTick(long tick){}
             public void onFinish() {
@@ -231,6 +238,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
         }.start();
     }
 
+    //cas de victoire de l'ordinateur
     void player2Win(){
         Toast.makeText(this, "Vous perdez la partie !", Toast.LENGTH_SHORT).show();
         new CountDownTimer(1500, 10) {
@@ -241,7 +249,8 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
         }.start();
     }
 
-    void draw(){
+    //cas d'égalité
+    void egalite(){
         Toast.makeText(this, "Egalité !", Toast.LENGTH_SHORT).show();
         new CountDownTimer(1500, 10) {
             public void onTick(long tick){}
