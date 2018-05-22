@@ -41,7 +41,7 @@ public class MorpionVSActivity extends AppCompatActivity {
     private String symboleJAdv;
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
-    int atoidejouer=1;
+    int atoidejouer=(-1);
     private String nomJpret=" ";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -109,6 +109,12 @@ public class MorpionVSActivity extends AppCompatActivity {
             }
         }
 
+        for (int i=0;i<3;i++) {
+            for (int j=0;j<3;j++) {
+                myRef.child("case" + i + "" + j).setValue(" ");
+            }
+        }
+
         but00 = (Button) findViewById(R.id.button00);
         but01 = (Button) findViewById(R.id.button01);
         but02 = (Button) findViewById(R.id.button02);
@@ -151,11 +157,6 @@ public class MorpionVSActivity extends AppCompatActivity {
             croixourondJAdv = ContextCompat.getDrawable(MorpionVSActivity.this,R.drawable.morpioncross);
         }
 
-        for (int i=0;i<3;i++) {
-            for (int j=0;j<3;j++) {
-                    myRef.child("case" + i + "" + j).setValue(" ");
-            }
-        }
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -170,7 +171,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                         but.setEnabled(false);
                     }
                 }
-                else{
+                else if (atoidejouer==0){
                     atoidejouer=1;
                     switch(dataSnapshot.getKey()){
                         case "case00":
@@ -220,7 +221,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                             break;
 
                     }
-                    turn+=3; //test
+                    turn++; //test
                     if (Win()) {
                         if (player1) {
                             player1Win();
@@ -254,12 +255,16 @@ public class MorpionVSActivity extends AppCompatActivity {
             }
         });
 
-        //pour s'assurer que les deux joueurs sont prêts avant de permettre le jeu
+        for (Button but : buttons) {
+            but.setEnabled(true);
+        }
+
+        /*//pour s'assurer que les deux joueurs sont prêts avant de permettre le jeu
         //le joueur qui ne joue pas se signale prêt via la database
         if (atoidejouer==0){
             myRef.child("pret"+nomJ1).setValue(nomJ1);
         }
-        else {
+        else if (atoidejouer==1){
             myRef.child("pret"+nomJAdv).setValue(nomJAdv);
             ValueEventListener eventListenerPrets=new ValueEventListener() {
                 @Override
@@ -279,7 +284,7 @@ public class MorpionVSActivity extends AppCompatActivity {
                 }
             };
             myRef.child("pret"+nomJAdv).addValueEventListener(eventListenerPrets);
-        }
+        }*/
     }
 
 
