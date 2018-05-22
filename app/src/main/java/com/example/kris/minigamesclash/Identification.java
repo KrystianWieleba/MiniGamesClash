@@ -39,7 +39,7 @@ public class Identification extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
 
         // intent de la première activité à lancer
-        intent = new Intent(getApplicationContext(), SnailVSActivity.class);
+        intent = new Intent(getApplicationContext(), MorpionVSActivity.class);
 
     }
 

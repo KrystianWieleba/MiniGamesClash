@@ -43,12 +43,14 @@ public class MorpionVSActivity extends AppCompatActivity {
     private String symboleJAdv;
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
-    int atoidejouer=(1);
+    int atoidejouer;
+    private int scoreJ1;
     ChildEventListener casesChangeListener;
     //private String nomJpret=" ";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Morpion");
+    DatabaseReference myRef2 = database.getReference("Players");
 
     private View.OnClickListener onClickListenerCases = new View.OnClickListener() {
         @Override
@@ -106,6 +108,22 @@ public class MorpionVSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_morpion_vs);
 
+        nomJ1 = getIntent().getStringExtra("nomJ1");
+        nomJAdv = getIntent().getStringExtra("nomJAdv");
+        atoidejouer = getIntent().getIntExtra("tour", 0);
+
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
+                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
                 res[i][j] = " ";
@@ -140,9 +158,6 @@ public class MorpionVSActivity extends AppCompatActivity {
             but.setEnabled(false); //pour empêcher de jouer avant que l'autre adversaire soit prêt
             but.setOnClickListener(onClickListenerCases);
         }
-
-        nomJ1 = getIntent().getStringExtra("nomJ1");
-        nomJAdv = getIntent().getStringExtra("nomJAdv");
 
         if (nomJ1.compareTo(nomJAdv)>0){
             symboleJ1="x";
