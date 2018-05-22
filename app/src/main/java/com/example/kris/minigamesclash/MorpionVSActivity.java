@@ -1,6 +1,8 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,7 +44,8 @@ public class MorpionVSActivity extends AppCompatActivity {
     private Drawable croixourondJ1;
     private Drawable croixourondJAdv;
     int atoidejouer=(1);
-    private String nomJpret=" ";
+    ChildEventListener casesChangeListener;
+    //private String nomJpret=" ";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Morpion");
@@ -154,7 +157,7 @@ public class MorpionVSActivity extends AppCompatActivity {
             croixourondJAdv = ContextCompat.getDrawable(MorpionVSActivity.this,R.drawable.morpioncross);
         }
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        casesChangeListener =new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 //nothing
@@ -250,10 +253,31 @@ public class MorpionVSActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("Failed to read value.", databaseError.toException());
             }
-        });
+        };
 
-        for (Button but : buttons) {
-            but.setEnabled(true);
+        //permettre d'attendre pour ne pas que le joueur 1 provoque des changements en initialisant la bd
+        if (atoidejouer==0) {
+            new CountDownTimer(1500,100) {
+                public void onTick(long tick) {
+                }
+                public void onFinish() {
+                    myRef.addChildEventListener(casesChangeListener);
+                }
+            }.start();
+        }
+
+        //permet de laisser du tps à l'autre joueur avant de commencer
+        if (atoidejouer==1) {
+            new CountDownTimer(4000,100) {
+                public void onTick(long tick) {
+                }
+                public void onFinish() {
+                    myRef.addChildEventListener(casesChangeListener);
+                    for (Button but : buttons) {
+                        but.setEnabled(true);
+                    }
+                }
+            }.start();
         }
 
         /*//pour s'assurer que les deux joueurs sont prêts avant de permettre le jeu
