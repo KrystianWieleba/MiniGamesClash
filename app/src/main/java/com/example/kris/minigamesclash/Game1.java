@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Game1 extends AppCompatActivity {
 
-    private TextView Score;
+    private TextView scoreDisplay;
     private TextView start;
     private ImageView blue;
     private ImageView red;
@@ -53,7 +53,7 @@ public class Game1 extends AppCompatActivity {
         setContentView(R.layout.activity_game1);
 
         // Instancier les view
-        Score = (TextView) findViewById(R.id.Score);
+        scoreDisplay = (TextView) findViewById(R.id.Score);
         start = (TextView) findViewById(R.id.start);
         blue = (ImageView) findViewById(R.id.blue);
         red = (ImageView) findViewById(R.id.red);
@@ -62,7 +62,7 @@ public class Game1 extends AppCompatActivity {
 
 
         // Fixer le score invisible au lancement
-        Score.setVisibility(View.INVISIBLE);
+        scoreDisplay.setVisibility(View.INVISIBLE);
 
         // Obtenir la taille de l'écran
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -97,7 +97,7 @@ public class Game1 extends AppCompatActivity {
 
             // Changer la visibilité
             start.setVisibility(View.GONE);
-            Score.setVisibility(View.VISIBLE);
+            scoreDisplay.setVisibility(View.VISIBLE);
 
 
             // Compte à rebours de 20sec
@@ -218,7 +218,7 @@ public class Game1 extends AppCompatActivity {
         orange.setY(orangeY);
 
         // Actualisation du score
-        Score.setText("Score : " + score);
+        scoreDisplay.setText("Score : " + score);
 
     }
 
