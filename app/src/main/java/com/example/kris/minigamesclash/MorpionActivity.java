@@ -16,6 +16,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
     String res[][] = new String[3][3];
     ArrayList<Button> buttons = new ArrayList<>();
     int turn = 0;
+    int vic = 0;
 
     Button but00;
     Button but01;
@@ -70,10 +71,13 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
+        // Vérification que la case est libre
+
         if (v.getBackground() != null) {
             return;
         }
 
+        // Prise en compte du choix de la case dans le tableau du jeu et affichage pour les joueurs
 
         if (v.getId() == R.id.button00) {
             res[0][0] = "x";
@@ -106,7 +110,10 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
 
         turn++;
 
-        if (Win()) {
+        // Vérification si le joueur a gagné
+
+        if (Win() && vic == 0) {
+            vic = 1;
             player1Win();
         } else if (turn == 9) {
             draw();
@@ -134,6 +141,8 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
         while (n == 9 || tab[n] != " ") {
             n = (int) Math.round(Math.random() * 10);
         }
+
+        // // Prise en compte du choix de la case par l'IA dans le tableau du jeu et affichage pour les joueurs
 
         if (n == 0) {
             res[0][0] = "o";
@@ -164,21 +173,23 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
             but22.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.morpionround));
         }
 
+        // Vérification su l'IA a perdu
 
-        turn++;
-
-        if (Win()) {
-            player2Win();
-        } else if (turn == 9) {
-            draw();
+        if (turn < 9) {
+            turn++;
+            if (Win() && vic == 0) {
+                vic =1;
+                player2Win();
+            }
         }
         
-
     }
 
 
 
     boolean Win() {
+
+        // Ligne
 
         for (int i=0; i<3; i++) {
             if (res[i][0].equals(res[i][1]) && res[i][0].equals(res[i][2]) && !res[i][0].equals(" ") ) {
@@ -186,11 +197,15 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
 
+        // Colonne
+
         for (int j=0; j<3; j++) {
             if ( res[0][j].equals(res[1][j]) && res[0][j].equals(res[2][j]) && !res[0][j].equals(" ") ) {
                 return true;
             }
         }
+
+        // Diagonales
 
         if ( res[0][0].equals(res[1][1]) && res[0][0].equals(res[2][2]) && !res[0][0].equals(" ") ) {
             return true;
@@ -204,7 +219,7 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    // Les Toast sont là uniquement pour voir les résultats au moment du développement
+    // Affichage du vainqueur et retour au menu principal
 
     void player1Win(){
         Toast.makeText(this, "Vous remportez la partie !", Toast.LENGTH_SHORT).show();
