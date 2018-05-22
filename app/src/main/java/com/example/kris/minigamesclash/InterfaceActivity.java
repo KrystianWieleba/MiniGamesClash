@@ -34,6 +34,7 @@ public class InterfaceActivity extends AppCompatActivity {
     private DatabaseReference myRef = database.getReference("Players");
 
     private TextView playersScores;
+    private TextView winner;
     private String nomJ1;
     private String nomJAdv;
     private int scoreJ1;
@@ -50,6 +51,7 @@ public class InterfaceActivity extends AppCompatActivity {
 
         suite = (Button) findViewById(R.id.suite);
         playersScores = (TextView) findViewById(R.id.playersScores);
+        winner = (TextView) findViewById(R.id.winner);
 
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
@@ -67,9 +69,13 @@ public class InterfaceActivity extends AppCompatActivity {
 
                 playersScores.setText(nomJ1 + " : " + scoreJ1 + "\n\n" + "VS" + "\n\n" + nomJAdv + " : " + scoreJAdv);
 
-                if (scoreJ1==3 || scoreJAdv==3) {
-                    suite.setText("RETOUR AU MENU");
-                    //permettre aux joueurs une revanche ?
+                // Condition de fin de la partie
+                if (scoreJ1==2) {
+                    playersScores.setVisibility(GONE);
+                    winner.setText(nomJ1 + " GAGNE LA PARTIE " + scoreJ1 + " A " + scoreJAdv);
+                } else if (scoreJAdv==2) {
+                    playersScores.setVisibility(GONE);
+                    winner.setText(nomJAdv + " GAGNE LA PARTIE " + scoreJAdv + " A " + scoreJ1);
                 }
 
 
@@ -87,7 +93,7 @@ public class InterfaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 avanceeDuel=(int)(scoreJ1+scoreJAdv);
-                if (scoreJ1==3 || scoreJAdv==3){
+                if (scoreJ1==2 || scoreJAdv==2){
                     avanceeDuel=-1;
                 }
                 Intent intent;
@@ -99,6 +105,9 @@ public class InterfaceActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
                     case 2:
+                        intent=new Intent(getApplicationContext(), MorpionVSActivity.class);
+                        break;
+                    case 3:
                         intent=new Intent(getApplicationContext(), SnailVSActivity.class);
                         break;
                     default:

@@ -33,7 +33,6 @@ public class ArcheVSActivity extends AppCompatActivity {
     private TextView winText;
     private TextView winText2;
     private FrameLayout layout;
-    private Button retour;
     List<ImageView> animauxArche;
     public ImageView animal;
     private int nbAnimaux = 0;
@@ -86,6 +85,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                 // Fait suivre le nom des joueurs
                 intent.putExtra("nomJ1", nomJ1);
                 intent.putExtra("nomJAdv", nomJAdv);
+                intent.putExtra("tour", atoidejouer);
                 startActivity(intent);
             }
         }.start();
@@ -135,16 +135,6 @@ public class ArcheVSActivity extends AppCompatActivity {
         }
     };
 
-    private OnClickListener clickListenerRetour = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //code de retour au menu avec intent
-            Intent intent=new Intent(getApplicationContext(), InterfaceActivity.class);
-            intent.putExtra("nomJ1",nomJ1);
-            intent.putExtra("nomJAdv",nomJAdv);
-            startActivity(intent);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,9 +142,6 @@ public class ArcheVSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_arche_vs);
 
         //le bouton de retour au menu est d'abord caché
-        retour=(Button) findViewById(R.id.retour);
-        retour.setVisibility(View.INVISIBLE);
-        retour.setOnClickListener(clickListenerRetour);
 
         elephant=(ImageView) findViewById(R.id.elephant);
         lion=(ImageView) findViewById(R.id.lion);
