@@ -31,6 +31,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private ImageView lapin;
     private ImageView mer;
     private TextView winText;
+    private TextView winText2;
     private FrameLayout layout;
     private Button retour;
     List<ImageView> animauxArche;
@@ -46,7 +47,7 @@ public class ArcheVSActivity extends AppCompatActivity {
     private String nomJ1;
     private String nomJAdv;
     int atoidejouer;
-    private int scoreJ1;
+    private int scoreJAdv;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Arche");
@@ -65,11 +66,12 @@ public class ArcheVSActivity extends AppCompatActivity {
                 anim.setVisibility(GONE);
             }
 
-            winText.setText(nomJ1 + " est le meilleur Noé !");
+            winText.setText(nomJAdv + " est le meilleur Noé !");
+            winText2.setVisibility(View.INVISIBLE);
             myRef.child("win").setValue(1);
-            //Message de fin et retour...
-            scoreJ1 +=1;
-            myRef2.child(nomJ1).setValue(scoreJ1);
+            //Message de fin et prochaine activité
+            scoreJAdv +=1;
+            myRef2.child(nomJAdv).setValue(scoreJAdv);
             nextActivity();
 
         }
@@ -160,6 +162,7 @@ public class ArcheVSActivity extends AppCompatActivity {
         arche=(ImageView) findViewById(R.id.arche);
         mer=(ImageView)findViewById(R.id.mer);
         winText=(TextView)findViewById(R.id.winText);
+        winText2=(TextView)findViewById(R.id.winText2);
         layout=(FrameLayout) findViewById(R.id.layout);
         hauteurArche=arche.getMeasuredHeight();
         elephant.setOnClickListener(clickListenerAnimaux);
@@ -189,7 +192,7 @@ public class ArcheVSActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
-                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
+                scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -230,10 +233,13 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                               }
 
                                                               else {
+                                                                  check();
                                                                   elephant.setVisibility(View.INVISIBLE);
                                                                   lion.setVisibility(View.INVISIBLE);
                                                                   lapin.setVisibility(View.INVISIBLE);
                                                                   atoidejouer=0;
+
+
                                                               }
 
 
@@ -248,23 +254,30 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           }
                                                       });
 
+
+
+    }
+
+    public void check() {
         myRef.child("win").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                if ( dataSnapshot.getValue(int.class) == 1 ) {
+                if (dataSnapshot.getValue(int.class) == 1) {
 
-                    winText.setText(nomJ1 + " est le meilleur Noé !");
+
+                    winText2.setText(nomJ1 + " est le meilleur Noé !");
+
 
                     arche.setVisibility(GONE);
                     elephant.setVisibility(GONE);
                     lion.setVisibility(GONE);
                     lapin.setVisibility(GONE);
-                     for (ImageView anim : animauxArche) {
-                       anim.setVisibility(GONE);
-                     }
-                     nextActivity();
+                    for (ImageView anim : animauxArche) {
+                        anim.setVisibility(GONE);
+                    }
+                    nextActivity();
                 }
 
 
@@ -275,9 +288,6 @@ public class ArcheVSActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void miseajournewanimal(){
