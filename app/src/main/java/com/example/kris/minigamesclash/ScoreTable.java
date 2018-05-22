@@ -37,20 +37,20 @@ public class ScoreTable extends AppCompatActivity {
                 //Lit les jouerus du top5 et leurs scores à partir de firebase
                 for (DataSnapshot childs : dataSnapshot.getChildren()) {
 
-                    int First = Integer.parseInt(childs.child("1st").getValue().toString());
-                    int Second = Integer.parseInt(childs.child("2nd").getValue().toString());
-                    int Third = Integer.parseInt(childs.child("3rd").getValue().toString());
-                    int Fourth = Integer.parseInt(childs.child("4th").getValue().toString());
-                    int Fifth = Integer.parseInt(childs.child("5th").getValue().toString());
+                    int first = Integer.parseInt(childs.child("1st").getValue().toString());
+                    int second = Integer.parseInt(childs.child("2nd").getValue().toString());
+                    int third = Integer.parseInt(childs.child("3rd").getValue().toString());
+                    int fourth = Integer.parseInt(childs.child("4th").getValue().toString());
+                    int fifth = Integer.parseInt(childs.child("5th").getValue().toString());
 
-                    String Nfirst = childs.child("Name 1st").getValue().toString();
-                    String Nsecond = childs.child("Name 2nd").getValue().toString();
-                    String Nthird = childs.child("Name 3rd").getValue().toString();
-                    String Nfourth = childs.child("Name 4th").getValue().toString();
-                    String Nfifth = childs.child("Name 5th").getValue().toString();
+                    String nfirst = childs.child("Name 1st").getValue().toString();
+                    String nsecond = childs.child("Name 2nd").getValue().toString();
+                    String nthird = childs.child("Name 3rd").getValue().toString();
+                    String nfourth = childs.child("Name 4th").getValue().toString();
+                    String nfifth = childs.child("Name 5th").getValue().toString();
 
                     //Affichage du top5
-                    rankingScore.setText("1 - " + First + "  ( " + Nfirst + " )" + "\n\n" + "2 - " + Second + "  ( " + Nsecond + " )"  + "\n\n" + "3 - " + Third + "  ( " + Nthird + " )"  + "\n\n" + "4 - " + Fourth + "  ( " + Nfourth + " )"  + "\n\n" + "5 - " + Fifth + "  ( " + Nfifth + " )" );
+                    rankingScore.setText("1 - " + first + "  ( " + nfirst + " )" + "\n\n" + "2 - " + second + "  ( " + nsecond + " )"  + "\n\n" + "3 - " + third + "  ( " + nthird + " )"  + "\n\n" + "4 - " + fourth + "  ( " + nfourth + " )"  + "\n\n" + "5 - " + fifth + "  ( " + nfifth + " )" );
                 }
                 leaderboardText.setVisibility(View.VISIBLE);
 

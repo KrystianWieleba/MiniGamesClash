@@ -84,7 +84,8 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if ((posSnailAdv+120*densiteEcran)>=longueurEcran) {
+                posSnailAdv=(longueurEcran*Float.parseFloat(dataSnapshot.getValue().toString()))/10000;
+                if ((posSnailAdv+(longueurEcran/5))>=longueurEcran) {
                     // Immobiliser le joueur perdant, ne marche plus ? il me semble que ça marchait | à retester,,en simulant sur mon portabel et simulatuer, le simulateur bloque, mais sur mon protbale non...
                     layout.setClickable(false);
                     temps.setText("Perdu ! " + nomJAdv +" gagne la manche.");
@@ -92,10 +93,7 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
 
 
                 }
-                posSnailAdv=(longueurEcran*Float.parseFloat(dataSnapshot.getValue().toString()))/10000;
                 snailAdv.setX(posSnailAdv);
-
-
 
             }
             @Override
@@ -108,25 +106,27 @@ public class SnailVSActivity extends AppCompatActivity implements OnClickListene
     //il n'y a pas des choses variées à cliquer, l'activité implémente directement OnClickListener
     @Override
     public void onClick(View v) {
+        if (v.getId()==R.id.layout) {
 
-        //si l'escargot atteint le bout de l'écran, on arrête le timer
-        if ((posSnail1+120*densiteEcran)>=longueurEcran){
+            //si l'escargot atteint le bout de l'écran, on arrête le timer
+            if ((posSnail1 + (longueurEcran / 5)) >= longueurEcran) {
 
-            //On fait apparaître le bouton de retour au menu
-            temps.setText(nomJ1 + " remporte la manche !");
-            scoreJ1 +=1;
-            myRef2.child(nomJ1).setValue(scoreJ1);
-            // Sinon le score continue d'être incrémenté à chque clique
-            layout.setClickable(false);
-            nextActivity();
+                //On fait apparaître le bouton de retour au menu
+                temps.setText(nomJ1 + " remporte la manche !");
+                scoreJ1 += 1;
+                myRef2.child(nomJ1).setValue(scoreJ1);
+                // Sinon le score continue d'être incrémenté à chque clique
+                layout.setClickable(false);
+                nextActivity();
 
+            }
+            //sinon, on fait avancer l'escargot
+            else {
+                posSnail1 += increment;
+                snail1.setX(posSnail1);
+            }
+            myRef.child(nomJ1).setValue((posSnail1 * 10000) / longueurEcran);
         }
-        //sinon, on fait avancer l'escargot
-        else {
-            posSnail1 += increment;
-            snail1.setX(posSnail1);
-        }
-        myRef.child(nomJ1).setValue((posSnail1*10000)/longueurEcran);
 
     }
 
