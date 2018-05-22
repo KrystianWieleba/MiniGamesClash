@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class jeuxdescarres extends AppCompatActivity implements View.OnClickListener{
 
+    //etat de l'ensemble des arrêtes et des rectangles disposés en matrice
     int res[][] = new int[7][7];
     ArrayList<Button> buttons = new ArrayList<>();
     int player = 1; // quel joueur joue ?
@@ -25,6 +26,9 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jeuxdescarres);
+
+        //initialisation à 5 des éléments jouables
+        //(rectangles représentant les arêtes des carrés)
 
         res[0][1] = 5;
         res[0][3] = 5;
@@ -51,8 +55,7 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
         res[6][3] = 5;
         res[6][5] = 5;
 
-
-
+        //initialisation de ces éléments jouables
         Button but01 = (Button) findViewById(R.id.button01);
         Button but03 = (Button) findViewById(R.id.button03);
         Button but05 = (Button) findViewById(R.id.button05);
@@ -125,7 +128,9 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        // Prise en compte dans le tableau des cases jouées
+        //Prise en compte dans le tableau des cases jouées
+        //Si la vue est encore jouable (il s'agit d'une arête qui n'a pas été jouée)
+        //met l'état de l'arête correspondante dans res au numéro du joueur jouant
 
         switch(v.getId()) {
             case R.id.button01:
@@ -315,7 +320,9 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
         if (res[0][1] != 5 && res[1][0] != 5 && res[1][2] != 5 && res[2][1] != 5 && res[1][1] == 0) {
             res[1][1] = player;
             Button but = (Button) findViewById(R.id.buttonA);
+            //colore le carré complété
             but.setBackgroundColor(playercolor);
+            //augmente le score du joueur qui le complète
             if (player == 1) {
                 bleu++;
             } else {
@@ -432,10 +439,11 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
     }
 
     // Transition vers les autres activités
-    // A changer pour uniformisation
 
+    //cas où le joueur 1 gagne
     void player1Win(){
         Toast.makeText(this, "Player 1 wins !", Toast.LENGTH_SHORT).show();
+        //attend trois secondes avant de retourner au menu
         new CountDownTimer(3000, 10) {
             public void onTick(long tick){}
             public void onFinish() {
@@ -444,6 +452,7 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
         }.start();
     }
 
+    //cas où le joueur 2 gagne
     void player2Win(){
         Toast.makeText(this, "Player 2 wins !", Toast.LENGTH_SHORT).show();
         new CountDownTimer(3000, 10) {
