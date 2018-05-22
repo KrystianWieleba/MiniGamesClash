@@ -1,7 +1,9 @@
 package com.example.kris.minigamesclash;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -434,10 +436,22 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
 
     void player1Win(){
         Toast.makeText(this, "Player 1 wins !", Toast.LENGTH_SHORT).show();
+        new CountDownTimer(3000, 10) {
+            public void onTick(long tick){}
+            public void onFinish() {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        }.start();
     }
 
     void player2Win(){
         Toast.makeText(this, "Player 2 wins !", Toast.LENGTH_SHORT).show();
+        new CountDownTimer(3000, 10) {
+            public void onTick(long tick){}
+            public void onFinish() {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        }.start();
     }
 
 }
