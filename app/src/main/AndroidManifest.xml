@@ -42,9 +42,6 @@
             android:name=".resultGame1"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".GamesMenuVS"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ArcheVSActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".BubbleVS" />
