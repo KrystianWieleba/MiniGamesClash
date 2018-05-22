@@ -205,16 +205,14 @@ public class MorpionActivity extends AppCompatActivity implements View.OnClickLi
     // Les Toast sont là uniquement pour voir les résultats au moment du développement
 
     void player1Win(){
-        Toast.makeText(this, "Player 1 wins !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Vous remportez la partie !", Toast.LENGTH_SHORT).show();
     }
 
     void player2Win(){
-        Toast.makeText(this, "Player 2 wins !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Vous perdez la partie !", Toast.LENGTH_SHORT).show();
     }
 
     void draw(){
-        Toast.makeText(this, "Draw !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Egalité !", Toast.LENGTH_SHORT).show();
     }
-
-
 }

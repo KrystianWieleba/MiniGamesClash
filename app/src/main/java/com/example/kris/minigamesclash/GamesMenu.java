@@ -12,6 +12,7 @@ public class GamesMenu extends AppCompatActivity {
     Button boutonGame2;
     Button boutonGame3;
     Button boutonGame4;
+    Button boutonGame5;
 
 
 
@@ -24,6 +25,7 @@ public class GamesMenu extends AppCompatActivity {
         boutonGame2 = (Button) findViewById(R.id.boutonGame2);
         boutonGame3 = (Button) findViewById(R.id.boutonGame3);
         boutonGame4 = (Button) findViewById(R.id.boutonGame4);
+        boutonGame5 = (Button) findViewById(R.id.boutonGame5);
 
         boutonGame1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +71,19 @@ public class GamesMenu extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(getApplicationContext(), jeuxdescarres.class));
+
+
+
+                // Effet bouton Training
+
+            }
+        });
+
+        boutonGame4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), MorpionActivity.class));
 
 
 
