@@ -18,20 +18,8 @@ import static android.view.View.GONE;
 
 public class InterfaceActivity extends AppCompatActivity {
 
-    //pour moi il faut que l'interface prenne en entree les noms des joueurs (via le intent)
-    //+quand il sort dun minijeu, le gagnant (quoique on peut mettre le score global a jour directmt a la fin du mini jeu)
-    // noms recus a partir de ton activite didentication quon mettra au debut
-    // ca permettra notamment d'avoir plusieurs parties en cours simultanement
-    //Du coup je me demande si on lancerait pas linterface que apres un minijeu (et on a que l'identif au tout debut)
-    //Il faudra aussi penser à virer tous les "dechets" de la database avant de quitter
-
-    //Du coup j'ai fait des modifs qui font que depuis resultbubblevs ça peut ne plus marcher dsl :P
-
-    //pour l'instant par rapport au menu on laisse l'accès aux mini-jeux vs individuellement
-    //on rajoute juste un bouton "all".
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference("Players");
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Players");
 
     private TextView playersScores;
     private TextView winner;
@@ -57,29 +45,18 @@ public class InterfaceActivity extends AppCompatActivity {
         nomJAdv = getIntent().getStringExtra("nomJAdv");
         tour = getIntent().getIntExtra("tour", 0);
 
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //il faudra changer ds les minijeux : ils doivent inscrire leur score avec leur nom comme ref
-                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class); //pq mettre le score en long ?? ah c'était car il me semblait que int marchait pas ( à cause de mon listener peut être)
+                // Récupère les scores des joueurs
+                scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
                 scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
 
+                // Appel à la méthode de condition de fin de partie
+                checkEnd();
 
+                // Ecrit les scores deux deux joueurs
                 playersScores.setText(nomJ1 + " : " + scoreJ1 + "\n\n" + "VS" + "\n\n" + nomJAdv + " : " + scoreJAdv);
-
-                // Condition de fin de la partie
-                if (scoreJ1==2) {
-                    playersScores.setVisibility(GONE);
-                    winner.setText(nomJ1 + " GAGNE LA PARTIE " + scoreJ1 + " A " + scoreJAdv);
-                } else if (scoreJAdv==2) {
-                    playersScores.setVisibility(GONE);
-                    winner.setText(nomJAdv + " GAGNE LA PARTIE " + scoreJAdv + " A " + scoreJ1);
-                }
-
-
-
             }
 
             @Override
@@ -88,15 +65,18 @@ public class InterfaceActivity extends AppCompatActivity {
             }
         });
 
+        avanceeDuel=(int)(scoreJ1+scoreJAdv);
 
         suite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                avanceeDuel=(int)(scoreJ1+scoreJAdv);
-                if (scoreJ1==2 || scoreJAdv==2){
+
+                // Pour revenir au menu à la fin de la partie
+                if (avanceeDuel==4){
                     avanceeDuel=-1;
                 }
                 Intent intent;
+                // En fonction de l'avancée du duel le bouton lancera une activité différente
                 switch (avanceeDuel) {
                     case 0:
                         intent=new Intent(getApplicationContext(), BubbleVS.class);
@@ -114,6 +94,7 @@ public class InterfaceActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), MainActivity.class);
                     //startActivity(new Intent(getApplicationContext(), SnailVSActivity.class));
                 }
+                //  Fait passer les extras à l'activité suivante
                 intent.putExtra("nomJ1",nomJ1);
                 intent.putExtra("nomJAdv",nomJAdv);
                 intent.putExtra("tour", tour);
@@ -122,5 +103,19 @@ public class InterfaceActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void checkEnd() {
+
+        // Condition de fin de la partie + écriture du massage adéquat
+        if (avanceeDuel == 4) {
+            playersScores.setVisibility(GONE);
+            if (scoreJ1 > scoreJAdv) {
+                winner.setText(nomJ1 + " GAGNE LA PARTIE " + scoreJ1 + " A " + scoreJAdv);
+        } else if (scoreJ1 < scoreJAdv) {
+                winner.setText(nomJAdv + " GAGNE LA PARTIE " + scoreJAdv + " A " + scoreJ1);
+        } else winner.setText(" EGALITE  " + scoreJ1 + " - " + scoreJAdv);
+        }
+
     }
 }
