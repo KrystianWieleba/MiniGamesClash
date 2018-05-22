@@ -1,5 +1,6 @@
 
-
+//activite d'authentification via firebase
+//N'est pas fonctionnelle, faute de temps
 /*
 
 package com.example.kris.minigamesclash;
