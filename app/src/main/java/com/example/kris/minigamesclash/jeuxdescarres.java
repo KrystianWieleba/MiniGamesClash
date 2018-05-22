@@ -1,5 +1,6 @@
 package com.example.kris.minigamesclash;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,33 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jeuxdescarres);
+
+        res[0][1] = 5;
+        res[0][3] = 5;
+        res[0][5] = 5;
+        res[1][0] = 5;
+        res[1][2] = 5;
+        res[1][4] = 5;
+        res[1][6] = 5;
+        res[2][1] = 5;
+        res[2][3] = 5;
+        res[2][5] = 5;
+        res[3][0] = 5;
+        res[3][2] = 5;
+        res[3][4] = 5;
+        res[3][6] = 5;
+        res[4][1] = 5;
+        res[4][3] = 5;
+        res[4][5] = 5;
+        res[5][0] = 5;
+        res[5][2] = 5;
+        res[5][4] = 5;
+        res[5][6] = 5;
+        res[6][1] = 5;
+        res[6][3] = 5;
+        res[6][5] = 5;
+
+
 
         Button but01 = (Button) findViewById(R.id.button01);
         Button but03 = (Button) findViewById(R.id.button03);
@@ -86,7 +114,6 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
         buttons.add(but65);
 
         for (Button but : buttons) {
-            but.setBackgroundDrawable(null);  // Background des boutons à null
             but.setOnClickListener(this);
         }
 
@@ -96,106 +123,197 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        // Vérification que la case n'a pas été jouée
-
-        if (v.getBackground() != null) {
-            return;
-        }
-
         // Prise en compte dans le tableau des cases jouées
 
         switch(v.getId()) {
             case R.id.button01:
-                res[0][1] = player;
+                if (res[0][1] ==5) {
+                    res[0][1] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button03:
-                res[0][3] = player;
+                if (res[0][3]==5) {
+                    res[0][3] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button05:
-                res[0][5] = player;
+                if (res[0][5]==5) {
+                    res[0][5] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button10:
-                res[1][0] = player;
+                if (res[1][0]==5) {
+                    res[1][0] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button12:
-                res[1][2] = player;
+                if (res[1][2]==5) {
+                    res[1][2] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button14:
-                res[1][4] = player;
+                if (res[1][4]==5) {
+                    res[1][4] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button16:
-                res[1][6] = player;
+                if (res[1][6]==5) {
+                    res[1][6] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button21:
-                res[2][1] = player;
+                if (res[2][1]==5) {
+                    res[2][1] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button23:
-                res[2][3] = player;
+                if (res[2][3]==5) {
+                    res[2][3] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button25:
-                res[2][5] = player;
+                if (res[2][5]==5) {
+                    res[2][5] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button30:
-                res[3][0] = player;
+                if (res[3][0]==5) {
+                    res[3][0] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button32:
-                res[3][2] = player;
+                if (res[3][2]==5) {
+                    res[3][2] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button34:
-                res[3][4] = player;
+                if (res[3][4]==5) {
+                    res[3][4] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button36:
-                res[3][6] = player;
+                if (res[3][6]==5) {
+                    res[3][6] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button41:
-                res[4][1] = player;
+                if (res[4][1]==5) {
+                    res[4][1] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button43:
-                res[4][3] = player;
+                if (res[4][3]==5) {
+                    res[4][3] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button45:
-                res[4][5] = player;
+                if (res[4][5]==5) {
+                    res[4][5] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button50:
-                res[5][0] = player;
+                if (res[5][0]==5) {
+                    res[5][0] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button52:
-                res[5][2] = player;
+                if (res[5][2]==5) {
+                    res[5][2] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button54:
-                res[5][4] = player;
+                if (res[5][4]==5) {
+                    res[5][4] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button56:
-                res[5][6] = player;
+                if (res[5][6]==5) {
+                    res[5][6] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button61:
-                res[6][1] = player;
+                if (res[6][1]==5) {
+                    res[6][1] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button63:
-                res[6][3] = player;
+                if (res[6][3]==5) {
+                    res[6][3] = player;
+                } else {
+                    return;
+                }
                 break;
             case R.id.button65:
-                res[6][5] = player;
+                if (res[6][5]==5) {
+                    res[6][5] = player;
+                } else {
+                    return;
+                }
                 break;
         }
 
         // Matérialisation de la case jouée par un changement de couleur
 
-        Drawable playercolor;
+        int playercolor;
+
         if (player ==1) {
-            playercolor = ContextCompat.getDrawable(this,R.drawable.carrebleu);
+            playercolor = Color.parseColor("blue");
         } else {
-            playercolor = ContextCompat.getDrawable(this,R.drawable.carrerouge);
+            playercolor = Color.parseColor("red");
         }
 
-        v.setBackgroundDrawable(playercolor);
+        v.setBackgroundColor(playercolor);
 
         // Conditions pour obtenir un point (1point= 1 carré complété)
 
-        if (res[0][1] != 0 && res[1][0] != 0 && res[1][2] != 0 && res[2][1] != 0 && res[1][1] == 0) {
+        if (res[0][1] != 5 && res[1][0] != 5 && res[1][2] != 5 && res[2][1] != 5 && res[1][1] == 0) {
             res[1][1] = player;
             Button but = (Button) findViewById(R.id.buttonA);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -203,10 +321,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[0][3] != 0 && res[1][2] != 0 && res[1][4] != 0 && res[2][3] != 0 && res[1][3] == 0) {
+        if (res[0][3] != 5 && res[1][2] != 5 && res[1][4] != 5 && res[2][3] != 5 && res[1][3] == 0) {
             res[1][3] = player;
             Button but = (Button) findViewById(R.id.buttonB);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -214,10 +332,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[0][5] != 0 && res[1][4] != 0 && res[1][6] != 0 && res[2][5] != 0 && res[1][5] == 0) {
+        if (res[0][5] != 5 && res[1][4] != 5 && res[1][6] != 5 && res[2][5] != 5 && res[1][5] == 0) {
             res[1][5] = player;
             Button but = (Button) findViewById(R.id.buttonC);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -225,10 +343,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[2][1] != 0 && res[3][0] != 0 && res[3][2] != 0 && res[4][1] != 0 && res[3][1] == 0) {
+        if (res[2][1] != 5 && res[3][0] != 5 && res[3][2] != 5 && res[4][1] != 5 && res[3][1] == 0) {
             res[3][1] = player;
             Button but = (Button) findViewById(R.id.buttonD);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -236,10 +354,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[2][3] != 0 && res[3][2] != 0 && res[3][4] != 0 && res[4][3] != 0 && res[3][3] == 0) {
+        if (res[2][3] != 5 && res[3][2] != 5 && res[3][4] != 5 && res[4][3] != 5 && res[3][3] == 0) {
             res[3][3] = player;
             Button but = (Button) findViewById(R.id.buttonE);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -247,10 +365,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[2][5] != 0 && res[3][4] != 0 && res[3][6] != 0 && res[4][5] != 0 && res[3][5] == 0) {
+        if (res[2][5] != 5 && res[3][4] != 5 && res[3][6] != 5 && res[4][5] != 5 && res[3][5] == 0) {
             res[3][5] = player;
             Button but = (Button) findViewById(R.id.buttonF);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -258,10 +376,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[4][1] != 0 && res[5][0] != 0 && res[5][2] != 0 && res[6][1] != 0 && res[5][1] == 0) {
+        if (res[4][1] != 5 && res[5][0] != 5 && res[5][2] != 5 && res[6][1] != 5 && res[5][1] == 0) {
             res[5][1] = player;
             Button but = (Button) findViewById(R.id.buttonG);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -269,10 +387,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[4][3] != 0 && res[5][2] != 0 && res[5][4] != 0 && res[6][3] != 0 && res[5][3] == 0) {
+        if (res[4][3] != 5 && res[5][2] != 5 && res[5][4] != 5 && res[6][3] != 5 && res[5][3] == 0) {
             res[5][3] = player;
             Button but = (Button) findViewById(R.id.buttonH);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
@@ -280,10 +398,10 @@ public class jeuxdescarres extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if (res[4][5] != 0 && res[5][4] != 0 && res[5][6] != 0 && res[6][5] != 0 && res[5][5] == 0) {
+        if (res[4][5] != 5 && res[5][4] != 5 && res[5][6] != 5 && res[6][5] != 5 && res[5][5] == 0) {
             res[5][5] = player;
             Button but = (Button) findViewById(R.id.buttonI);
-            but.setBackgroundDrawable(playercolor);
+            but.setBackgroundColor(playercolor);
             if (player == 1) {
                 bleu++;
             } else {
