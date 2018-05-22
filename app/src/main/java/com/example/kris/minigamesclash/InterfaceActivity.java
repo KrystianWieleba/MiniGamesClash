@@ -67,7 +67,7 @@ public class InterfaceActivity extends AppCompatActivity {
 
                 playersScores.setText(nomJ1 + " : " + scoreJ1 + "\n\n" + "VS" + "\n\n" + nomJAdv + " : " + scoreJAdv);
 
-                if (scoreJ1==2 || scoreJAdv==2) {
+                if (scoreJ1==3 || scoreJAdv==3) {
                     suite.setText("RETOUR AU MENU");
                     //permettre aux joueurs une revanche ?
                 }
@@ -87,7 +87,7 @@ public class InterfaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 avanceeDuel=(int)(scoreJ1+scoreJAdv);
-                if (scoreJ1==2 || scoreJAdv==2){
+                if (scoreJ1==3 || scoreJAdv==3){
                     avanceeDuel=-1;
                 }
                 Intent intent;
@@ -96,10 +96,10 @@ public class InterfaceActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), BubbleVS.class);
                         break;
                     case 1:
-                        intent=new Intent(getApplicationContext(), SnailVSActivity.class);
+                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
                     case 2:
-                        intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
+                        intent=new Intent(getApplicationContext(), SnailVSActivity.class);
                         break;
                     default:
                         intent=new Intent(getApplicationContext(), MainActivity.class);

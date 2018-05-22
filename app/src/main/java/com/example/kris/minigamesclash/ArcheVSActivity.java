@@ -278,8 +278,6 @@ public class ArcheVSActivity extends AppCompatActivity {
 
 
 
-
-
     }
 
     private void miseajournewanimal(){

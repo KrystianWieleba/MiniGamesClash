@@ -22,14 +22,11 @@ public class ResultatBubbleVS extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("BubbleVS");
     DatabaseReference myRef2 = database.getReference("Players");
 
-    private Button player1;
-    private Button player2;
     private TextView winner;
     private int score;
     private String nomJ1;
     private String nomJAdv;
     private int scoreJ1;
-    private int scoreJAdv;
     private int tour;
 
     @Override
@@ -37,30 +34,22 @@ public class ResultatBubbleVS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_bubble_vs);
 
-        TextView finalScore = (TextView) findViewById(R.id.finalScore);
         winner = (TextView) findViewById(R.id.winner);
-        player1 = (Button) findViewById(R.id.player1);
-        player2 = (Button) findViewById(R.id.player2);
 
         //Récupération et écriture du score
         score = getIntent().getIntExtra("SCORE", 0);
-        finalScore.setText(score + "");
 
         // Récupérer le nom des joueurs
         nomJ1 = getIntent().getStringExtra("nomJ1");
         nomJAdv = getIntent().getStringExtra("nomJAdv");
         tour = getIntent().getIntExtra("tour", 0);
 
-
-        // Ecris le nom des joueurs dans les boutons
-        player1.setText(nomJ1);
-        player2.setText(nomJAdv);
+        myRef.child(nomJ1).setValue(score);
 
         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Récupère le score final de chaque joueur pour pouvoir l'incrémenter plus tard
-                    scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
                     scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
             }
             @Override
@@ -68,74 +57,47 @@ public class ResultatBubbleVS extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Ecrit le score du joueur dand firebase puis appel à la méthode win
-    public void name1(View view) {
-        player1.setOnClickListener(new View.OnClickListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                myRef.child(nomJ1).setValue(score);
-                player1.setVisibility(View.INVISIBLE);
-                player2.setVisibility(View.INVISIBLE);
-                win();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                for (DataSnapshot childs : dataSnapshot.getChildren()) {
+                    i++;
+                }
+                //Vérifie que les deux joueurs aient bien écrit leurs scores
+                if (i == 2) {
+
+                    // Récupère les scores des deux joueurs
+                    int scoreAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
+                    // Vérifie qui remporte le jeu avec affichage d'un message correspondant
+                    if (score > scoreAdv) {
+                        winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + nomJ1 + " won !");
+                        winner.setVisibility(View.VISIBLE);
+                        //incrémente le score final
+                        scoreJ1 += 1;
+                        myRef2.child(nomJ1).setValue(scoreJ1);
+                    } else if (score < scoreAdv) {
+                        winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + nomJAdv + " won !");
+                        winner.setVisibility(View.VISIBLE);
+
+                    } else {
+                        winner.setText(nomJ1 + " : " + score + "\n" + nomJAdv + " : " + scoreAdv + "\n\n" + "DRAW !");
+                        winner.setVisibility(View.VISIBLE);
+                    }
+
+                    //myRef.removeEventListener(this);
+                    nextActivity();
+
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("Failed to read value.", error.toException());
             }
         });
+
     }
-
-    public void name2(View view) {
-        player2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myRef.child(nomJAdv).setValue(score);
-                player1.setVisibility(View.INVISIBLE);
-                player2.setVisibility(View.INVISIBLE);
-                win();
-            }
-        });
-    }
-
-    public void win() {
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot childs : dataSnapshot.getChildren()) {
-                            i++;
-                        }
-                        //Vérifie que les deux joueurs aient bien écrit leurs scores
-                        if (i == 2) {
-                            nextActivity();
-                            // Récupère les scores des deux joueurs
-                            int player1 = dataSnapshot.child(nomJ1).getValue(int.class);
-                            int player2 = dataSnapshot.child(nomJAdv).getValue(int.class);
-                            // Vérifie qui remporte le jeu avec affichage d'un message correspondant
-                            if (player1 > player2) {
-                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + nomJ1 + " won !");
-                                winner.setVisibility(View.VISIBLE);
-                                //incrémente le score final
-                                scoreJ1 += 1;
-                                myRef2.child(nomJ1).setValue(scoreJ1);
-
-                            } else if (player1 < player2) {
-                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + nomJAdv + " won !");
-                                winner.setVisibility(View.VISIBLE);
-                                scoreJAdv += 1;
-                                myRef2.child(nomJAdv).setValue(scoreJAdv);
-
-                            } else {
-                                winner.setText(nomJ1 + " : " + player1 + "\n" + nomJAdv + " : " + player2 + "\n\n" + "DRAW !");
-                                winner.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w("Failed to read value.", error.toException());
-                    }
-                });
-    }
-
 
     private void nextActivity() {
         //Au bout de 8sec lance l'interfce
