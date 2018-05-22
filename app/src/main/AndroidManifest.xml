@@ -54,7 +54,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".Identification" />
         <activity android:name=".MorpionVSActivity" />
-        <activity android:name=".jeuxdescarres"></activity>
+        <activity android:name=".jeuxdescarres" />
+        <activity android:name=".MorpionActivity"></activity>
     </application>
 
 </manifest>
