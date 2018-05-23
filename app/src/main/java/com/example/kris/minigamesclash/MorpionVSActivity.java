@@ -166,6 +166,7 @@ public class MorpionVSActivity extends AppCompatActivity {
             croixourondJAdv = ContextCompat.getDrawable(MorpionVSActivity.this,R.drawable.morpioncross);
         }
 
+        //listener de firebase sur les chgmts des etats des cases
         casesChangeListener =new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
