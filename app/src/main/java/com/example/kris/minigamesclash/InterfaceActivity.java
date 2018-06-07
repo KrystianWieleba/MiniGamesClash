@@ -1,6 +1,7 @@
 package com.example.kris.minigamesclash;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,8 @@ public class InterfaceActivity extends AppCompatActivity {
                 scoreJ1 = dataSnapshot.child(nomJ1).getValue(int.class);
                 scoreJAdv = dataSnapshot.child(nomJAdv).getValue(int.class);
 
+                avanceeDuel=(int)(scoreJ1+scoreJAdv);
+
                 // Appel à la méthode de condition de fin de partie
                 checkEnd();
 
@@ -65,12 +68,13 @@ public class InterfaceActivity extends AppCompatActivity {
             }
         });
 
-        avanceeDuel=(int)(scoreJ1+scoreJAdv);
+
 
         suite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                avanceeDuel=(int)(scoreJ1+scoreJAdv);
                 // Pour revenir au menu à la fin de la partie
                 if (avanceeDuel==4){
                     avanceeDuel=-1;
@@ -82,6 +86,7 @@ public class InterfaceActivity extends AppCompatActivity {
                         intent=new Intent(getApplicationContext(), BubbleVS.class);
                         break;
                     case 1:
+
                         intent=new Intent(getApplicationContext(), ArcheVSActivity.class);
                         break;
                     case 2:
@@ -101,6 +106,7 @@ public class InterfaceActivity extends AppCompatActivity {
                 startActivity(intent);
 
 
+
             }
         });
     }
@@ -108,12 +114,12 @@ public class InterfaceActivity extends AppCompatActivity {
     public void checkEnd() {
 
         // Condition de fin de la partie + écriture du massage adéquat
-        if (avanceeDuel == 4) {
+        if (avanceeDuel >= 4) {
             playersScores.setVisibility(GONE);
             if (scoreJ1 > scoreJAdv) {
-                winner.setText(nomJ1 + " GAGNE LA PARTIE " + scoreJ1 + " A " + scoreJAdv);
+                winner.setText(nomJ1 + " gagne la partie " + scoreJ1 + " à " + scoreJAdv);
         } else if (scoreJ1 < scoreJAdv) {
-                winner.setText(nomJAdv + " GAGNE LA PARTIE " + scoreJAdv + " A " + scoreJ1);
+                winner.setText(nomJAdv + " gagne la partie " + scoreJAdv + " à " + scoreJ1);
         } else winner.setText(" EGALITE  " + scoreJ1 + " - " + scoreJAdv);
         }
 

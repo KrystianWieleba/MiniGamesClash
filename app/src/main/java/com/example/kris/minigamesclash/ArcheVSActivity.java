@@ -205,6 +205,7 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                           @Override
                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                               if (atoidejouer==0){
+                                                                  testcoule();
                                                                   miseajournewanimal();
                                                                   coule=Integer.parseInt(dataSnapshot.getValue().toString());
                                                                   posArche=posArche+coule*(densiteEcran/2);
@@ -217,15 +218,15 @@ public class ArcheVSActivity extends AppCompatActivity {
                                                                   lion.setVisibility(View.VISIBLE);
                                                                   lapin.setVisibility(View.VISIBLE);
                                                                   atoidejouer=1;
-                                                                  testcoule();
+
                                                               }
 
                                                               else {
                                                                   // Vérifie si le joueur a gagné
-                                                                  check();
                                                                   elephant.setVisibility(View.INVISIBLE);
                                                                   lion.setVisibility(View.INVISIBLE);
                                                                   lapin.setVisibility(View.INVISIBLE);
+                                                                  check();
                                                                   atoidejouer=0;
 
 

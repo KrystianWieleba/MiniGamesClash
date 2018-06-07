@@ -17,23 +17,14 @@ public class MainActivity extends AppCompatActivity {
     Button boutonCredits;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Players");
-    DatabaseReference myRef2 = database.getReference("BubbleVS");
-    DatabaseReference myRef3 = database.getReference("Snail");
-    DatabaseReference myRef4 = database.getReference("Arche");
-    DatabaseReference myRef5 = database.getReference("Morpion");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // S'assurer que firebase est vide
-        myRef.removeValue();
-        myRef2.removeValue();
-        myRef3.removeValue();
-        myRef4.removeValue();
-        myRef5.removeValue();
+
 
 
 
