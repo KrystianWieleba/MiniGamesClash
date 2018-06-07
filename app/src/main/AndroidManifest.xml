@@ -32,27 +32,36 @@
             android:name=".ArcheDeNoe"
             android:screenOrientation="landscape" />
         <activity android:name=".AuthActivity" />
-        <activity android:name=".credits" />
-        <activity android:name=".friends" />
+        <activity android:name=".credits"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".friends"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ScoreTable"
             android:screenOrientation="portrait" />
-        <activity android:name=".InterfaceActivity" />
+        <activity android:name=".InterfaceActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".resultGame1"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ArcheVSActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".BubbleVS" />
-        <activity android:name=".ResultatBubbleVS" />
+        <activity android:name=".BubbleVS"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ResultatBubbleVS"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SnailVSActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Identification" />
-        <activity android:name=".MorpionVSActivity" />
-        <activity android:name=".jeuxdescarres" />
-        <activity android:name=".MorpionActivity"></activity>
+        <activity android:name=".Identification"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MorpionVSActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".jeuxdescarres"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MorpionActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
